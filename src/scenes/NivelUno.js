@@ -28,7 +28,12 @@ class NivelUno extends Phaser.Scene {
         this.load.image('fondo', 'fondo.png');
 
         // ejemplo
-        this.load.image('yoshi', 'yoshi.png');
+        //this.load.image('astro', '../Personaje/dibujo.png');
+
+        //Animaciones
+        this.load.atlas('astro', '../Personaje/astro.png',
+                        '../Personaje/astro_atlas.json');
+        this.load.animation('astroAnim', '../Personaje/astro_anim.json');
     }
 
     create() {
@@ -91,8 +96,9 @@ class NivelUno extends Phaser.Scene {
         // ************************************************************
         // PERSONAJE
         // ************************************************************
-        this.yoshi = this.physics.add.image(100, 100, 'yoshi').setScale(0.5);
-        this.cursor_yoshi = this.input.keyboard.createCursorKeys();
+        this.astro = this.physics.add.sprite(100, 100, 'astro').setScale(0.30);
+        this.astro.anims.play('idle', true);
+        this.cursor_astro = this.input.keyboard.createCursorKeys();
 
 
         // ************************************************************
@@ -103,11 +109,11 @@ class NivelUno extends Phaser.Scene {
         // ************************************************************
         // COLISIÓN
         // ************************************************************
-        this.physics.add.collider(this.yoshi, this.grupoPlataforma);
-        this.physics.add.collider(this.yoshi, this.grupoPlataforma_flot)
+        this.physics.add.collider(this.astro, this.grupoPlataforma);
+        this.physics.add.collider(this.astro, this.grupoPlataforma_flot)
     }
-
     update(time, delta) {
+
 
         // MOVIMIENTO DEL FONDO Y PERSONAJE
         let incremento = 2;
@@ -116,17 +122,39 @@ class NivelUno extends Phaser.Scene {
 
         this.fondo.tilePositionX += incrementoFondo; 
 
-        if (this.cursor_yoshi.left.isDown)   {
-            this.yoshi.x                += -incremento;
+        if (this.cursor_astro.left.isDown && this.astro.body.touching.down)   {
+            this.astro.anims.play('walk', true);
+            this.astro.setFlipX(true);
+            this.astro.x                += -incremento;
             this.fondoMontanias.tilePositionX    += -incrementoFondoMontania; 
-        } 
-        if (this.cursor_yoshi.right.isDown)  {
-            this.yoshi.x                +=  incremento;
+        }
+        else if (this.cursor_astro.right.isDown && this.astro.body.touching.down)  {
+            this.astro.anims.play('walk', true);
+            this.astro.setFlipX(false);
+            this.astro.x                +=  incremento;
             this.fondoMontanias.tilePositionX    += incrementoFondoMontania; 
         } 
-        if (this.cursor_yoshi.up.isDown)     {
-            this.yoshi.y += -incremento-4;
+        else if (this.cursor_astro.up.isDown)     {
+            this.astro.anims.play('fly', true);
+            this.astro.y += -incremento-4;
+            if(this.cursor_astro.right.isDown){
+                this.astro.setFlipX(false);
+                this.astro.x                +=  incremento;
+                this.fondoMontanias.tilePositionX    += incrementoFondoMontania;
+            }
+            if(this.cursor_astro.left.isDown){
+                this.astro.setFlipX(true);
+                this.astro.x                += -incremento;
+                this.fondoMontanias.tilePositionX    += -incrementoFondoMontania;
+            }
+        }
+        else {
+            this.astro.anims.play('idle', true);
         }  
+        if(this.astro.y > (this.scale.width)){
+            this.astro.y  = 100;
+            this.astro.x  = 100;
+        }
     }
 
     iniciaTweens(){

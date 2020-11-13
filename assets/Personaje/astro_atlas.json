@@ -1,0 +1,528 @@
+{
+    "frames": [
+        {
+            "filename": "astronauta_0",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_1",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 250,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_2",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 500,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_3",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 750,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_4",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1000,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_5",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1250,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_6",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1500,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_7",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1750,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_8",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 0,
+                "y": 250
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_9",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 250,
+                "y": 250
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_10",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 500,
+                "y": 250
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_11",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 750,
+                "y": 250
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_12",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1000,
+                "y": 250
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_13",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1250,
+                "y": 250
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_14",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1500,
+                "y": 250
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_15",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1750,
+                "y": 250
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_16",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 0,
+                "y": 500
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_17",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 250,
+                "y": 500
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_18",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 500,
+                "y": 500
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_19",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 750,
+                "y": 500
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_20",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1000,
+                "y": 500
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_21",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1250,
+                "y": 500
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_22",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1500,
+                "y": 500
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_23",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1750,
+                "y": 500
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_24",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 0,
+                "y": 750
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_25",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 250,
+                "y": 750
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_26",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 500,
+                "y": 750
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_27",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 750,
+                "y": 750
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_28",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1000,
+                "y": 750
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_29",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1250,
+                "y": 750
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_30",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1500,
+                "y": 750
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_31",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1750,
+                "y": 750
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_32",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 0,
+                "y": 1000
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_33",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 250,
+                "y": 1000
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_34",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 500,
+                "y": 1000
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_35",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 750,
+                "y": 1000
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_36",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1000,
+                "y": 1000
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_37",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1250,
+                "y": 1000
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_38",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1500,
+                "y": 1000
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "astronauta_39",
+            "frame": {
+                "w": 250,
+                "h": 250,
+                "x": 1750,
+                "y": 1000
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}
