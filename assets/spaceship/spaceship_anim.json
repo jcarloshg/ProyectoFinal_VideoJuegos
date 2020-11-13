@@ -1,0 +1,168 @@
+{
+    "anims": [
+        {
+            "key": "spaceship_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 30,
+            "frames": [
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_1"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_2"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_3"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_4"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_5"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_6"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_7"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_8"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_9"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_10"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_11"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_12"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_13"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_14"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_15"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_16"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_17"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_18"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_19"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_20"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_21"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_22"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_23"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_24"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_25"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_26"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_27"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_28"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_29"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_30"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_31"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_32"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_33"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_34"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_35"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_36"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_37"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_38"
+                },
+                {
+                    "key": "spaceship",
+                    "frame": "spaceship_39"
+                }
+            ]
+        }
+    ]
+}

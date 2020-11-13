@@ -1,0 +1,515 @@
+{
+    "frames": [
+        {
+            "filename": "spaceship_1",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_14",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 32,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_2",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 65,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_3",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 97,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_4",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 130,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_5",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 163,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_6",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 196,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_7",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 228,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_8",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 260,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_9",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 293,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_10",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 326,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_38",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 359,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_11",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 392,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_12",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 424,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_13",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 456,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_39",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 489,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_15",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 522,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_16",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 555,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_17",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 587,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_18",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 619,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_19",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 652,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_20",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 685,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_21",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 718,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_22",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 750,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_23",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 782,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_24",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 815,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_25",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 848,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_26",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 881,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_27",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 913,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_28",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 945,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_29",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 978,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_30",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 1011,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_31",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 1044,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_32",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 1076,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_33",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 1108,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_34",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 1141,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_35",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 1174,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_36",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 1207,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "spaceship_37",
+            "frame": {
+                "w": 32,
+                "h": 33,
+                "x": 1239,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}
