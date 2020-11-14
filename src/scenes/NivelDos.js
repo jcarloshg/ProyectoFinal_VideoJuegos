@@ -52,7 +52,7 @@ class NivelDos extends Phaser.Scene {
         this.grupoPlataforma_2.create(380, 335, 'piso_roca_7');
         this.grupoPlataforma_2.create(520, 385, 'piso_roca_1');
         this.grupoPlataforma_2.create(780, 180, 'piso_roca_8');
-        this.grupoPlataforma_2.create(1180, 300, 'piso_roca_8');
+        this.grupoPlataforma_2.create(1180, 320, 'piso_roca_8');
         this.grupoPlataforma_2.create(1540, 225, 'piso_roca_5');
         this.grupoPlataforma_2.children.iterate( (plataforma) => {
             plataforma.body.setAllowGravity(false);
@@ -65,7 +65,7 @@ class NivelDos extends Phaser.Scene {
         this.grupoPlataforma_flot_2.create(235, 200, 'piso_roca_6');
         this.grupoPlataforma_flot_2.create(580, 300, 'piso_roca_6');
         this.grupoPlataforma_flot_2.create(980, 300, 'piso_roca_6');
-        this.grupoPlataforma_flot_2.create(1360, 170, 'piso_roca_6');
+        this.grupoPlataforma_flot_2.create(1360, 160, 'piso_roca_6');
         this.grupoPlataforma_flot_2.children.iterate( (plataforma) => {
             plataforma.body.setAllowGravity(false);
             plataforma.body.setImmovable(true);
@@ -127,7 +127,7 @@ class NivelDos extends Phaser.Scene {
             targets: [
                 this.grupoPlataforma_flot_2.getChildren()[3],
             ],
-            y: 340,
+            y: 325,
             duration: 1200,
             ease: 'Sine.easeInOut',
             repeat: -1,
