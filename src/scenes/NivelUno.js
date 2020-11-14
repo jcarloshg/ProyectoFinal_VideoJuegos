@@ -110,7 +110,16 @@ class NivelUno extends Phaser.Scene {
         // COLISIÓN
         // ************************************************************
         this.physics.add.collider(this.astro, this.grupoPlataforma);
-        this.physics.add.collider(this.astro, this.grupoPlataforma_flot)
+        this.physics.add.collider(this.astro, this.grupoPlataforma_flot);
+
+        this.input.on('pointerup', (evento) => {
+            this.time.addEvent({
+                delay: 1000,
+                callback: () => {
+                    this.scene.start('NivelDos');
+                },
+            });
+        });
     }
     update(time, delta) {
 
