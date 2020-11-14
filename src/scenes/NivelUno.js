@@ -160,9 +160,17 @@ class NivelUno extends Phaser.Scene {
         else {
             this.astro.anims.play('idle', true);
         }  
-        if(this.astro.y > (this.scale.width)){
+        if(this.astro.y > (this.scale.height)){
             this.astro.y  = 100;
             this.astro.x  = 100;
+        }
+        if(this.astro.x > this.scale.width){
+            this.time.addEvent({
+                delay: 1000,
+                callback: () => {
+                    this.scene.start('NivelDos');
+                },
+            });
         }
     }
 

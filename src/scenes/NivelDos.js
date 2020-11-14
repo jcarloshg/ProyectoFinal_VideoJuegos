@@ -9,23 +9,26 @@ class NivelDos extends Phaser.Scene {
     
     preload() {
         this.load.setPath('./assets/NivelDos');
-
-        this.load.image('piso_roca_1', 'piso_roca_1.png');
-        this.load.image('piso_roca_2', 'piso_roca_2.png');
-        this.load.image('piso_roca_3', 'piso_roca_3.png');
-        this.load.image('piso_roca_4', 'piso_roca_4.png');
-        this.load.image('piso_roca_5', 'piso_roca_5.png');
-        this.load.image('piso_roca_6', 'piso_roca_6.png');
-        this.load.image('piso_roca_7', 'piso_roca_7.png');
-        this.load.image('piso_roca_8', 'piso_roca_8.png');
+        this.load.image('piso_roca_1', 'Piso_roca_1.png');
+        this.load.image('piso_roca_2', 'Piso_roca_2.png');
+        this.load.image('piso_roca_3', 'Piso_roca_3.png');
+        this.load.image('piso_roca_4', 'Piso_roca_4.png');
+        this.load.image('piso_roca_5', 'Piso_roca_5.png');
+        this.load.image('piso_roca_6', 'Piso_roca_6.png');
+        this.load.image('piso_roca_7', 'Piso_roca_7.png');
+        this.load.image('piso_roca_8', 'Piso_roca_8.png');
         this.load.image('Rocas_up', 'Rocas_up.png');
 
         // fondo
         this.load.image('fondo_n2', 'fondo_n2.png');
+        
+        //Animaciones
+        this.load.atlas('astro', '../Personaje/astro.png',
+                        '../Personaje/astro_atlas.json');
+        this.load.animation('astroAnim', '../Personaje/astro_anim.json');
     }
 
     create() {
-
         // ************************************************************
         // DECORACIONES
         // ************************************************************
@@ -79,6 +82,9 @@ class NivelDos extends Phaser.Scene {
         // ************************************************************
         // PERSONAJE
         // ************************************************************
+        this.astro = this.physics.add.sprite(100,0, 'astro').setScale(0.30);
+        this.astro.anims.play('idle', true);
+        this.cursor_astro = this.input.keyboard.createCursorKeys();
 
         // ************************************************************
         // CAMARA
@@ -87,14 +93,53 @@ class NivelDos extends Phaser.Scene {
         // ************************************************************
         // COLISIÓN
         // ************************************************************
-        // this.physics.add.collider(this.astro, this.grupoPlataforma);
-        // this.physics.add.collider(this.astro, this.grupoPlataforma_flot)
+        this.physics.add.collider(this.astro, this.grupoPlataforma_2);
+        this.physics.add.collider(this.astro, this.grupoPlataforma_flot_2);
     }
     update(time, delta) {
         // MOVIMIENTO DEL FONDO Y PERSONAJE
+        //Fondo
         let incrementoFondo = 0.05;
-
         this.fondo_n2.tilePositionX += incrementoFondo; 
+        //Personaje
+        let incremento = 2;
+        if (this.cursor_astro.left.isDown && this.astro.body.touching.down)   {
+            this.astro.anims.play('walk', true);
+            this.astro.setFlipX(true);
+            this.astro.x                += -incremento;
+        }
+        else if (this.cursor_astro.right.isDown && this.astro.body.touching.down)  {
+            this.astro.anims.play('walk', true);
+            this.astro.setFlipX(false);
+            this.astro.x                +=  incremento;
+        } 
+        else if (this.cursor_astro.up.isDown)     {
+            this.astro.anims.play('fly', true);
+            this.astro.y += -incremento-4;
+            if(this.cursor_astro.right.isDown){
+                this.astro.setFlipX(false);
+                this.astro.x                +=  incremento;
+            }
+            if(this.cursor_astro.left.isDown){
+                this.astro.setFlipX(true);
+                this.astro.x                += -incremento;
+            }
+        }
+        else {
+            this.astro.anims.play('idle', true);
+        }  
+        if(this.astro.y > (this.scale.height)){
+            this.astro.y  = 100;
+            this.astro.x  = 100;
+        }
+        if(this.astro.x < 0){
+            this.time.addEvent({
+                delay: 1000,
+                callback: () => {
+                    this.scene.start('NivelUno');
+                },
+            });
+        }
 
     }
 
