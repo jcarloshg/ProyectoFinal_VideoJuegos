@@ -104,7 +104,7 @@ class Bootloader extends Phaser.Scene{
 
         // Pantalla de inicio
         this.container = this.add.container(0, 0);
-        this.texto = this.add.image((this.scale.width/2), -400,"texto").setOrigin(0, 0);
+        this.texto = this.add.image((this.scale.width/2), -200,"texto");
         this.jugar_btn = this.add.image((this.scale.width/2), -50, "jugar").setInteractive();
         this.opc_btn = this.add.image((this.scale.width/2), 30, "opciones").setInteractive();
 
@@ -172,7 +172,7 @@ class Bootloader extends Phaser.Scene{
             if (this.sonidoAct) this.sound.play('hover');
             this.jugar_btn.setTint(0xff9f9f);
             this.hoverSprite.x = this.jugar_btn.x - 150;
-            this.hoverSprite.y = this.jugar_btn.y + 350;
+            this.hoverSprite.y = this.jugar_btn.y + 335;
             this.hoverSprite.anims.play('spaceship_idle');
             this.hoverSprite.setVisible(true);
         });
@@ -198,7 +198,7 @@ class Bootloader extends Phaser.Scene{
             if (this.sonidoAct) this.sound.play('hover');
             this.opc_btn.setTint(0xff9f9f);
             this.hoverSprite.x = this.opc_btn.x - 150;
-            this.hoverSprite.y = this.opc_btn.y + 350;
+            this.hoverSprite.y = this.opc_btn.y + 335;
             this.hoverSprite.anims.play('spaceship_idle');
             this.hoverSprite.setVisible(true);
         });
@@ -221,7 +221,7 @@ class Bootloader extends Phaser.Scene{
         this.container_2 = this.add.container(0, 0);
         this.opciones_2 = this.add.image((this.scale.width/2), -325, "opciones_2");
 
-        this.volver = this.add.image(70, -250, "volver").setScale(0.7).setInteractive();
+        this.volver = this.add.image(170, -250, "volver").setScale(0.7).setInteractive();
         this.sonido = this.add.image((this.scale.width/2), -125, "sonido").setInteractive();
         this.musica_txt = this.add.image((this.scale.width/2), -25, "musica_txt").setInteractive();
 
@@ -262,7 +262,7 @@ class Bootloader extends Phaser.Scene{
             if (this.sonidoAct) this.sound.play('hover');
             this.sonido.setTint(0xff9f9f);
             this.hoverSprite.x = this.sonido.x - 160;
-            this.hoverSprite.y = this.sonido.y + 400;
+            this.hoverSprite.y = this.sonido.y + 300;
             this.hoverSprite.anims.play('spaceship_idle');
             this.hoverSprite.setVisible(true);
         });
@@ -289,7 +289,7 @@ class Bootloader extends Phaser.Scene{
             if (this.sonidoAct) this.sound.play('hover');
             this.musica_txt.setTint(0xff9f9f);
             this.hoverSprite.x = this.musica_txt.x - 160;
-            this.hoverSprite.y = this.musica_txt.y + 400;
+            this.hoverSprite.y = this.musica_txt.y + 300;
             this.hoverSprite.anims.play('spaceship_idle');
             this.hoverSprite.setVisible(true);
         });
@@ -318,7 +318,7 @@ class Bootloader extends Phaser.Scene{
     createTweens() {
         this.tween_inicio = this.tweens.add({
             targets: [this.container],
-            y: 350,
+            y: 335,
             ease: 'Bounce',
             duration: 950
         });
