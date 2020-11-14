@@ -132,15 +132,6 @@ class NivelDos extends Phaser.Scene {
             this.astro.y  = 100;
             this.astro.x  = 100;
         }
-        if(this.astro.x < 0){
-            this.time.addEvent({
-                delay: 1000,
-                callback: () => {
-                    this.scene.start('NivelUno');
-                },
-            });
-        }
-
     }
 
     iniciaTweens(){
