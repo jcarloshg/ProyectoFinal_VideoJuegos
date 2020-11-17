@@ -7,26 +7,7 @@ class NivelDos extends Phaser.Scene {
         console.log('Scene: NivelDos');
     }
     
-    preload() {
-        this.load.setPath('./assets/NivelDos');
-        this.load.image('piso_roca_1', 'Piso_roca_1.png');
-        this.load.image('piso_roca_2', 'Piso_roca_2.png');
-        this.load.image('piso_roca_3', 'Piso_roca_3.png');
-        this.load.image('piso_roca_4', 'Piso_roca_4.png');
-        this.load.image('piso_roca_5', 'Piso_roca_5.png');
-        this.load.image('piso_roca_6', 'Piso_roca_6.png');
-        this.load.image('piso_roca_7', 'Piso_roca_7.png');
-        this.load.image('piso_roca_8', 'Piso_roca_8.png');
-        this.load.image('Rocas_up', 'Rocas_up.png');
-
-        // fondo
-        this.load.image('fondo_n2', 'fondo_n2.png');
-        
-        //Animaciones
-        this.load.atlas('astro', '../Personaje/astro.png',
-                        '../Personaje/astro_atlas.json');
-        this.load.animation('astroAnim', '../Personaje/astro_anim.json');
-    }
+    preload() { }
 
     create() {
         // ************************************************************
@@ -78,7 +59,6 @@ class NivelDos extends Phaser.Scene {
         // INICIA LOS TWEENS
         this.iniciaTweens();
 
-
         // ************************************************************
         // PERSONAJE
         // ************************************************************
@@ -103,6 +83,7 @@ class NivelDos extends Phaser.Scene {
         this.fondo_n2.tilePositionX += incrementoFondo; 
         //Personaje
         let incremento = 2;
+
         if (this.cursor_astro.left.isDown && this.astro.body.touching.down)   {
             this.astro.anims.play('walk', true);
             this.astro.setFlipX(true);

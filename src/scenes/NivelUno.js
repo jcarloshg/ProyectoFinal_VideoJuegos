@@ -8,33 +8,7 @@ class NivelUno extends Phaser.Scene {
         console.log('Scene: NivelUno');
     }
     
-    preload() {
-        this.load.setPath('./assets/NivelUno');
-
-        this.load.image('piso_1', 'piso_1.png');
-        this.load.image('piso_2', 'piso_2.png');
-        this.load.image('piso_3', 'piso_3.png');
-        this.load.image('piso_4', 'piso_4.png');
-        this.load.image('piso_5', 'piso_5.png');
-        this.load.image('piso_6', 'piso_6.png');
-        this.load.image('piso_7', 'piso_7.png');
-        this.load.image('piso_8', 'piso_8.png');
-        this.load.image('piso_9', 'piso_9.png');
-        this.load.image('piso_10', 'piso_10.png');
-        this.load.image('piso_plataforma', 'piso_plataforma.png');
-        this.load.image('fondo_montanias', 'fondo_montanias.png');
-
-        // fondo
-        this.load.image('fondo', 'fondo.png');
-
-        // ejemplo
-        //this.load.image('astro', '../Personaje/dibujo.png');
-
-        //Animaciones
-        this.load.atlas('astro', '../Personaje/astro.png',
-                        '../Personaje/astro_atlas.json');
-        this.load.animation('astroAnim', '../Personaje/astro_anim.json');
-    }
+    preload() {}
 
     create() {
 

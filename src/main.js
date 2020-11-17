@@ -1,6 +1,9 @@
-import NivelUno from './scenes/NivelUno.js';
+
 import Bootloader from './Bootloader.js';
+import NivelUno from './scenes/NivelUno.js';
 import NivelDos from './scenes/NivelDos.js';
+import ElementosHUD from './scenes/ElementosHUD.js';
+import Menu from './scenes/Menu.js';
 
 const config = {
     title: "Mision Rescate",
@@ -23,7 +26,7 @@ const config = {
             }
         }
     },
-    scene: [Bootloader, NivelUno, NivelDos]
+    scene: [Bootloader, NivelUno, NivelDos, ElementosHUD, Menu]
 };
 
 new Phaser.Game(config);

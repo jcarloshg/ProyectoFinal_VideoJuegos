@@ -75,22 +75,77 @@ class Bootloader extends Phaser.Scene{
         this.load.image('activado', 'opciones/Activado.png');
         this.load.image('desactivado', 'opciones/Desactivado.png');
         this.load.image('volver', 'opciones/volver.png');
+        // MENU
+        this.load.image('pausa', 'opciones/boton_pausa.png');
+        this.load.image('fondoMenu', 'opciones/fondoMenu.png');
+        
 
-        this.load.atlas('spaceship',
-        'spaceship/spaceship.png',
-        'spaceship/spaceship_atlas.json');
-        this.load.animation('spaceshipAnim',
-        'spaceship/spaceship_anim.json');
+        // ============================================================================
+        //  SPRITES
+        // ============================================================================
+        // ESPACIO ANIMACIÓN
+        this.load.atlas('spaceship','spaceship/spaceship.png','spaceship/spaceship_atlas.json');
+        this.load.animation('spaceshipAnim', 'spaceship/spaceship_anim.json');
+        // PERSONAJE
+        this.load.atlas('astro', 'Personaje/astro.png','Personaje/astro_atlas.json');
+        this.load.animation('astroAnim', 'Personaje/astro_anim.json');
 
         this.load.audio('musica', 'inicio/against-time.mp3');
         this.load.audio('hover', 'inicio/hover.mp3');
         this.load.audio('select', 'inicio/select.mp3');
-        this.load.audio('landing', 'inicio/landing.mp3');    
+        this.load.audio('landing', 'inicio/landing.mp3');
+        
+        // ============================================================================
+        //  NIVEL DOS
+        // ============================================================================
+        this.load.setPath('./assets/NivelDos');
+        this.load.image('piso_roca_1', 'Piso_roca_1.png');
+        // this.load.image('piso_roca_2', 'Piso_roca_2.png');
+        this.load.image('piso_roca_3', 'Piso_roca_3.png');
+        // this.load.image('piso_roca_4', 'Piso_roca_4.png');
+        this.load.image('piso_roca_5', 'Piso_roca_5.png');
+        this.load.image('piso_roca_6', 'Piso_roca_6.png');
+        this.load.image('piso_roca_7', 'Piso_roca_7.png');
+        this.load.image('piso_roca_8', 'Piso_roca_8.png');
+        this.load.image('Rocas_up', 'Rocas_up.png');
+        // fondo
+        this.load.image('fondo_n2', 'fondo_n2.png');
+        
+        // ============================================================================
+        //  NIVEL UNO
+        // ============================================================================
+        this.load.setPath('./assets/NivelUno');
+        // PLATAFORMAS
+        this.load.image('piso_1', 'piso_1.png');
+        this.load.image('piso_2', 'piso_2.png');
+        this.load.image('piso_3', 'piso_3.png');
+        this.load.image('piso_4', 'piso_4.png');
+        this.load.image('piso_5', 'piso_5.png');
+        this.load.image('piso_6', 'piso_6.png');
+        this.load.image('piso_7', 'piso_7.png');
+        this.load.image('piso_8', 'piso_8.png');
+        this.load.image('piso_9', 'piso_9.png');
+        this.load.image('piso_10', 'piso_10.png');
+        this.load.image('piso_plataforma', 'piso_plataforma.png');
+        this.load.image('fondo_montanias', 'fondo_montanias.png');
+        // FONDO
+        this.load.image('fondo', 'fondo.png');
+
+        // ============================================================================
+        //  ELEMENTOS hud
+        // ============================================================================
+        this.load.setPath('./assets/elementosHUD');
+        this.load.image('corazon', 'corazon.png');
+
+
     }
 
     create() {
+
         this.background = this.add.tileSprite(this.scale.width/2, this.scale.height/2, this.scale.width, this.scale.height, "background");
         this.background.setScrollFactor(0);
+
+        
 
         // Inidicación inicial
         this.clic = this.add.image(this.scale.width/2, this.scale.height - 50, "clic");
@@ -176,7 +231,7 @@ class Bootloader extends Phaser.Scene{
             this.hoverSprite.anims.play('spaceship_idle');
             this.hoverSprite.setVisible(true);
         });
-
+ 
         this.jugar_btn.on('pointerout', () => {
             this.jugar_btn.clearTint();
             this.hoverSprite.setVisible(false);
@@ -187,10 +242,13 @@ class Bootloader extends Phaser.Scene{
             // this.musica.stop();
             // Cambio de escena
             console.log('clic escena');
-            setTimeout(
-                () => {
-                    this.scene.start('NivelUno');},
-                200)
+            setTimeout( () => {
+                this.scene.start('NivelUno');
+                this.scene.launch('ElementosHUD'); // SEL LANZA LA SCENA DE ElementosHUD
+                this.scene.launch('Menu');
+                this.scene.bringToTop('Menu');
+                console.log(this.scene.manager.scenes);
+            }, 200)
         });
 
         // Eventos del botón opciones
