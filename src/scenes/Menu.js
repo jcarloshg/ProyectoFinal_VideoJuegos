@@ -10,11 +10,11 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        this.btn_pause = this.add.image(1500, 50, 'pausa').setScale(0.3).setInteractive();
+        this.btn_pause = this.add.image(this.scale.width-100, 50, 'pausa').setScale(0.3).setInteractive();
 
         // NAVE ICONO
-        this.hoverSprite = this.add.sprite((this.scale.width/2), 375, 'spaceship');
-        this.hoverSprite.setScale(2);
+        this.hoverSprite = this.add.sprite((this.scale.width/2) -500, 375, 'spaceship');
+        this.hoverSprite.setScale(1.5);
         this.hoverSprite.setDepth(2);
         this.hoverSprite.setVisible(false);
 
@@ -48,15 +48,15 @@ class Menu extends Phaser.Scene {
 
         this.opciones_2 = this.add.image((this.scale.width/2), -325, "opciones_2");
 
-        this.volver = this.add.image(170, -250, "volver").setScale(0.7).setInteractive();
-        this.sonido = this.add.image((this.scale.width/2), -125, "sonido").setInteractive();
-        this.musica_txt = this.add.image((this.scale.width/2), -25, "musica_txt").setInteractive();
+        this.volver = this.add.image(400, -250, "volver").setScale(0.4).setInteractive();
+        this.sonido = this.add.image((this.scale.width/2), -175, "sonido").setInteractive().setScale(0.5);
+        this.musica_txt = this.add.image((this.scale.width/2), -125, "musica_txt").setInteractive().setScale(0.5);
 
-        this.activado_1 = this.add.image((this.scale.width/2)+150, -125, "activado");
-        this.activado_2 = this.add.image((this.scale.width/2)+150, -25, "activado");
+        this.activado_1 = this.add.image((this.scale.width/2)+125, -175, "activado").setScale(0.5);
+        this.activado_2 = this.add.image((this.scale.width/2)+125, -125, "activado").setScale(0.5);
 
-        this.desactivado_1 = this.add.image((this.scale.width/2)+150, -125, "desactivado").setVisible(false);
-        this.desactivado_2 = this.add.image((this.scale.width/2)+150, -25, "desactivado").setVisible(false);
+        this.desactivado_1 = this.add.image((this.scale.width/2)+125, -175, "desactivado").setVisible(false).setScale(0.5);
+        this.desactivado_2 = this.add.image((this.scale.width/2)+125, -125, "desactivado").setVisible(false).setScale(0.5);
 
         this.container_2.add([
             this.menuFondo,
@@ -90,7 +90,7 @@ class Menu extends Phaser.Scene {
         this.sonido.on('pointerover', () => {
             if (this.sonidoAct) this.sound.play('hover');
             this.sonido.setTint(0xff9f9f);
-            this.hoverSprite.x = this.sonido.x - 160;
+            this.hoverSprite.x = this.sonido.x - 100;
             this.hoverSprite.y = this.sonido.y + 300;
             this.hoverSprite.anims.play('spaceship_idle');
             this.hoverSprite.setVisible(true);
@@ -117,7 +117,7 @@ class Menu extends Phaser.Scene {
         this.musica_txt.on('pointerover', () => {
             if (this.sonidoAct) this.sound.play('hover');
             this.musica_txt.setTint(0xff9f9f);
-            this.hoverSprite.x = this.musica_txt.x - 160;
+            this.hoverSprite.x = this.musica_txt.x - 100;
             this.hoverSprite.y = this.musica_txt.y + 300;
             this.hoverSprite.anims.play('spaceship_idle');
             this.hoverSprite.setVisible(true);

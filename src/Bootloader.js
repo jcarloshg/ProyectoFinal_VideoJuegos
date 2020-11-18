@@ -145,8 +145,6 @@ class Bootloader extends Phaser.Scene{
         this.background = this.add.tileSprite(this.scale.width/2, this.scale.height/2, this.scale.width, this.scale.height, "background");
         this.background.setScrollFactor(0);
 
-        
-
         // Inidicación inicial
         this.clic = this.add.image(this.scale.width/2, this.scale.height - 50, "clic");
         this.clic.setDepth(3)

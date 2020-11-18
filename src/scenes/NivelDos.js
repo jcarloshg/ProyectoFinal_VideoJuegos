@@ -16,13 +16,13 @@ class NivelDos extends Phaser.Scene {
         // FONDO ESTRELLAS
         this.fondo_n2 = this.add.tileSprite(
             this.scale.width / 2, this.scale.height / 2,
-            this.scale.width, this.scale.height, 
+            this.scale.width*4, this.scale.height, 
             'fondo_n2'
         );
         // Rocas Arriba 
         this.rocas_up = this.add.tileSprite(
             this.scale.width / 2, this.scale.height / 2,
-            this.scale.width, this.scale.height, 
+            this.scale.width*4, this.scale.height, 
             'Rocas_up'
         );
 
@@ -67,8 +67,12 @@ class NivelDos extends Phaser.Scene {
         this.cursor_astro = this.input.keyboard.createCursorKeys();
 
         // ************************************************************
-        // CAMARA
+        // CAMARA PRINCIPAL
         // ************************************************************
+        this.cameras.main.setBounds(0, 0,  1600, 400);
+        this.physics.world.setBounds(0, 0, 1600, 400);
+        this.cameras.main.startFollow(this.astro);
+        this.cameras.main.followOffset.set(-200, 0);
 
         // ************************************************************
         // COLISIÓN
@@ -77,6 +81,7 @@ class NivelDos extends Phaser.Scene {
         this.physics.add.collider(this.astro, this.grupoPlataforma_flot_2);
     }
     update(time, delta) {
+
         // MOVIMIENTO DEL FONDO Y PERSONAJE
         //Fondo
         let incrementoFondo = 0.05;

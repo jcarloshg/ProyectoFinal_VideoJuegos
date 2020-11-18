@@ -11,23 +11,22 @@ class NivelUno extends Phaser.Scene {
     preload() {}
 
     create() {
+        
 
         // ************************************************************
         // DECORACIONES
         // ************************************************************
         // this.fondo = this.add.image(this.scale.width / 2, this.scale.height / 2, 'fondo').setDepth(-2);
-        // FONDO ESTRELLAS
-        this.fondo = this.add.tileSprite(
-            this.scale.width / 2, this.scale.height / 2,
-            this.scale.width, this.scale.height, 
-            'fondo'
-        );
         // FONDO MONTANIAS 
         this.fondoMontanias = this.add.tileSprite(
             this.scale.width / 2, this.scale.height / 2,
-            this.scale.width, this.scale.height, 
+            this.scale.width*4, this.scale.height, 
             'fondo_montanias'
         );
+        this.fondoNubes = this.add.tileSprite(
+            this.scale.width / 2, this.scale.height / 2,
+            this.scale.width*4, this.scale.height, 
+            'fondo');
 
         // ************************************************************
         // PLATAFORMAS
@@ -76,9 +75,12 @@ class NivelUno extends Phaser.Scene {
 
 
         // ************************************************************
-        // CAMARA
+        // CAMARA PRINCIPAL
         // ************************************************************
-        
+        this.cameras.main.setBounds(0, 0,  1600, 400);
+        this.physics.world.setBounds(0, 0, 1600, 400);
+        this.cameras.main.startFollow(this.astro);
+        this.cameras.main.followOffset.set(-200, 0);
 
         // ************************************************************
         // COLISIÓN
@@ -88,7 +90,7 @@ class NivelUno extends Phaser.Scene {
 
         this.input.on('pointerup', (evento) => {
             this.time.addEvent({
-                delay: 1000,
+                delay: 100,
                 callback: () => {
                     this.scene.start('NivelDos');
                 },
@@ -98,54 +100,57 @@ class NivelUno extends Phaser.Scene {
     update(time, delta) {
 
 
+
         // MOVIMIENTO DEL FONDO Y PERSONAJE
         let incremento = 2;
-        let incrementoFondo = 0.05;
-        let incrementoFondoMontania = 0.15;
+        let incrementoFondoNubes = 0.5;
+        let incrementoFondoMontania = 0.06;
 
-        this.fondo.tilePositionX += incrementoFondo; 
+        this.fondoNubes.tilePositionX += incrementoFondoNubes;
+        this.fondoMontanias.tilePositionX += incrementoFondoMontania;
 
         if (this.cursor_astro.left.isDown && this.astro.body.touching.down)   {
+        // if (this.cursor_astro.left.isDown)   {
             this.astro.anims.play('walk', true);
             this.astro.setFlipX(true);
-            this.astro.x                += -incremento;
-            this.fondoMontanias.tilePositionX    += -incrementoFondoMontania; 
+            this.astro.x += -incremento;
         }
         else if (this.cursor_astro.right.isDown && this.astro.body.touching.down)  {
+        // else if (this.cursor_astro.right.isDown)  {
             this.astro.anims.play('walk', true);
             this.astro.setFlipX(false);
-            this.astro.x                +=  incremento;
-            this.fondoMontanias.tilePositionX    += incrementoFondoMontania; 
+            this.astro.x +=  incremento;
         } 
         else if (this.cursor_astro.up.isDown)     {
             this.astro.anims.play('fly', true);
             this.astro.y += -incremento-4;
             if(this.cursor_astro.right.isDown){
                 this.astro.setFlipX(false);
-                this.astro.x                +=  incremento;
-                this.fondoMontanias.tilePositionX    += incrementoFondoMontania;
+                this.astro.x +=  incremento;
             }
             if(this.cursor_astro.left.isDown){
                 this.astro.setFlipX(true);
-                this.astro.x                += -incremento;
-                this.fondoMontanias.tilePositionX    += -incrementoFondoMontania;
+                this.astro.x += -incremento;
             }
         }
         else {
             this.astro.anims.play('idle', true);
-        }  
+        } 
+
+        // perder vida
         if(this.astro.y > (this.scale.height)){
             this.astro.y  = 100;
             this.astro.x  = 100;
         }
-        if(this.astro.x > this.scale.width){
-            this.time.addEvent({
-                delay: 1000,
-                callback: () => {
-                    this.scene.start('NivelDos');
-                },
-            });
-        }
+        // if(this.astro.x > this.scale.width){
+        //     this.time.addEvent({
+        //         delay: 1000,
+        //         callback: () => {
+        //             this.scene.start('NivelDos');
+        //         },
+        //     });
+        // }
+
     }
 
     iniciaTweens(){
