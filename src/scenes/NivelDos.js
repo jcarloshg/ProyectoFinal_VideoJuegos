@@ -3,11 +3,25 @@ class NivelDos extends Phaser.Scene {
         super({key: 'NivelDos'});
     }
 
-    init() {
+    init(data) {
         console.log('Scene: NivelDos');
+        console.log(data);
+        this.musicaAct = data.musica;
+        this.sonidoAct = data.sonido;
     }
     
-    preload() { }
+    preload() {
+        // Eventos para controlar la musica y sonidos
+        this.registry.events.on('sonido', dato => {
+            console.log('Se ha emitido el evento sonido', dato);
+            this.sonidoAct = dato;
+        });
+
+        this.registry.events.on('musica', dato => {
+            console.log('Se ha emitido el evento musica', dato);
+            this.musicaAct = dato;
+        });
+    }
 
     create() {
         // ************************************************************

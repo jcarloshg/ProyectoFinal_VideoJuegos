@@ -4,15 +4,27 @@ class NivelUno extends Phaser.Scene {
         super({key: 'NivelUno'});
     }
 
-    init() {
+    init(data) {
         console.log('Scene: NivelUno');
+        console.log(data);
+        this.musicaAct = data.musica;
+        this.sonidoAct = data.sonido;
     }
     
-    preload() {}
+    preload() {
+        // Eventos para controlar la musica y sonidos
+        this.registry.events.on('sonido', dato => {
+            console.log('Se ha emitido el evento sonido', dato);
+            this.sonidoAct = dato;
+        });
+
+        this.registry.events.on('musica', dato => {
+            console.log('Se ha emitido el evento musica', dato);
+            this.musicaAct = dato;
+        });
+    }
 
     create() {
-        
-
         // ************************************************************
         // DECORACIONES
         // ************************************************************
@@ -92,7 +104,7 @@ class NivelUno extends Phaser.Scene {
             this.time.addEvent({
                 delay: 100,
                 callback: () => {
-                    this.scene.start('NivelDos');
+                    this.scene.start('NivelDos', { musica: this.musicaAct, sonido: this.sonidoAct });
                 },
             });
         });

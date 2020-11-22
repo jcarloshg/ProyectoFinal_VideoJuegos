@@ -17,11 +17,12 @@ class Bootloader extends Phaser.Scene{
     preloadBar() {
         let progressBar = this.add.graphics();
         let progressBox = this.add.graphics();
-        progressBox.fillStyle(0x222222, 0.8);
-        progressBox.fillRect(630, 265, 320, 50);
-
         let width = this.cameras.main.width;
         let height = this.cameras.main.height;
+
+        progressBox.fillStyle(0x222222, 0.8);
+        progressBox.fillRect(335, 165, 320, 50);
+
         let loadingText = this.make.text({
             x: width / 2,
             y: height / 2 - 50,
@@ -47,7 +48,7 @@ class Bootloader extends Phaser.Scene{
         this.load.on('progress', function(value) {
             progressBar.clear();
             progressBar.fillStyle(0xffffff, 1);
-            progressBar.fillRect(640, 275, 300 * value, 30);
+            progressBar.fillRect(345, 175, 300 * value, 30);
             percentText.setText(parseInt(value * 100) + '%');
         });
 
@@ -130,14 +131,14 @@ class Bootloader extends Phaser.Scene{
         this.load.image('fondo_montanias', 'fondo_montanias.png');
         // FONDO
         this.load.image('fondo', 'fondo.png');
+        // SOUND
+        this.load.audio('tema_1', 'tema_1.mp3');
 
         // ============================================================================
         //  ELEMENTOS hud
         // ============================================================================
         this.load.setPath('./assets/elementosHUD');
         this.load.image('corazon', 'corazon.png');
-
-
     }
 
     create() {
@@ -146,7 +147,7 @@ class Bootloader extends Phaser.Scene{
         this.background.setScrollFactor(0);
 
         // Inidicación inicial
-        this.clic = this.add.image(this.scale.width/2, this.scale.height - 50, "clic");
+        this.clic = this.add.image(this.scale.width/2, this.scale.height-50, "clic");
         this.clic.setDepth(3)
         this.clic.setAlpha(0);
         this.clicTween = this.add.tween({
@@ -169,7 +170,8 @@ class Bootloader extends Phaser.Scene{
 
         // Declaración de sonidos recurrentes
         this.sound.pauseOnBlur = false;
-        this.musica = this.sound.add('musica', { loop: true, volume: 0.4 });
+        this.musica = this.sound.add('musica', { loop: true, volume: 0.3 });
+        this.tema_1 = this.sound.add('tema_1', { loop: true, volume: 0.3 });
         this.landing = this.sound.add('landing');
 
         this.container.add([
@@ -237,13 +239,15 @@ class Bootloader extends Phaser.Scene{
 
         this.jugar_btn.on('pointerup', () => {
             if (this.sonidoAct) this.sound.play('select');
-            // this.musica.stop();
+            this.musica.stop();
             // Cambio de escena
             console.log('clic escena');
             setTimeout( () => {
-                this.scene.start('NivelUno');
+                this.tema_1.play();
+                if (!this.musicaAct) this.tema_1.pause();
+                this.scene.start('NivelUno', { musica: this.musicaAct, sonido: this.sonidoAct } );
                 this.scene.launch('ElementosHUD'); // SEL LANZA LA SCENA DE ElementosHUD
-                this.scene.launch('Menu');
+                this.scene.launch('Menu', { musica: this.musicaAct, sonido: this.sonidoAct });
                 this.scene.bringToTop('Menu');
                 console.log(this.scene.manager.scenes);
             }, 200)

@@ -4,9 +4,11 @@ class Menu extends Phaser.Scene {
         super({key: 'Menu'});
     }
 
-    init() {
+    init(data) {
         console.log('Scene: Menu');
         this.flagMenu = true;
+        this.musicaAct = data.musica;
+        this.sonidoAct = data.sonido;
     }
 
     create() {
@@ -55,8 +57,14 @@ class Menu extends Phaser.Scene {
         this.activado_1 = this.add.image((this.scale.width/2)+125, -175, "activado").setScale(0.5);
         this.activado_2 = this.add.image((this.scale.width/2)+125, -125, "activado").setScale(0.5);
 
-        this.desactivado_1 = this.add.image((this.scale.width/2)+125, -175, "desactivado").setVisible(false).setScale(0.5);
-        this.desactivado_2 = this.add.image((this.scale.width/2)+125, -125, "desactivado").setVisible(false).setScale(0.5);
+        this.desactivado_1 = this.add.image((this.scale.width/2)+125, -175, "desactivado").setScale(0.5);
+        this.desactivado_2 = this.add.image((this.scale.width/2)+125, -125, "desactivado").setScale(0.5);
+
+        if (this.sonidoAct) this.desactivado_1.setVisible(false);
+        if (!this.sonidoAct) this.activado_1.setVisible(false);
+
+        if (this.musicaAct) this.desactivado_2.setVisible(false);
+        if (!this.musicaAct) this.activado_2.setVisible(false);
 
         this.container_2.add([
             this.menuFondo,
@@ -111,6 +119,7 @@ class Menu extends Phaser.Scene {
                 this.activado_1.setVisible(true);
                 this.desactivado_1.setVisible(false);
             }
+            this.registry.events.emit('sonido', this.sonidoAct);
         });
 
         // Eventos del bóton para activar/desactivar la música
@@ -135,14 +144,15 @@ class Menu extends Phaser.Scene {
                 this.musicaAct = false;
                 this.activado_2.setVisible(false);
                 this.desactivado_2.setVisible(true);
-                // this.musica.pause();
+                this.sound.pauseAll();
             }
             else {
                 this.musicaAct = true;
                 this.activado_2.setVisible(true);
                 this.desactivado_2.setVisible(false);
-                // this.musica.resume();
+                this.sound.resumeAll();
             }
+            this.registry.events.emit('musica', this.musicaAct);
         });
     }
 }
