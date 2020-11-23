@@ -80,6 +80,11 @@ class Bootloader extends Phaser.Scene{
         this.load.image('pausa', 'opciones/boton_pausa.png');
         this.load.image('fondoMenu', 'opciones/fondoMenu.png');
         
+        // Sound
+        this.load.audio('caminar', 'sounds/footsteps.mp3');
+        this.load.audio('espacio', 'sounds/sound_space.mp3');
+        this.load.audio('salto', 'sounds/jump.mp3');
+        this.load.audio('flotar', 'sounds/floating.ogg');
 
         // ============================================================================
         //  SPRITES
@@ -171,7 +176,8 @@ class Bootloader extends Phaser.Scene{
         // Declaración de sonidos recurrentes
         this.sound.pauseOnBlur = false;
         this.musica = this.sound.add('musica', { loop: true, volume: 0.3 });
-        this.tema_1 = this.sound.add('tema_1', { loop: true, volume: 0.3 });
+        this.tema_1 = this.sound.add('tema_1', { loop: true, volume: 0.8 });
+        this.espacio = this.sound.add('espacio', { loop: true, volume: 0.5 });
         this.landing = this.sound.add('landing');
 
         this.container.add([
@@ -244,6 +250,7 @@ class Bootloader extends Phaser.Scene{
             console.log('clic escena');
             setTimeout( () => {
                 this.tema_1.play();
+                this.espacio.play();
                 if (!this.musicaAct) this.tema_1.pause();
                 this.scene.start('NivelUno', { musica: this.musicaAct, sonido: this.sonidoAct } );
                 this.scene.launch('ElementosHUD'); // SEL LANZA LA SCENA DE ElementosHUD

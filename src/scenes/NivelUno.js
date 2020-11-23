@@ -9,6 +9,8 @@ class NivelUno extends Phaser.Scene {
         console.log(data);
         this.musicaAct = data.musica;
         this.sonidoAct = data.sonido;
+        this.playing = false;
+        this.saltando = false;
     }
     
     preload() {
@@ -25,6 +27,9 @@ class NivelUno extends Phaser.Scene {
     }
 
     create() {
+        this.caminar = this.sound.add('caminar', { loop: true, volume: 0.8 });
+        this.saltar = this.sound.add('salto', { loop: false, volume: 0.8 });
+
         // ************************************************************
         // DECORACIONES
         // ************************************************************
@@ -123,12 +128,20 @@ class NivelUno extends Phaser.Scene {
 
         if (this.cursor_astro.left.isDown && this.astro.body.touching.down)   {
         // if (this.cursor_astro.left.isDown)   {
+            if (this.playing !== true) {
+                this.caminar.play();
+                this.playing = true;
+            }
             this.astro.anims.play('walk', true);
             this.astro.setFlipX(true);
             this.astro.x += -incremento;
         }
         else if (this.cursor_astro.right.isDown && this.astro.body.touching.down)  {
         // else if (this.cursor_astro.right.isDown)  {
+            if (this.playing !== true) {
+                this.caminar.play();
+                this.playing = true;
+            }
             this.astro.anims.play('walk', true);
             this.astro.setFlipX(false);
             this.astro.x +=  incremento;
@@ -136,6 +149,11 @@ class NivelUno extends Phaser.Scene {
         else if (this.cursor_astro.up.isDown)     {
             this.astro.anims.play('fly', true);
             this.astro.y += -incremento-4;
+            if (this.saltando !== true) {
+                this.saltar.play();
+                this.saltando = true;
+            }
+
             if(this.cursor_astro.right.isDown){
                 this.astro.setFlipX(false);
                 this.astro.x +=  incremento;
@@ -147,6 +165,9 @@ class NivelUno extends Phaser.Scene {
         }
         else {
             this.astro.anims.play('idle', true);
+            this.caminar.stop();
+            this.playing = false;
+            this.saltando = false;
         } 
 
         // perder vida
