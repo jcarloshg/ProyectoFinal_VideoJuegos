@@ -26,6 +26,9 @@ const config = {
             }
         }
     },
+    audio: {
+        disableWebAudio: true
+    },
     scene: [Bootloader, NivelUno, NivelDos, ElementosHUD, Menu]
 };
 
