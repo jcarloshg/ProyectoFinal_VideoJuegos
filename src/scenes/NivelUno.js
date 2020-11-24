@@ -7,9 +7,11 @@ class NivelUno extends Phaser.Scene {
     init(data) {
         console.log('Scene: NivelUno');
         console.log(data);
+        // Variables para controlar la activacion de sonidos
         this.musicaAct = data.musica;
         this.sonidoAct = data.sonido;
-        this.playing = false;
+        // Variables para controlar sonidos del personaje
+        this.caminando = false;
         this.saltando = false;
     }
     
@@ -28,7 +30,8 @@ class NivelUno extends Phaser.Scene {
 
     create() {
         this.caminar = this.sound.add('caminar', { loop: true, volume: 0.8 });
-        this.saltar = this.sound.add('salto', { loop: false, volume: 0.8 });
+        this.saltar = this.sound.add('salto', { loop: false, volume: 1 });
+        this.flotar = this.sound.add('flotar', { loop: true, volume: 0.8 });
 
         // ************************************************************
         // DECORACIONES
@@ -114,10 +117,43 @@ class NivelUno extends Phaser.Scene {
             });
         });
     }
+
+    // Sonidos de las acciones
+    playJump() {
+        if (!this.saltando && this.sonidoAct) {
+            this.saltar.play();
+            this.flotar.play();
+            this.saltando = true;
+        }
+    }
+
+    playWalk() {
+        if (!this.caminando && this.sonidoAct) {
+            this.caminar.play();
+            this.caminando = true;
+        }
+    }
+
+    muteJump() {
+        this.flotar.stop();
+        this.saltar.stop();
+        this.saltando = false;
+    }
+
+    muteWalk() {
+        this.caminar.stop();
+        this.caminando = false;
+    }
+
+    muteAll() {
+        this.flotar.stop();
+        this.saltar.stop();
+        this.caminar.stop();
+        this.saltando = false;
+        this.caminando = false;
+    }
+
     update(time, delta) {
-
-
-
         // MOVIMIENTO DEL FONDO Y PERSONAJE
         let incremento = 2;
         let incrementoFondoNubes = 0.5;
@@ -127,62 +163,59 @@ class NivelUno extends Phaser.Scene {
         this.fondoMontanias.tilePositionX += incrementoFondoMontania;
 
         if (this.cursor_astro.left.isDown && this.astro.body.touching.down)   {
-        // if (this.cursor_astro.left.isDown)   {
-            if (this.playing !== true) {
-                this.caminar.play();
-                this.playing = true;
-            }
+            this.playWalk();
+            this.muteJump();
             this.astro.anims.play('walk', true);
             this.astro.setFlipX(true);
-            this.astro.x += -incremento;
+            // this.astro.x += -incremento;
+            this.astro.setVelocityX(-150);
         }
         else if (this.cursor_astro.right.isDown && this.astro.body.touching.down)  {
-        // else if (this.cursor_astro.right.isDown)  {
-            if (this.playing !== true) {
-                this.caminar.play();
-                this.playing = true;
-            }
+            this.playWalk();
+            this.muteJump();
             this.astro.anims.play('walk', true);
             this.astro.setFlipX(false);
-            this.astro.x +=  incremento;
+            // this.astro.x +=  incremento;
+            this.astro.setVelocityX(150);
         } 
-        else if (this.cursor_astro.up.isDown)     {
+        else if (this.cursor_astro.up.isDown) {
             this.astro.anims.play('fly', true);
             this.astro.y += -incremento-4;
-            if (this.saltando !== true) {
-                this.saltar.play();
-                this.saltando = true;
-            }
+            this.playJump();
+            this.muteWalk();
 
             if(this.cursor_astro.right.isDown){
                 this.astro.setFlipX(false);
-                this.astro.x +=  incremento;
+                // this.astro.x +=  incremento;
+                this.astro.setVelocityX(100);
             }
             if(this.cursor_astro.left.isDown){
                 this.astro.setFlipX(true);
-                this.astro.x += -incremento;
+                // this.astro.x += -incremento;
+                this.astro.setVelocityX(-100);
             }
         }
         else {
             this.astro.anims.play('idle', true);
-            this.caminar.stop();
-            this.playing = false;
-            this.saltando = false;
+            this.astro.setVelocityX(0);
+            this.muteAll();
         } 
 
         // perder vida
-        if(this.astro.y > (this.scale.height)){
+        if(this.astro.y > (this.scale.height)) {
             this.astro.y  = 100;
             this.astro.x  = 100;
         }
-        // if(this.astro.x > this.scale.width){
-        //     this.time.addEvent({
-        //         delay: 1000,
-        //         callback: () => {
-        //             this.scene.start('NivelDos');
-        //         },
-        //     });
-        // }
+        // Cambiar nivel 1620
+        if(this.astro.x > 1620) {
+            this.time.addEvent({
+                delay: 1000,
+                callback: () => {
+                    this.scene.start('NivelDos', 
+                    { musica: this.musicaAct, sonido: this.sonidoAct });
+                },
+            });
+        }
 
     }
 

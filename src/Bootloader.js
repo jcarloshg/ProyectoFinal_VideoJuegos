@@ -80,11 +80,11 @@ class Bootloader extends Phaser.Scene{
         this.load.image('pausa', 'opciones/boton_pausa.png');
         this.load.image('fondoMenu', 'opciones/fondoMenu.png');
         
-        // Sound
+        // SOUNDS
         this.load.audio('caminar', 'sounds/footsteps.mp3');
         this.load.audio('espacio', 'sounds/sound_space.mp3');
         this.load.audio('salto', 'sounds/jump.mp3');
-        this.load.audio('flotar', 'sounds/floating.ogg');
+        this.load.audio('flotar', 'sounds/floating.mp3');
 
         // ============================================================================
         //  SPRITES
@@ -175,9 +175,9 @@ class Bootloader extends Phaser.Scene{
 
         // Declaración de sonidos recurrentes
         this.sound.pauseOnBlur = false;
-        this.musica = this.sound.add('musica', { loop: true, volume: 0.3 });
-        this.tema_1 = this.sound.add('tema_1', { loop: true, volume: 0.8 });
-        this.espacio = this.sound.add('espacio', { loop: true, volume: 0.5 });
+        this.musica = this.sound.add('musica', { loop: true, volume: 1 });
+        this.tema_1 = this.sound.add('tema_1', { loop: true, volume: 1 });
+        this.espacio = this.sound.add('espacio', { loop: true, volume: 1 });
         this.landing = this.sound.add('landing');
 
         this.container.add([
