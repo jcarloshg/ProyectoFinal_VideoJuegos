@@ -1,5 +1,4 @@
 import Bullet from './Bullet.js';
-import Bullets from './Bullets.js';
 
 class NivelUno extends Phaser.Scene {
     constructor() {
@@ -125,10 +124,12 @@ class NivelUno extends Phaser.Scene {
         // ************************************************************
         this.physics.add.collider(this.astro, this.grupoPlataforma);
         this.physics.add.collider(this.astro, this.grupoPlataforma_flot);
-        this.physics.add.collider(this.grupoPlataforma, this.bullets);
+        this.physics.add.collider(this.grupoPlataforma, this.bullets, () => {
+            this.bullets.children.get().destroy();
+        });
 
+        // DISPARO
         this.input.on('pointerup', (evento) => {
-            // this.bullets.fireBullet(this.astro.x, this.astro.y, 'der');
             const bullet = this.bullets.get().setActive(true).setVisible(true);
             bullet.fire(this.astro.x, this.astro.y, 'der');
 

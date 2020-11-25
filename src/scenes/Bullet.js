@@ -9,7 +9,7 @@ class Bullet extends Phaser.Physics.Arcade.Sprite
 
     fire (x, y, direction)
     {
-        this.body.reset(x+35, y);
+        this.body.reset(x+40, y+5);
 
         this.setActive(true);
         this.setVisible(true);
@@ -30,10 +30,13 @@ class Bullet extends Phaser.Physics.Arcade.Sprite
 
         this.born += delta;
 
-        if (this.born > 1000)
+        console.log(this.born);
+
+        if (this.born > 800)
         {
-            this.setActive(false);
-            this.setVisible(false);
+            this.destroy();
+            // this.setActive(false);
+            // this.setVisible(false);
         }
     }
 }
