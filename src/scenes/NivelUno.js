@@ -56,13 +56,11 @@ class NivelUno extends Phaser.Scene {
         this.grupoPlataforma =  this.physics.add.group();
         this.grupoPlataforma.create(250,    150, 'piso_5');
         this.grupoPlataforma.create( 90,    390, 'piso_1');
-        this.grupoPlataforma.create(525,    300, 'piso_3');
-        this.grupoPlataforma.create(1050,   340, 'piso_6');
-        this.grupoPlataforma.create(1200,   365, 'piso_7');
-        this.grupoPlataforma.create(1300,   390, 'piso_8');
         this.grupoPlataforma.create(1550,   290, 'piso_9');
-        this.grupoPlataforma.create(750,    150, 'piso_10');
+        this.grupoPlataforma.create(700,    150, 'piso_10');
         this.grupoPlataforma.create(550,    390, 'piso_2');
+        this.grupoPlataforma.create(1150,   390, 'piso_2');
+        this.grupoPlataforma.create(1150,   220, 'piso_plataforma');
         this.grupoPlataforma.children.iterate( (plataforma) => {
             plataforma.body.setAllowGravity(false);
             plataforma.body.setImmovable(true);
@@ -72,15 +70,25 @@ class NivelUno extends Phaser.Scene {
         // PLATAFORMA MOVIBLE
         this.grupoPlataforma_flot = this.physics.add.group();
         this.grupoPlataforma_flot.create(250,   240, 'piso_plataforma');
-        this.grupoPlataforma_flot.create(425,   210, 'piso_plataforma');
-        this.grupoPlataforma_flot.create(600,   210, 'piso_plataforma');
-        this.grupoPlataforma_flot.create(885,   190, 'piso_plataforma');
+        this.grupoPlataforma_flot.create(500,   210, 'piso_plataforma');
+        this.grupoPlataforma_flot.create(850,   190, 'piso_plataforma');
         this.grupoPlataforma_flot.create(1435,  190, 'piso_plataforma');
         this.grupoPlataforma_flot.children.iterate( (plataforma) => {
             plataforma.body.setAllowGravity(false);
             plataforma.body.setImmovable(true);
             plataforma.body.moves = false;
         });
+
+        // ITEMS
+        this.item_escudo = this.physics.add.image(250, 50, 'escudo').setScale(1.5);
+        this.item_escudo.body.setAllowGravity(false);
+        this.item_escudo.body.setImmovable(true);
+        this.item_escudo.body.moves = false;
+
+        this.item_corazon = this.physics.add.image(1150, 160, 'corazon').setScale(3);
+        this.item_corazon.body.setAllowGravity(false);
+        this.item_corazon.body.setImmovable(true);
+        this.item_corazon.body.moves = false;
 
         // INICIA LOS TWEENS
         this.iniciaTweens();
@@ -235,11 +243,20 @@ class NivelUno extends Phaser.Scene {
         // PLATAFORMA MOVIBLES 1 Y 2
         this.tweens.add({
             targets: [
-                this.grupoPlataforma_flot.getChildren()[1],
-                this.grupoPlataforma_flot.getChildren()[2],
-                this.grupoPlataforma_flot.getChildren()[3],
+                this.grupoPlataforma_flot.getChildren()[1]
             ],
             y: 140,
+            duration: 1000,
+            ease: 'Sine.easeInOut',
+            repeat: -1,
+            yoyo: true
+        });
+        // PLATAFORMA 2
+        this.tweens.add({
+            targets: [
+                this.grupoPlataforma_flot.getChildren()[2]
+            ],
+            y: 340,
             duration: 1000,
             ease: 'Sine.easeInOut',
             repeat: -1,
@@ -252,6 +269,29 @@ class NivelUno extends Phaser.Scene {
             ],
             y: 330,
             duration: 1000,
+            ease: 'Sine.easeInOut',
+            repeat: -1,
+            yoyo: true
+        });
+
+        // *****************************
+        // ITEMES
+        this.tweens.add({
+            targets: [
+                this.item_escudo,
+            ],
+            y: this.item_escudo.y + 10,
+            duration: 500,
+            ease: 'Sine.easeInOut',
+            repeat: -1,
+            yoyo: true
+        });
+        this.tweens.add({
+            targets: [
+                this.item_corazon,
+            ],
+            y: this.item_corazon.y + 10,
+            duration: 500,
             ease: 'Sine.easeInOut',
             repeat: -1,
             yoyo: true

@@ -23,7 +23,8 @@ const config = {
         "arcade": {
             gravity: {
                 y: 400
-            }
+            },
+            debug: true,
         }
     },
     audio: {
