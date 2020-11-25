@@ -152,6 +152,8 @@ class Bootloader extends Phaser.Scene{
         // sonidos
         this.load.audio('recoge_escudo', 'recoge_escudo.wav');
         this.load.audio('recoge_corazon', 'recoge_corazon.wav');
+        this.load.audio('pierde_corazon', 'pierde_corazon.wav');
+        this.load.audio('pierde_todos_corazones', 'pierde_todos_corazones.wav');
 
         // ============================================================================
         // GAME OVER

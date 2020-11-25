@@ -186,9 +186,11 @@ class NivelDos extends Phaser.Scene {
             this.muteAll();
         }
 
+        // perder vida
         if(this.astro.y > (this.scale.height)){
             this.astro.y  = 100;
             this.astro.x  = 100;
+            this.registry.events.emit('vida_resta');
         }
     }
 

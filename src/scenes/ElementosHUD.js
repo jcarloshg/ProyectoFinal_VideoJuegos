@@ -25,15 +25,24 @@ class ElementosHUD extends Phaser.Scene {
             console.log('suma 1, total vida-> ', this.numero_vidas);
         });
 
-        this.registry.events.on('vida_resta', () => {
+        this.registry.events.on('vida_resta', (flag_sonido) => {
+
+
             if ( this.numero_vidas <= 1 ) {
+
                 this.sound.pauseAll();
+
+                if (flag_sonido) this.pierde_todos_corazones.play();
+
                 this.scene.bringToTop('GameOver');
                 console.log(this.scene.manager.scenes);
                 this.scene.start('GameOver');
 
             }
             else {
+
+                if (flag_sonido) this.pierde_corazon.play();
+
                 this.grupo_corazones.getChildren()[this.numero_vidas-1].destroy();
                 this.conrazon_y -= 30;
                 this.numero_vidas -= 1;
@@ -54,6 +63,8 @@ class ElementosHUD extends Phaser.Scene {
         // sonido
         this.recoge_escudo = this.sound.add('recoge_escudo');
         this.recoge_corazon = this.sound.add('recoge_corazon', { volume: 1 });
+        this.pierde_todos_corazones = this.sound.add('pierde_todos_corazones', { volume: 1 });
+        this.pierde_corazon = this.sound.add('pierde_corazon', { volume: 1 });
     }
 
 
