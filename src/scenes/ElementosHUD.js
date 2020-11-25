@@ -23,13 +23,15 @@ class ElementosHUD extends Phaser.Scene {
         });
 
         this.registry.events.on('vida_resta', () => {
-            if ( this.numero_vidas > 0 ) {
+            if ( this.numero_vidas <= 1 ) {
+                this.sound.pauseAll();
+                this.scene.bringToTop('GameOver');
+                this.scene.start('GameOver');
+            }
+            else {
                 this.grupo_corazones.getChildren()[this.numero_vidas-1].destroy();
                 this.conrazon_y -= 30;
                 this.numero_vidas -= 1;
-            }
-            else {
-                // Game over
             }
             console.log('resta 1, total vida-> ', this.numero_vidas);
         });

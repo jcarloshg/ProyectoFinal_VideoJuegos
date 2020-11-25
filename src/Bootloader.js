@@ -152,6 +152,8 @@ class Bootloader extends Phaser.Scene{
         // ============================================================================
         this.load.setPath('./assets/GameOver');
         this.load.image('btn_volverInicio', 'btn_volverInicio.png');
+        this.load.image('fondo_gameOver', 'fondo_gameOver.png');
+        this.load.image('game_over', 'game_over.png');
     }
 
     create() {
@@ -261,8 +263,10 @@ class Bootloader extends Phaser.Scene{
                 this.espacio.play();
                 if (!this.musicaAct) this.tema_1.pause();
                 this.scene.start('NivelUno', { musica: this.musicaAct, sonido: this.sonidoAct} );
-                this.scene.launch('ElementosHUD', { vidas: 3 }); // SEL LANZA LA SCENA DE ElementosHUD
-                this.scene.launch('Menu', { musica: this.musicaAct, sonido: this.sonidoAct, nivel: 'NivelUno'});
+                this.scene.bringToTop('NivelUno');
+                this.scene.start('ElementosHUD', { vidas: 3 }); // SEL LANZA LA SCENA DE ElementosHUD
+                this.scene.bringToTop('ElementosHUD');
+                this.scene.start('Menu', { musica: this.musicaAct, sonido: this.sonidoAct, nivel: 'NivelUno'});
                 this.scene.bringToTop('Menu');
                 console.log(this.scene.manager.scenes);
             }, 200)
