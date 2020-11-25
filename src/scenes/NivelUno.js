@@ -16,7 +16,7 @@ class NivelUno extends Phaser.Scene {
         this.caminando = false;
         this.saltando = false;
 
-        // this.lastFired = 0;
+        // Direccion de bullet
         this.flipX = 'der';
     }
     
@@ -114,6 +114,12 @@ class NivelUno extends Phaser.Scene {
         this.bullets = this.physics.add.group({ classType: Bullet, runChildUpdate:true });
         this.bullets.setDepth(-1);
 
+        this.input.keyboard.on('keyup_D', () => {
+            if (this.sonidoAct) this.disparo.play();
+            const bullet = this.bullets.get().setActive(true).setVisible(true);
+            bullet.fire(this.astro.x, this.astro.y, this.flipX);
+        });
+
         // ************************************************************
         // CAMARA PRINCIPAL
         // ************************************************************
@@ -155,12 +161,6 @@ class NivelUno extends Phaser.Scene {
         //         },
         //     });
         // });
-
-        this.input.keyboard.on('keyup_D', () => {
-            if (this.sonidoAct) this.disparo.play();
-            const bullet = this.bullets.get().setActive(true).setVisible(true);
-            bullet.fire(this.astro.x, this.astro.y, this.flipX);
-        });
     }
 
     // Sonidos de las acciones
@@ -260,7 +260,7 @@ class NivelUno extends Phaser.Scene {
         if(this.astro.y > (this.scale.height)) {
             this.astro.y  = 100;
             this.astro.x  = 100;
-            this.sound.play('caer');
+            if (this.sonidoAct) this.sound.play('caer');
             this.registry.events.emit('vida_resta', this.sonidoAct);
         }
         // Cambiar nivel 1620

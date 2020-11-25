@@ -1,3 +1,5 @@
+import Bullet from './Bullet.js';
+
 class NivelDos extends Phaser.Scene {
     constructor() {
         super({key: 'NivelDos'});
@@ -12,6 +14,9 @@ class NivelDos extends Phaser.Scene {
         // Variables para controlar sonidos del personaje
         this.caminando = false;
         this.saltando = false;
+
+        // Direccion de bullet
+        this.flipX = 'der';
     }
     
     preload() {
@@ -31,6 +36,7 @@ class NivelDos extends Phaser.Scene {
         this.caminar = this.sound.add('caminar', { loop: true, volume: 0.8 });
         this.saltar = this.sound.add('salto', { loop: false, volume: 1 });
         this.flotar = this.sound.add('flotar', { loop: true, volume: 0.8 });
+        this.disparo = this.sound.add('disparo');
 
         // ************************************************************
         // DECORACIONES
@@ -100,6 +106,19 @@ class NivelDos extends Phaser.Scene {
         this.astro = this.physics.add.sprite(100,0, 'astro').setScale(0.30);
         this.astro.anims.play('idle', true);
         this.cursor_astro = this.input.keyboard.createCursorKeys();
+
+        // ************************************************************
+        // DISPARO
+        // ************************************************************
+        // this.bullets = new Bullets(this);
+        this.bullets = this.physics.add.group({ classType: Bullet, runChildUpdate:true });
+        this.bullets.setDepth(-1);
+
+        this.input.keyboard.on('keyup_D', () => {
+            if (this.sonidoAct) this.disparo.play();
+            const bullet = this.bullets.get().setActive(true).setVisible(true);
+            bullet.fire(this.astro.x, this.astro.y, this.flipX);
+        });
 
         // ************************************************************
         // CAMARA PRINCIPAL
@@ -177,6 +196,7 @@ class NivelDos extends Phaser.Scene {
             this.astro.setFlipX(true);
             // this.astro.x                += -incremento;
             this.astro.setVelocityX(-150);
+            this.flipX = 'izq';
         }
         else if (this.cursor_astro.right.isDown && this.astro.body.touching.down) {
             this.playWalk();
@@ -185,6 +205,7 @@ class NivelDos extends Phaser.Scene {
             this.astro.setFlipX(false);
             // this.astro.x                +=  incremento;
             this.astro.setVelocityX(150);
+            this.flipX = 'der';
         } 
         else if (this.cursor_astro.up.isDown)     {
             this.astro.anims.play('fly', true);
@@ -213,6 +234,7 @@ class NivelDos extends Phaser.Scene {
         if(this.astro.y > (this.scale.height)){
             this.astro.y  = 100;
             this.astro.x  = 100;
+            if (this.sonidoAct) this.sound.play('caer');
             this.registry.events.emit('vida_resta', this.sonidoAct);
         }
     }
