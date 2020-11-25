@@ -195,7 +195,7 @@ class NivelDos extends Phaser.Scene {
             this.astro.anims.play('walk', true);
             this.astro.setFlipX(true);
             // this.astro.x                += -incremento;
-            this.astro.setVelocityX(-150);
+            this.astro.setVelocityX(-200);
             this.flipX = 'izq';
         }
         else if (this.cursor_astro.right.isDown && this.astro.body.touching.down) {
@@ -204,7 +204,7 @@ class NivelDos extends Phaser.Scene {
             this.astro.anims.play('walk', true);
             this.astro.setFlipX(false);
             // this.astro.x                +=  incremento;
-            this.astro.setVelocityX(150);
+            this.astro.setVelocityX(200);
             this.flipX = 'der';
         } 
         else if (this.cursor_astro.up.isDown)     {
@@ -216,12 +216,12 @@ class NivelDos extends Phaser.Scene {
             if(this.cursor_astro.right.isDown){
                 this.astro.setFlipX(false);
                 // this.astro.x                +=  incremento;
-                this.astro.setVelocityX(100);
+                this.astro.setVelocityX(115);
             }
             if(this.cursor_astro.left.isDown){
                 this.astro.setFlipX(true);
                 // this.astro.x                += -incremento;
-                this.astro.setVelocityX(-100);
+                this.astro.setVelocityX(-115);
             }
         }
         else {
