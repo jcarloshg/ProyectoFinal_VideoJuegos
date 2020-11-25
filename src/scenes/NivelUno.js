@@ -1,3 +1,5 @@
+import Bullet from './Bullet.js';
+import Bullets from './Bullets.js';
 
 class NivelUno extends Phaser.Scene {
     constructor() {
@@ -14,6 +16,8 @@ class NivelUno extends Phaser.Scene {
         // Variables para controlar sonidos del personaje
         this.caminando = false;
         this.saltando = false;
+
+        this.lastFired = 0;
     }
     
     preload() {
@@ -102,6 +106,11 @@ class NivelUno extends Phaser.Scene {
         this.astro.anims.play('idle', true);
         this.cursor_astro = this.input.keyboard.createCursorKeys();
 
+        // ************************************************************
+        // DISPARO
+        // ************************************************************
+        // this.bullets = new Bullets(this);
+        this.bullets = this.physics.add.group({ classType: Bullet, runChildUpdate:true });
 
         // ************************************************************
         // CAMARA PRINCIPAL
@@ -116,15 +125,20 @@ class NivelUno extends Phaser.Scene {
         // ************************************************************
         this.physics.add.collider(this.astro, this.grupoPlataforma);
         this.physics.add.collider(this.astro, this.grupoPlataforma_flot);
+        this.physics.add.collider(this.grupoPlataforma, this.bullets);
 
         this.input.on('pointerup', (evento) => {
-            this.time.addEvent({
-                delay: 100,
-                callback: () => {
-                    this.scene.start('NivelDos', { musica: this.musicaAct, sonido: this.sonidoAct });
-                    this.registry.events.emit('registra_nombre_scena', 'NivelDos');
-                },
-            });
+            // this.bullets.fireBullet(this.astro.x, this.astro.y, 'der');
+            const bullet = this.bullets.get().setActive(true).setVisible(true);
+            bullet.fire(this.astro.x, this.astro.y, 'der');
+
+            // this.time.addEvent({
+            //     delay: 100,
+            //     callback: () => {
+            //         this.scene.start('NivelDos', { musica: this.musicaAct, sonido: this.sonidoAct });
+            //         this.registry.events.emit('registra_nombre_scena', 'NivelDos');
+            //     },
+            // });
         });
     }
 
@@ -209,7 +223,15 @@ class NivelUno extends Phaser.Scene {
             this.astro.anims.play('idle', true);
             this.astro.setVelocityX(0);
             this.muteAll();
-        } 
+        }
+
+        // Disparar
+        // if (this.cursor_astro.space.isDown && time > this.lastFired) {
+        //     console.log('Disparo');
+        //     this.bullets.fireBullet(this.astro.x, this.astro.y, 'der');
+        //     this.lastFired = time + 50;
+        //     console.log('Disparo');
+        // }
 
         // perder vida
         if(this.astro.y > (this.scale.height)) {

@@ -96,6 +96,8 @@ class Bootloader extends Phaser.Scene{
         this.load.atlas('astro', 'Personaje/astro.png','Personaje/astro_atlas.json');
         this.load.animation('astroAnim', 'Personaje/astro_anim.json');
 
+        this.load.image('bullet', 'Personaje/purple_ball.png');
+
         this.load.audio('musica', 'inicio/against-time.mp3');
         this.load.audio('hover', 'inicio/hover.mp3');
         this.load.audio('select', 'inicio/select.mp3');
