@@ -24,10 +24,18 @@ class GameOver extends Phaser.Scene {
             this.btn_volverInicio.clearTint();
         });
         this.btn_volverInicio.on('pointerup', () => {
-            this.scene.sendToBack('GameOver');
-            this.scene.bringToTop('Bootloader');
-            this.scene.launch('Bootloader');
+            location.reload();
             console.log("game over ", this.scene.manager.scenes);
+        });
+
+
+        this.game_over_music = this.sound.add('game_over_music', { volume: 0.5 });
+
+        this.time.addEvent({
+            delay: 1500,
+            callback: () => {
+                this.game_over_music.play();
+            },
         });
     }
 

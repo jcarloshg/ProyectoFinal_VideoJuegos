@@ -162,6 +162,7 @@ class Bootloader extends Phaser.Scene{
         this.load.image('btn_volverInicio', 'btn_volverInicio.png');
         this.load.image('fondo_gameOver', 'fondo_gameOver.png');
         this.load.image('game_over', 'game_over.png');
+        this.load.audio('game_over_music', 'game_over_music.wav');
     }
 
     create() {
