@@ -218,6 +218,7 @@ class NivelUno extends Phaser.Scene {
         if(this.astro.y > (this.scale.height)) {
             this.astro.y  = 100;
             this.astro.x  = 100;
+            this.registry.events.emit('vida_resta');
         }
         // Cambiar nivel 1620
         if(this.astro.x > 1620) {

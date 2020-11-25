@@ -18,8 +18,9 @@ class ElementosHUD extends Phaser.Scene {
         });
 
         this.registry.events.on('vida_resta', () => {
-            this.numero_vidas -= 1;
-            console.log('se suma una vida', this.numero_vidas);
+            // this.numero_vidas -= 1;
+            this.perderVida();
+            console.log('se resta una vida', this.numero_vidas);
         });
     }
 
@@ -31,6 +32,19 @@ class ElementosHUD extends Phaser.Scene {
 
         // this.corazon = this.add.image(50, 50, 'corazon').setScale(2);
 
+        this.corazon = this.add.image(50, 50, 'corazon').setScale(2.5);
+        this.textoVidas = this.add.text(44, 38, `${this.numero_vidas}`, { font: '20px Arial' });
+        this.textoVidas.setTint(0x000000);
+    }
+
+    perderVida() {
+        if ( this.numero_vidas > 1 ) {
+            this.numero_vidas -= 1;
+            this.textoVidas.setText(`${this.numero_vidas}`);
+        }
+        else {
+            // Game over
+        }
     }
 
     update(time, delta) {
