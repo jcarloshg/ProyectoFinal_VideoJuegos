@@ -85,6 +85,7 @@ class Bootloader extends Phaser.Scene{
         this.load.audio('espacio', 'sounds/sound_space.mp3');
         this.load.audio('salto', 'sounds/jump.mp3');
         this.load.audio('flotar', 'sounds/floating.mp3');
+        this.load.audio('caer', 'sounds/falling.mp3');
 
         // ============================================================================
         //  SPRITES
