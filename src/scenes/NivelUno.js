@@ -143,18 +143,18 @@ class NivelUno extends Phaser.Scene {
         // });
 
         // DISPARO
-        this.input.on('pointerup', (evento) => {
-            // const bullet = this.bullets.get().setActive(true).setVisible(true);
-            // bullet.fire(this.astro.x, this.astro.y, 'der');
+        // this.input.on('pointerup', (evento) => {
+        //     // const bullet = this.bullets.get().setActive(true).setVisible(true);
+        //     // bullet.fire(this.astro.x, this.astro.y, 'der');
 
-            this.time.addEvent({
-                delay: 100,
-                callback: () => {
-                    this.scene.start('NivelDos', { musica: this.musicaAct, sonido: this.sonidoAct });
-                    this.registry.events.emit('registra_nombre_scena', 'NivelDos');
-                },
-            });
-        });
+        //     this.time.addEvent({
+        //         delay: 100,
+        //         callback: () => {
+        //             this.scene.start('NivelDos', { musica: this.musicaAct, sonido: this.sonidoAct });
+        //             this.registry.events.emit('registra_nombre_scena', 'NivelDos');
+        //         },
+        //     });
+        // });
 
         this.input.keyboard.on('keyup_D', () => {
             if (this.sonidoAct) this.disparo.play();
