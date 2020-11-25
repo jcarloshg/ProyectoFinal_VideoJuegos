@@ -129,8 +129,14 @@ class NivelUno extends Phaser.Scene {
         this.physics.add.collider(this.astro, this.grupoPlataforma_flot);
         this.physics.add.collider(this.astro, this.item_corazon, () => {
             this.item_corazon.setVisible(false);
-            this.item_corazon.destroy();
+            this.item_corazon.disableBody(true);
             this.registry.events.emit('vida_suma', this.sonidoAct);
+        });
+
+        this.physics.add.collider(this.astro, this.item_escudo, () => {
+            this.item_escudo.setVisible(false);
+            this.item_escudo.disableBody(true);
+            this.registry.events.emit('recoge_escudo', this.sonidoAct);
         });
         // this.physics.add.collider(this.grupoPlataforma, this.bullets, () => {
         //     this.bullets.children.get().destroy();

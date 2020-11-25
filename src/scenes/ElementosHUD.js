@@ -26,8 +26,6 @@ class ElementosHUD extends Phaser.Scene {
         });
 
         this.registry.events.on('vida_resta', (flag_sonido) => {
-
-
             if ( this.numero_vidas <= 1 ) {
 
                 this.sound.pauseAll();
@@ -49,7 +47,11 @@ class ElementosHUD extends Phaser.Scene {
             }
             console.log('resta 1, total vida-> ', this.numero_vidas);
         });
-        
+
+        this.registry.events.on('recoge_escudo', (flag_sonido) => {
+            console.log("recogio escudo");
+            if (flag_sonido) this.recoge_escudo.play();
+        });
     }
 
     create() {
