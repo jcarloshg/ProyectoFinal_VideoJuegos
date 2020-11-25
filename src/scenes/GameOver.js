@@ -9,7 +9,24 @@ class GameOver extends Phaser.Scene {
     }
 
     create() {
-        this.btn_volverInicio = this.add.image(this.scale.width/2, 50, 'btn_volverInicio').setScale(0.1).setInteractive();
+        this.fondo_gameOver = this.add.tileSprite(
+            this.scale.width / 2, this.scale.height / 2,
+            this.scale.width, this.scale.height, 
+            'fondo_gameOver');
+        this.btn_volverInicio = this.add.image(this.scale.width/2, 350, 'btn_volverInicio').setScale(0.1).setInteractive();
+        this.game_over = this.add.image(this.scale.width/2, 275, 'game_over').setScale(0.2);
+        // Botón para regresar a la pantalla inicial
+        this.btn_volverInicio.on('pointerover', () => {
+            // if (this.sonidoAct) this.sound.play('hover');
+            this.btn_volverInicio.setTint(0xff9f9f);
+        });
+        this.btn_volverInicio.on('pointerout', () => {
+            this.btn_volverInicio.clearTint();
+        });
+        this.btn_volverInicio.on('pointerup', () => {
+            this.scene.bringToTop('Bootloader');
+            this.scene.start('Bootloader');
+        });
     }
 
     update(time, delta) {
