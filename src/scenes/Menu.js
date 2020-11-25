@@ -9,6 +9,26 @@ class Menu extends Phaser.Scene {
         this.flagMenu = true;
         this.musicaAct = data.musica;
         this.sonidoAct = data.sonido;
+
+        this.scena_pause = data.nivel; // guarda el nombre de la escena que se va a pausar
+    }
+
+    preload(){
+        // registra el evento para pausar/renudar escena 
+        this.registry.events.on('registra_nombre_scena', (scena) => {
+            console.log('registra KEY scena -> ', scena);
+            this.scena_pause = scena;
+        });
+
+        this.registry.events.on('pausar_juego', () => {
+            console.log('se pauso -> ', this.scena_pause);
+            this.scene.pause(this.scena_pause);
+        });
+
+        this.registry.events.on('continua_juego', () => {
+            console.log('continua -> ', this.scena_pause);
+            this.scene.resume(this.scena_pause);
+        });
     }
 
     create() {
@@ -31,9 +51,10 @@ class Menu extends Phaser.Scene {
         });
 
         this.btn_pause.on( 'pointerup', () => {
-            this.container_2.setVisible(true);
-            this.tween_opc.restart();
-            this.btn_pause.setVisible(false);
+        this.container_2.setVisible(true);
+        this.tween_opc.restart();
+        this.btn_pause.setVisible(false);
+        this.registry.events.emit('pausar_juego');
         });
 
     }
@@ -91,6 +112,7 @@ class Menu extends Phaser.Scene {
             if (this.sonidoAct) this.sound.play('select');
             this.btn_pause.setVisible(true);
             this.container_2.setVisible(false);
+            this.registry.events.emit('continua_juego');
             // this.mostrarInicio();
         });
 

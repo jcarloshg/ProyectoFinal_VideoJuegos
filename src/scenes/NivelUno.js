@@ -10,6 +10,7 @@ class NivelUno extends Phaser.Scene {
         // Variables para controlar la activacion de sonidos
         this.musicaAct = data.musica;
         this.sonidoAct = data.sonido;
+
         // Variables para controlar sonidos del personaje
         this.caminando = false;
         this.saltando = false;
@@ -121,6 +122,7 @@ class NivelUno extends Phaser.Scene {
                 delay: 100,
                 callback: () => {
                     this.scene.start('NivelDos', { musica: this.musicaAct, sonido: this.sonidoAct });
+                    this.registry.events.emit('registra_nombre_scena', 'NivelDos');
                 },
             });
         });
@@ -219,8 +221,8 @@ class NivelUno extends Phaser.Scene {
             this.time.addEvent({
                 delay: 1000,
                 callback: () => {
-                    this.scene.start('NivelDos', 
-                    { musica: this.musicaAct, sonido: this.sonidoAct });
+                    this.scene.start('NivelDos', { musica: this.musicaAct, sonido: this.sonidoAct });
+                    this.registry.events.emit('registra_nombre_scena', 'NivelDos');
                 },
             });
         }
