@@ -147,6 +147,13 @@ class Bootloader extends Phaser.Scene{
         this.load.setPath('./assets/elementosHUD');
         this.load.image('corazon', 'corazon.png');
         this.load.image('escudo', 'escudo_0.png');
+        this.load.image('letrero_vidas', 'letrero_vidas.png');
+
+        // ============================================================================
+        // GAME OVER
+        // ============================================================================
+        this.load.setPath('./assets/GameOver');
+        this.load.image('btn_volverInicio', 'btn_volverInicio.png');
     }
 
     create() {

@@ -15,8 +15,6 @@ class NivelUno extends Phaser.Scene {
         // Variables para controlar sonidos del personaje
         this.caminando = false;
         this.saltando = false;
-
-        this.lastFired = 0;
     }
     
     preload() {
@@ -124,6 +122,11 @@ class NivelUno extends Phaser.Scene {
         // ************************************************************
         this.physics.add.collider(this.astro, this.grupoPlataforma);
         this.physics.add.collider(this.astro, this.grupoPlataforma_flot);
+        this.physics.add.collider(this.astro, this.item_corazon, () => {
+            this.item_corazon.setVisible(false);
+            this.item_corazon.destroy();
+            this.registry.events.emit('vida_suma');
+        });
         this.physics.add.collider(this.grupoPlataforma, this.bullets, () => {
             this.bullets.children.get().destroy();
         });
