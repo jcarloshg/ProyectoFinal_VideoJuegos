@@ -149,6 +149,9 @@ class Bootloader extends Phaser.Scene{
         this.load.image('corazon', 'corazon.png');
         this.load.image('escudo', 'escudo_0.png');
         this.load.image('letrero_vidas', 'letrero_vidas.png');
+        // sonidos
+        this.load.audio('recoge_escudo', 'recoge_escudo.wav');
+        this.load.audio('recoge_corazon', 'recoge_corazon.wav');
 
         // ============================================================================
         // GAME OVER
@@ -264,13 +267,14 @@ class Bootloader extends Phaser.Scene{
             setTimeout( () => {
                 this.tema_1.play();
                 this.espacio.play();
+                console.log(this.scene.manager.scenes);
                 if (!this.musicaAct) this.tema_1.pause();
                 this.scene.start('NivelUno', { musica: this.musicaAct, sonido: this.sonidoAct} );
-                this.scene.bringToTop('NivelUno');
+                // this.scene.bringToTop('NivelUno');
                 this.scene.start('ElementosHUD', { vidas: 3 }); // SEL LANZA LA SCENA DE ElementosHUD
-                this.scene.bringToTop('ElementosHUD');
+                // this.scene.bringToTop('ElementosHUD');
                 this.scene.start('Menu', { musica: this.musicaAct, sonido: this.sonidoAct, nivel: 'NivelUno'});
-                this.scene.bringToTop('Menu');
+                // this.scene.bringToTop('Menu');
                 console.log(this.scene.manager.scenes);
             }, 200)
         });

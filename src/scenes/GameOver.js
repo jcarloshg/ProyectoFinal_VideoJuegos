@@ -24,8 +24,10 @@ class GameOver extends Phaser.Scene {
             this.btn_volverInicio.clearTint();
         });
         this.btn_volverInicio.on('pointerup', () => {
-            // this.scene.bringToTop('Bootloader');
+            this.scene.sendToBack('GameOver');
+            this.scene.bringToTop('Bootloader');
             this.scene.launch('Bootloader');
+            console.log("game over ", this.scene.manager.scenes);
         });
     }
 

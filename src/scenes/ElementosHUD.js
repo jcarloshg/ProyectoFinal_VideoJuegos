@@ -9,11 +9,14 @@ class ElementosHUD extends Phaser.Scene {
 
         this.numero_vidas = data.vidas;
         this.conrazon_y = 170;
+
     }
 
     preload(){
         // Eventos para controlar las vidas
-        this.registry.events.on('vida_suma', () => {
+        this.registry.events.on('vida_suma', (flag_sonido) => {
+
+            if (flag_sonido) this.recoge_corazon.play();
 
             this.numero_vidas += 1;// suma uno a las vidas
             this.grupo_corazones.create(50, this.conrazon_y, 'corazon').setScale(2); // crea el corazon
@@ -26,7 +29,9 @@ class ElementosHUD extends Phaser.Scene {
             if ( this.numero_vidas <= 1 ) {
                 this.sound.pauseAll();
                 this.scene.bringToTop('GameOver');
+                console.log(this.scene.manager.scenes);
                 this.scene.start('GameOver');
+
             }
             else {
                 this.grupo_corazones.getChildren()[this.numero_vidas-1].destroy();
@@ -35,6 +40,7 @@ class ElementosHUD extends Phaser.Scene {
             }
             console.log('resta 1, total vida-> ', this.numero_vidas);
         });
+        
     }
 
     create() {
@@ -44,6 +50,10 @@ class ElementosHUD extends Phaser.Scene {
         this.grupo_corazones.create(50, 80, 'corazon').setScale(2);
         this.grupo_corazones.create(50, 110, 'corazon').setScale(2);
         this.grupo_corazones.create(50, 140, 'corazon').setScale(2);
+
+        // sonido
+        this.recoge_escudo = this.sound.add('recoge_escudo');
+        this.recoge_corazon = this.sound.add('recoge_corazon', { volume: 1 });
     }
 
 
