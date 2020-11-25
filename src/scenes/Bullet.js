@@ -9,16 +9,20 @@ class Bullet extends Phaser.Physics.Arcade.Sprite
 
     fire (x, y, direction)
     {
-        this.body.reset(x+40, y+5);
+        this.body.reset(x, y+5);
 
         this.setActive(true);
         this.setVisible(true);
 
-        if (direction == 'izq')
+        if (direction == 'izq') {
             this.setVelocityX(-800);
+            this.setVelocityY(-100);
+            this.setRotation(Math.PI);
+        }
         if (direction == 'der') {
             this.setVelocityX(800);
-            this.setVelocityY(-80);
+            this.setVelocityY(-100);
+            this.setRotation(0);
         }
 
         this.born = 0;
@@ -30,7 +34,7 @@ class Bullet extends Phaser.Physics.Arcade.Sprite
 
         this.born += delta;
 
-        console.log(this.born);
+        // console.log(this.born);
 
         if (this.born > 800)
         {

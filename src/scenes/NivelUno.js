@@ -15,6 +15,9 @@ class NivelUno extends Phaser.Scene {
         // Variables para controlar sonidos del personaje
         this.caminando = false;
         this.saltando = false;
+
+        // this.lastFired = 0;
+        this.flipX = 'der';
     }
     
     preload() {
@@ -34,6 +37,7 @@ class NivelUno extends Phaser.Scene {
         this.caminar = this.sound.add('caminar', { loop: true, volume: 0.8 });
         this.saltar = this.sound.add('salto', { loop: false, volume: 1 });
         this.flotar = this.sound.add('flotar', { loop: true, volume: 0.8 });
+        this.disparo = this.sound.add('disparo');
 
         // ************************************************************
         // DECORACIONES
@@ -108,6 +112,7 @@ class NivelUno extends Phaser.Scene {
         // ************************************************************
         // this.bullets = new Bullets(this);
         this.bullets = this.physics.add.group({ classType: Bullet, runChildUpdate:true });
+        this.bullets.setDepth(-1);
 
         // ************************************************************
         // CAMARA PRINCIPAL
@@ -127,22 +132,28 @@ class NivelUno extends Phaser.Scene {
             this.item_corazon.destroy();
             this.registry.events.emit('vida_suma');
         });
-        this.physics.add.collider(this.grupoPlataforma, this.bullets, () => {
-            this.bullets.children.get().destroy();
-        });
+        // this.physics.add.collider(this.grupoPlataforma, this.bullets, () => {
+        //     this.bullets.children.get().destroy();
+        // });
 
         // DISPARO
-        this.input.on('pointerup', (evento) => {
-            const bullet = this.bullets.get().setActive(true).setVisible(true);
-            bullet.fire(this.astro.x, this.astro.y, 'der');
+        // this.input.on('pointerup', (evento) => {
+        //     const bullet = this.bullets.get().setActive(true).setVisible(true);
+        //     bullet.fire(this.astro.x, this.astro.y, 'der');
 
-            // this.time.addEvent({
-            //     delay: 100,
-            //     callback: () => {
-            //         this.scene.start('NivelDos', { musica: this.musicaAct, sonido: this.sonidoAct });
-            //         this.registry.events.emit('registra_nombre_scena', 'NivelDos');
-            //     },
-            // });
+        //     // this.time.addEvent({
+        //     //     delay: 100,
+        //     //     callback: () => {
+        //     //         this.scene.start('NivelDos', { musica: this.musicaAct, sonido: this.sonidoAct });
+        //     //         this.registry.events.emit('registra_nombre_scena', 'NivelDos');
+        //     //     },
+        //     // });
+        // });
+
+        this.input.keyboard.on('keyup_D', () => {
+            if (this.sonidoAct) this.disparo.play();
+            const bullet = this.bullets.get().setActive(true).setVisible(true);
+            bullet.fire(this.astro.x, this.astro.y, this.flipX);
         });
     }
 
@@ -197,6 +208,7 @@ class NivelUno extends Phaser.Scene {
             this.astro.setFlipX(true);
             // this.astro.x += -incremento;
             this.astro.setVelocityX(-150);
+            this.flipX = 'izq';
         }
         else if (this.cursor_astro.right.isDown && this.astro.body.touching.down)  {
             this.playWalk();
@@ -205,6 +217,7 @@ class NivelUno extends Phaser.Scene {
             this.astro.setFlipX(false);
             // this.astro.x +=  incremento;
             this.astro.setVelocityX(150);
+            this.flipX = 'der';
         } 
         else if (this.cursor_astro.up.isDown) {
             this.astro.anims.play('fly', true);
@@ -232,9 +245,9 @@ class NivelUno extends Phaser.Scene {
         // Disparar
         // if (this.cursor_astro.space.isDown && time > this.lastFired) {
         //     console.log('Disparo');
-        //     this.bullets.fireBullet(this.astro.x, this.astro.y, 'der');
-        //     this.lastFired = time + 50;
-        //     console.log('Disparo');
+        //     const bullet = this.bullets.get().setActive(true).setVisible(true);
+        //     bullet.fire(this.astro.x, this.astro.y, 'der');
+        //     this.lastFired = time + 100;
         // }
 
         // perder vida
