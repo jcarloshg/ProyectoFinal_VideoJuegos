@@ -24,8 +24,8 @@ class GameOver extends Phaser.Scene {
             this.btn_volverInicio.clearTint();
         });
         this.btn_volverInicio.on('pointerup', () => {
-            this.scene.bringToTop('Bootloader');
-            this.scene.start('Bootloader');
+            // this.scene.bringToTop('Bootloader');
+            this.scene.launch('Bootloader');
         });
     }
 
