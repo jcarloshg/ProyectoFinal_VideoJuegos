@@ -69,6 +69,7 @@ class Bootloader extends Phaser.Scene{
         this.load.image('texto', 'inicio/texto.png');
         this.load.image('jugar', 'inicio/jugar.png');
         this.load.image('opciones', 'inicio/opciones.png');
+        this.load.image('logo', 'inicio/Fantasy_games.png');
 
         this.load.image('opciones_2', 'opciones/opciones_2.png');
         this.load.image('musica_txt', 'opciones/Musica.png');
@@ -167,6 +168,10 @@ class Bootloader extends Phaser.Scene{
     }
 
     create() {
+        this.logo = this.add.image((this.scale.width/2), 175, 'logo');
+        this.logo.setScale(0.2);
+        this.logo.setDepth(3);
+        this.logo.setAlpha(0);
 
         this.background = this.add.tileSprite(this.scale.width/2, this.scale.height/2, this.scale.width, this.scale.height, "background");
         this.background.setScrollFactor(0);
@@ -176,9 +181,9 @@ class Bootloader extends Phaser.Scene{
         this.clic.setDepth(3)
         this.clic.setAlpha(0);
         this.clicTween = this.add.tween({
-            targets: [this.clic],
+            targets: [this.clic, this.logo],
             alpha: 1,
-            delay: 2000,
+            delay: 1000,
         });
 
         // Pantalla de inicio
@@ -219,6 +224,7 @@ class Bootloader extends Phaser.Scene{
                 this.time.addEvent({
                     delay: 1000,
                     callback: () => {
+                        this.logo.setVisible(false);
                         this.clic.setVisible(false);
                         this.musica.play();
                         this.mostrarInicio();
@@ -235,6 +241,7 @@ class Bootloader extends Phaser.Scene{
                 this.time.addEvent({
                     delay: 1000,
                     callback: () => {
+                        this.logo.setVisible(false);
                         this.clic.setVisible(false);
                         this.musica.play();
                         this.mostrarInicio();
@@ -421,7 +428,7 @@ class Bootloader extends Phaser.Scene{
         });
 
         this.tween_clic = this.tweens.add({
-            targets: [this.clic],
+            targets: [this.clic, this.logo],
             y: 700,
             ease: 'Power4',
             duration: 900
