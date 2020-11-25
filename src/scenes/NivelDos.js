@@ -56,9 +56,11 @@ class NivelDos extends Phaser.Scene {
         this.grupoPlataforma_2 =  this.physics.add.group();
         this.grupoPlataforma_2.create(80, 295, 'piso_roca_3');
         this.grupoPlataforma_2.create(380, 335, 'piso_roca_7');
+        this.grupoPlataforma_2.create(800, 440, 'piso_roca_7');
         this.grupoPlataforma_2.create(520, 385, 'piso_roca_1');
         this.grupoPlataforma_2.create(780, 180, 'piso_roca_8');
-        this.grupoPlataforma_2.create(1180, 320, 'piso_roca_8');
+        this.grupoPlataforma_2.create(1075, 395, 'piso_roca_8');
+        this.grupoPlataforma_2.create(1295, 395, 'piso_roca_8');
         this.grupoPlataforma_2.create(1540, 225, 'piso_roca_5');
         this.grupoPlataforma_2.children.iterate( (plataforma) => {
             plataforma.body.setAllowGravity(false);
@@ -77,6 +79,17 @@ class NivelDos extends Phaser.Scene {
             plataforma.body.setImmovable(true);
             plataforma.body.moves = false;
         });
+
+        // ITEMS
+        this.item_escudo = this.physics.add.image(1170, 200, 'escudo').setScale(1.5);
+        this.item_escudo.body.setAllowGravity(false);
+        this.item_escudo.body.setImmovable(true);
+        this.item_escudo.body.moves = false;
+
+        this.item_corazon = this.physics.add.image(780, 90, 'corazon').setScale(3);
+        this.item_corazon.body.setAllowGravity(false);
+        this.item_corazon.body.setImmovable(true);
+        this.item_corazon.body.moves = false;
 
         // INICIA LOS TWEENS
         this.iniciaTweens();
@@ -100,7 +113,17 @@ class NivelDos extends Phaser.Scene {
         // COLISIÓN
         // ************************************************************
         this.physics.add.collider(this.astro, this.grupoPlataforma_2);
-        this.physics.add.collider(this.astro, this.grupoPlataforma_flot_2);
+        this.physics.add.collider(this.astro, this.grupoPlataforma_flot_2);this.physics.add.collider(this.astro, this.item_corazon, () => {
+            this.item_corazon.setVisible(false);
+            this.item_corazon.disableBody(true);
+            this.registry.events.emit('vida_suma', this.sonidoAct);
+        });
+
+        this.physics.add.collider(this.astro, this.item_escudo, () => {
+            this.item_escudo.setVisible(false);
+            this.item_escudo.disableBody(true);
+            this.registry.events.emit('recoge_escudo', this.sonidoAct);
+        });
     }
 
     // Sonidos de las acciones
@@ -225,6 +248,29 @@ class NivelDos extends Phaser.Scene {
             ],
             y: 325,
             duration: 1200,
+            ease: 'Sine.easeInOut',
+            repeat: -1,
+            yoyo: true
+        });
+
+        // *****************************
+        // ITEMES
+        this.tweens.add({
+            targets: [
+                this.item_escudo,
+            ],
+            y: this.item_escudo.y + 10,
+            duration: 500,
+            ease: 'Sine.easeInOut',
+            repeat: -1,
+            yoyo: true
+        });
+        this.tweens.add({
+            targets: [
+                this.item_corazon,
+            ],
+            y: this.item_corazon.y + 10,
+            duration: 500,
             ease: 'Sine.easeInOut',
             repeat: -1,
             yoyo: true
