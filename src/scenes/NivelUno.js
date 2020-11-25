@@ -116,6 +116,9 @@ class NivelUno extends Phaser.Scene {
         // ************************************************************
         this.physics.add.collider(this.astro, this.grupoPlataforma);
         this.physics.add.collider(this.astro, this.grupoPlataforma_flot);
+        this.physics.add.collider(this.astro, this.item_corazon, () => {
+            this.registry.events.emit('vida_suma');
+        });
 
         this.input.on('pointerup', (evento) => {
             this.time.addEvent({
