@@ -132,7 +132,9 @@ class NivelDos extends Phaser.Scene {
         // COLISIÓN
         // ************************************************************
         this.physics.add.collider(this.astro, this.grupoPlataforma_2);
-        this.physics.add.collider(this.astro, this.grupoPlataforma_flot_2);this.physics.add.collider(this.astro, this.item_corazon, () => {
+        this.physics.add.collider(this.astro, this.grupoPlataforma_flot_2);
+        
+        this.physics.add.collider(this.astro, this.item_corazon, () => {
             this.item_corazon.setVisible(false);
             this.item_corazon.disableBody(true);
             this.registry.events.emit('vida_suma', this.sonidoAct);

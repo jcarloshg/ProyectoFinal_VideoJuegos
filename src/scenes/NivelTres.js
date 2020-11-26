@@ -1,11 +1,34 @@
+import Bullet from './Bullet.js';
 
 class NivelTres extends Phaser.Scene {
     constructor() {
         super({key: 'NivelTres'});
     }
 
-    init() {
+    init(data) {
         console.log('Scene: NivelTres');
+        // Variables para controlar la activacion de sonidos
+        this.musicaAct = data.musica;
+        this.sonidoAct = data.sonido;
+        // Variables para controlar sonidos del personaje
+        this.caminando = false;
+        this.saltando = false;
+
+        // Direccion de bullet
+        this.flipX = 'der';
+    }
+
+    preload() {
+        // Eventos para controlar la musica y sonidos
+        this.registry.events.on('sonido', dato => {
+            console.log('Se ha emitido el evento sonido', dato);
+            this.sonidoAct = dato;
+        });
+
+        this.registry.events.on('musica', dato => {
+            console.log('Se ha emitido el evento musica', dato);
+            this.musicaAct = dato;
+        });
     }
 
     create() {
@@ -37,10 +60,10 @@ class NivelTres extends Phaser.Scene {
         });
 
         this.grupo_plataformaMovible = this.physics.add.group();
-        this.grupo_plataformaMovible.create(250, 150, 'plataforma_1x1');
-        this.grupo_plataformaMovible.create(150, 150, 'plataforma_1x1');
-        this.grupo_plataformaMovible.create(750, 150, 'plataforma_1x1');
-        this.grupo_plataformaMovible.create(850, 150, 'plataforma_1x1');
+        this.grupo_plataformaMovible.create(250, 200, 'plataforma_1x1');
+        this.grupo_plataformaMovible.create(150, 200, 'plataforma_1x1');
+        this.grupo_plataformaMovible.create(750, 200, 'plataforma_1x1');
+        this.grupo_plataformaMovible.create(850, 200, 'plataforma_1x1');
         this.grupo_plataformaMovible.create(1150, 175, 'plataforma_1x1');
         this.grupo_plataformaMovible.create(1550, 175, 'plataforma_1x1');
         this.grupo_plataformaMovible.children.iterate( (plataforma) => {
@@ -49,12 +72,27 @@ class NivelTres extends Phaser.Scene {
             plataforma.body.moves = false;
         });
 
+        // ITEMS
+        this.item_escudo = this.physics.add.image(1350, 50, 'escudo').setScale(1.5);
+        this.item_escudo.body.setAllowGravity(false);
+        this.item_escudo.body.setImmovable(true);
+        this.item_escudo.body.moves = false;
+
+        this.grupoCorazones = this.physics.add.group();
+        this.grupoCorazones.create(200, 100, 'corazon').setScale(3);
+        this.grupoCorazones.create(800, 100, 'corazon').setScale(3);
+        this.grupoCorazones.children.iterate( (corazon) => {
+            corazon.body.setAllowGravity(false);
+            corazon.body.setImmovable(true);
+            corazon.body.moves = false;
+        });
+
         this.iniciaTweens();
 
         // ************************************************************
         // PERSONAJE
         // ************************************************************
-        this.astro = this.physics.add.sprite(1000, 100, 'astro').setScale(0.25).setSize(190, 220);
+        this.astro = this.physics.add.sprite(100, 100, 'astro').setScale(0.25).setSize(190, 220);
         this.astro.anims.play('idle', true);
         this.cursor_astro = this.input.keyboard.createCursorKeys();
 
@@ -67,10 +105,35 @@ class NivelTres extends Phaser.Scene {
         this.cameras.main.followOffset.set(-200, 0);
 
         // ************************************************************
+        // DISPARO
+        // ************************************************************
+        // this.bullets = new Bullets(this);
+        this.bullets = this.physics.add.group({ classType: Bullet, runChildUpdate:true });
+        this.bullets.setDepth(-1);
+
+        this.input.keyboard.on('keyup_D', () => {
+            if (this.sonidoAct) this.disparo.play();
+            const bullet = this.bullets.get().setActive(true).setVisible(true);
+            bullet.fire(this.astro.x, this.astro.y, this.flipX);
+        });
+
+        // ************************************************************
         // COLISIÓN
         // ************************************************************
         this.physics.add.collider(this.astro, this.grupo_plataforma);
         this.physics.add.collider(this.astro, this.grupo_plataformaMovible);
+
+        this.physics.add.collider(this.astro, this.grupoCorazones, (personaje, corazon) => {
+            corazon.setVisible(false);
+            corazon.disableBody(true);
+            this.registry.events.emit('vida_suma', this.sonidoAct);
+        });
+
+        this.physics.add.collider(this.astro, this.item_escudo, () => {
+            this.item_escudo.setVisible(false);
+            this.item_escudo.disableBody(true);
+            this.registry.events.emit('recoge_escudo', this.sonidoAct);
+        });
     }
 
     update(time, delta) {

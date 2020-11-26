@@ -294,7 +294,7 @@ class Bootloader extends Phaser.Scene{
                 console.log(this.scene.manager.scenes);
                 if (!this.musicaAct) this.tema_1.pause();
                 // this.scene.start('NivelUno', { musica: this.musicaAct, sonido: this.sonidoAct} );
-                this.scene.start('NivelTres');
+                this.scene.start('NivelTres', { musica: this.musicaAct, sonido: this.sonidoAct});
                 // this.scene.bringToTop('NivelUno');
                 this.scene.start('ElementosHUD', { vidas: 3 }); // SEL LANZA LA SCENA DE ElementosHUD
                 // this.scene.bringToTop('ElementosHUD');
