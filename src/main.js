@@ -32,7 +32,7 @@ const config = {
     audio: {
         disableWebAudio: true
     },
-    scene: [Bootloader, NivelUno, NivelDos, ElementosHUD, Menu, GameOver, NivelTres]
+    scene: [Bootloader, NivelUno, NivelDos, NivelTres, ElementosHUD, Menu, GameOver]
 };
 
 new Phaser.Game(config);

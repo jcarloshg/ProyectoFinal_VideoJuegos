@@ -157,6 +157,8 @@ class Bootloader extends Phaser.Scene{
         this.load.image('plataforma_1x1', 'plataforma_1x1.png');
         this.load.image('fondo_nivelTres', 'fondo.png');
 
+        this.load.image('malo', 'malo.png');
+
         // ============================================================================
         //  ELEMENTOS hud
         // ============================================================================

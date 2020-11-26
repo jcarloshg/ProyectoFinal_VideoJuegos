@@ -37,11 +37,10 @@ class NivelTres extends Phaser.Scene {
         this.flotar = this.sound.add('flotar', { loop: true, volume: 0.8 });
         this.disparo = this.sound.add('disparo');
 
-        // this.fondo = this.add.tileSprite(
-        //     this.scale.width / 2, this.scale.height / 2,
-        //     this.scale.width*4, this.scale.height, 
-        //     'fondo_nivelTres'
-        // );
+        this.fondo = this.add.image(
+            this.scale.width/2, this.scale.height/2, 
+            'fondo_nivelTres'
+        ).setScale(1.5);
 
         // ************************************************************
         // PLATAFORMAS
