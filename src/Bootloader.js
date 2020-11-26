@@ -143,6 +143,19 @@ class Bootloader extends Phaser.Scene{
         // SOUND
         this.load.audio('tema_1', 'tema_1.mp3');
 
+
+
+        // ============================================================================
+        //  NIVEL UNO
+        // ============================================================================
+        this.load.setPath('./assets/NivelTres');
+
+        this.load.image('plataforma_8x1', 'plataforma_8x1.png');
+        this.load.image('plataforma_1x3', 'plataforma_1x3.png');
+        this.load.image('plataforma_2x1', 'plataforma_2x1.png');
+        this.load.image('plataforma_1x1', 'plataforma_1x1.png');
+        this.load.image('fondo_nivelTres', 'fondo.png');
+
         // ============================================================================
         //  ELEMENTOS hud
         // ============================================================================
@@ -273,11 +286,13 @@ class Bootloader extends Phaser.Scene{
                 this.espacio.play();
                 console.log(this.scene.manager.scenes);
                 if (!this.musicaAct) this.tema_1.pause();
-                this.scene.start('NivelUno', { musica: this.musicaAct, sonido: this.sonidoAct} );
+                // this.scene.start('NivelUno', { musica: this.musicaAct, sonido: this.sonidoAct} );
+                this.scene.start('NivelTres');
                 // this.scene.bringToTop('NivelUno');
                 this.scene.start('ElementosHUD', { vidas: 3 }); // SEL LANZA LA SCENA DE ElementosHUD
                 // this.scene.bringToTop('ElementosHUD');
-                this.scene.start('Menu', { musica: this.musicaAct, sonido: this.sonidoAct, nivel: 'NivelUno'});
+                // this.scene.start('Menu', { musica: this.musicaAct, sonido: this.sonidoAct, nivel: 'NivelUno'});
+                this.scene.start('Menu', { musica: this.musicaAct, sonido: this.sonidoAct, nivel: 'NivelTres'});
                 // this.scene.bringToTop('Menu');
                 console.log(this.scene.manager.scenes);
             }, 200)

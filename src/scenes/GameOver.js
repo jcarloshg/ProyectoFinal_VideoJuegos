@@ -9,10 +9,11 @@ class GameOver extends Phaser.Scene {
     }
 
     create() {
-        this.fondo_gameOver = this.add.tileSprite(
-            this.scale.width / 2, this.scale.height / 2,
-            this.scale.width, this.scale.height, 
-            'fondo_gameOver');
+
+        this.fondo_gameOver = this.add.image(
+            this.scale.width / 2, this.scale.height / 2, 
+            'fondo_gameOver').setScale(1.01);
+        
         this.btn_volverInicio = this.add.image(this.scale.width/2, 350, 'btn_volverInicio').setScale(0.1).setInteractive();
         this.game_over = this.add.image(this.scale.width/2, 275, 'game_over').setScale(0.2);
         // Botón para regresar a la pantalla inicial
