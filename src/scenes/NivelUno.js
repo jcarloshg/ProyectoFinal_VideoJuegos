@@ -39,6 +39,7 @@ class NivelUno extends Phaser.Scene {
         this.flotar = this.sound.add('flotar', { loop: true, volume: 0.8 });
         this.disparo = this.sound.add('disparo');
 
+
         // ************************************************************
         // DECORACIONES
         // ************************************************************
@@ -53,6 +54,12 @@ class NivelUno extends Phaser.Scene {
             this.scale.width / 2, this.scale.height / 2,
             this.scale.width*4, this.scale.height, 
             'fondo');
+
+
+        this.malo = this.physics.add.image(500, 300, 'malo');
+        this.malo.body.setAllowGravity(false);
+        this.malo.body.setImmovable(true);
+        this.malo.body.moves = false;
 
         // ************************************************************
         // PLATAFORMAS
@@ -118,6 +125,14 @@ class NivelUno extends Phaser.Scene {
             if (this.sonidoAct) this.disparo.play();
             const bullet = this.bullets.get().setActive(true).setVisible(true);
             bullet.fire(this.astro.x, this.astro.y, this.flipX);
+        });
+
+        this.physics.add.collider(this.malo, this.bullets, (personaje, balla) => {
+            personaje.setVisible(false);
+            // personaje.disableBody(true);
+            balla.setVisible(false);
+            // balla.disableBody(true);
+            console.log("NIVELUNO murio un malo");
         });
 
         // ************************************************************
