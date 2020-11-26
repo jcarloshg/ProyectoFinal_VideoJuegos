@@ -239,6 +239,17 @@ class NivelDos extends Phaser.Scene {
             if (this.sonidoAct) this.sound.play('caer');
             this.registry.events.emit('vida_resta', this.sonidoAct);
         }
+
+        // Cambiar nivel 1620
+        if(this.astro.x > this.scale.width) {
+            this.time.addEvent({
+                delay: 1000,
+                callback: () => {
+                    this.scene.start('NivelTres', { musica: this.musicaAct, sonido: this.sonidoAct });
+                    this.registry.events.emit('registra_nombre_scena', 'NivelTres');
+                },
+            });
+        }
     }
 
     iniciaTweens(){

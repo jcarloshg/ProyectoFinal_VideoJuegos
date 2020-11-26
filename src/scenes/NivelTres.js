@@ -184,6 +184,14 @@ class NivelTres extends Phaser.Scene {
             this.astro.setVelocityX(0);
             this.muteAll();
         }
+
+        // perder vida
+        if(this.astro.y > (this.scale.height)){
+            this.astro.y  = 100;
+            this.astro.x  = 100;
+            if (this.sonidoAct) this.sound.play('caer');
+            this.registry.events.emit('vida_resta', this.sonidoAct);
+        }
     }
 
     iniciaTweens(){
