@@ -18,6 +18,9 @@ class NivelUno extends Phaser.Scene {
 
         // Direccion de bullet
         this.flipX = 'der';
+
+        // bandare para solo recibir daño una vez
+        this.flag_recibeDanio = true;
     }
     
     preload() {
@@ -127,14 +130,6 @@ class NivelUno extends Phaser.Scene {
             bullet.fire(this.astro.x, this.astro.y, this.flipX);
         });
 
-        this.physics.add.collider(this.malo, this.bullets, (personaje, balla) => {
-            personaje.setVisible(false);
-            // personaje.disableBody(true);
-            balla.setVisible(false);
-            // balla.disableBody(true);
-            console.log("NIVELUNO murio un malo");
-        });
-
         // ************************************************************
         // CAMARA PRINCIPAL
         // ************************************************************
@@ -160,6 +155,48 @@ class NivelUno extends Phaser.Scene {
             this.item_escudo.disableBody(true);
             this.registry.events.emit('recoge_escudo', this.sonidoAct);
         });
+
+        // para matar a los enemigos
+        this.physics.add.collider(this.malo, this.bullets, (personaje, balla) => {
+            personaje.setVisible(false);
+            personaje.disableBody(true);
+            personaje.destroy();
+            balla.setVisible(false);
+            balla.disableBody(true);
+            balla.destroy();
+            console.log("NIVEL_UNO murio un enemigo");
+        });
+
+        // para recibir daño
+        this.physics.add.collider(this.astro, this.malo, (astro, malo) => {
+
+            if (this.flag_recibeDanio) {
+                let aux_x = 0;
+                
+                if (astro.x > malo.x) aux_x = 30;
+                else  aux_x = -30;
+
+                this.flag_recibeDanio =false;
+
+                this.tweens.add({
+                    targets: astro,
+                    x: astro.x += aux_x,
+                    duration: 250,
+                    ease: 'Sine.easeInOut'
+                });
+
+                this.registry.events.emit('vida_resta', this.sonidoAct);
+                console.log("NIVEL_UNO astro recibe daño, meno una vida");
+            }
+
+            this.time.addEvent({
+                delay: 100,
+                callback: () => { this.flag_recibeDanio = true;},
+            });
+
+            
+        });
+
         // this.physics.add.collider(this.grupoPlataforma, this.bullets, () => {
         //     this.bullets.children.get().destroy();
         // });
