@@ -37,9 +37,9 @@ class NivelUno extends Phaser.Scene {
     }
 
     create() {
-        this.caminar = this.sound.add('caminar', { loop: true, volume: 0.8 });
         this.saltar = this.sound.add('salto', { loop: false, volume: 1 });
         this.flotar = this.sound.add('flotar', { loop: true, volume: 0.8 });
+        this.caminar = this.sound.add('caminar', { loop: true });
         this.disparo = this.sound.add('disparo');
 
 
