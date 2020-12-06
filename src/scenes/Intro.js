@@ -8,10 +8,7 @@ class Intro extends Phaser.Scene{
     init() {
         console.log('Escena Introducción');
     }
-    preload() {
-        this.load.path = './assets/cinematicas/intro';
-        this.load.image(['planet','dialogo1','dialogo2', 'noche', 'spaceShip', 'dibujo','montanias','enemie']);
-        this.load.image('interior', 'interior.jpg');      
+    preload() {      
 
     }
     create() {
