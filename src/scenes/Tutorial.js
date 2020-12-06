@@ -29,7 +29,6 @@ class Tutorial extends Phaser.Scene {
         this.caminar = this.sound.add('caminar', { loop: true });
         this.disparo = this.sound.add('disparo');
 
-
         // ************************************************************
         // DECORACIONES
         // ************************************************************
@@ -94,16 +93,16 @@ class Tutorial extends Phaser.Scene {
 
         // // PLATAFORMA flotante
         this.grupoPlataformas_flot = this.physics.add.staticGroup();
-        this.grupoPlataformas_flot.create(254, 250, 'piso_x');
-        this.grupoPlataformas_flot.create(512, 190, 'piso_x');
-        this.grupoPlataformas_flot.create(766, 125, 'piso_x');
-        this.grupoPlataformas_flot.create(766, 250, 'piso_x');
+        this.grupoPlataformas_flot.create(254, 275, 'piso_x');
+        this.grupoPlataformas_flot.create(512, 200, 'piso_x');
+        this.grupoPlataformas_flot.create(766, 275, 'piso_x');
 
         // // ************************************************************
         // // PERSONAJE
         // // ************************************************************
         this.astro = this.physics.add.sprite(100, 100, 'astro').setScale(0.30);
         this.astro.setBounce(0.1);
+        this.astro.body.setMass(750);
         this.cursor_astro = this.input.keyboard.createCursorKeys();
 
         // // ************************************************************
@@ -213,7 +212,7 @@ class Tutorial extends Phaser.Scene {
         if (this.cursor_astro.space.isDown && 
             this.astro.body.onFloor()) 
         {
-            this.astro.setVelocityY(-375);
+            this.astro.setVelocityY(-410);
             this.astro.anims.play('fly', true);
             this.playJump();
         }
@@ -224,7 +223,7 @@ class Tutorial extends Phaser.Scene {
             this.astro.setFlipX(true);
         }
 
-        // perder vida
+        // Salir del canvas
         if(this.astro.y > (this.scale.height)) {
             this.astro.y  = 100;
             this.astro.x  = 100;

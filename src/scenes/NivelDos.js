@@ -17,6 +17,9 @@ class NivelDos extends Phaser.Scene {
 
         // Direccion de bullet
         this.flipX = 'der';
+
+        // Es piso
+        this.isFloor = false;
     }
     
     preload() {
@@ -59,27 +62,22 @@ class NivelDos extends Phaser.Scene {
         // ************************************************************
         
         // plataforma NO SE MUEVE 
-        this.grupoPlataforma_2 =  this.physics.add.group();
-        this.grupoPlataforma_2.create(80, 295, 'piso_roca_3');
-        this.grupoPlataforma_2.create(380, 335, 'piso_roca_7');
-        this.grupoPlataforma_2.create(800, 440, 'piso_roca_7');
-        this.grupoPlataforma_2.create(520, 385, 'piso_roca_1');
-        this.grupoPlataforma_2.create(780, 180, 'piso_roca_8');
-        this.grupoPlataforma_2.create(1075, 395, 'piso_roca_8');
-        this.grupoPlataforma_2.create(1295, 395, 'piso_roca_8');
-        this.grupoPlataforma_2.create(1540, 225, 'piso_roca_5');
-        this.grupoPlataforma_2.children.iterate( (plataforma) => {
-            plataforma.body.setAllowGravity(false);
-            plataforma.body.setImmovable(true);
-            plataforma.body.moves = false;
-        });
+        this.grupoPlataforma_2 = this.physics.add.staticGroup();
+        this.grupoPlataforma_2.create(40,   295, 'piso_roca_3');
+        this.grupoPlataforma_2.create(410,  335, 'piso_roca_7');
+        this.grupoPlataforma_2.create(520,  400, 'piso_roca_1');
+        this.grupoPlataforma_2.create(780,  150, 'piso_roca_8');
+        this.grupoPlataforma_2.create(780,  440, 'piso_roca_7');
+        this.grupoPlataforma_2.create(1025, 190, 'piso_roca_6');
+        this.grupoPlataforma_2.create(1175, 260, 'piso_roca_6');
+        this.grupoPlataforma_2.create(1020, 395, 'piso_roca_8');
+        this.grupoPlataforma_2.create(1200, 395, 'piso_roca_8');
+        this.grupoPlataforma_2.create(1550, 175, 'piso_roca_5');
 
         // PLATAFORMA MOVIBLE
         this.grupoPlataforma_flot_2 = this.physics.add.group();
-        this.grupoPlataforma_flot_2.create(235, 200, 'piso_roca_6');
-        this.grupoPlataforma_flot_2.create(580, 300, 'piso_roca_6');
-        this.grupoPlataforma_flot_2.create(980, 300, 'piso_roca_6');
-        this.grupoPlataforma_flot_2.create(1360, 160, 'piso_roca_6');
+        this.grupoPlataforma_flot_2.create(230, 200, 'piso_roca_6');
+        this.grupoPlataforma_flot_2.create(1400, 160, 'piso_roca_6');
         this.grupoPlataforma_flot_2.children.iterate( (plataforma) => {
             plataforma.body.setAllowGravity(false);
             plataforma.body.setImmovable(true);
@@ -92,7 +90,7 @@ class NivelDos extends Phaser.Scene {
         this.item_escudo.body.setImmovable(true);
         this.item_escudo.body.moves = false;
 
-        this.item_corazon = this.physics.add.image(780, 90, 'corazon').setScale(3);
+        this.item_corazon = this.physics.add.image(780, 90, 'corazon').setScale(2.5);
         this.item_corazon.body.setAllowGravity(false);
         this.item_corazon.body.setImmovable(true);
         this.item_corazon.body.moves = false;
@@ -103,7 +101,7 @@ class NivelDos extends Phaser.Scene {
         // ************************************************************
         // PERSONAJE
         // ************************************************************
-        this.astro = this.physics.add.sprite(100,0, 'astro').setScale(0.30);
+        this.astro = this.physics.add.sprite(50, 0, 'astro').setScale(0.30);
         this.astro.anims.play('idle', true);
         this.cursor_astro = this.input.keyboard.createCursorKeys();
 
@@ -131,8 +129,12 @@ class NivelDos extends Phaser.Scene {
         // ************************************************************
         // COLISIÓN
         // ************************************************************
-        this.physics.add.collider(this.astro, this.grupoPlataforma_2);
-        this.physics.add.collider(this.astro, this.grupoPlataforma_flot_2);
+        this.physics.add.collider(this.astro, this.grupoPlataforma_2, () => {
+            this.isFloor = false;
+        });
+        this.physics.add.collider(this.astro, this.grupoPlataforma_flot_2, () => {
+            this.isFloor = true;
+        });
         
         this.physics.add.collider(this.astro, this.item_corazon, () => {
             this.item_corazon.setVisible(false);
@@ -165,7 +167,6 @@ class NivelDos extends Phaser.Scene {
 
     muteJump() {
         this.flotar.stop();
-        this.saltar.stop();
         this.saltando = false;
     }
 
@@ -176,60 +177,66 @@ class NivelDos extends Phaser.Scene {
 
     muteAll() {
         this.flotar.stop();
-        this.saltar.stop();
         this.caminar.stop();
         this.saltando = false;
         this.caminando = false;
     }
-
+    
     update(time, delta) {
-
         // MOVIMIENTO DEL FONDO Y PERSONAJE
         //Fondo
         let incrementoFondo = 0.05;
         this.fondo_n2.tilePositionX += incrementoFondo; 
-        //Personaje
-        let incremento = 2;
 
-        if (this.cursor_astro.left.isDown && this.astro.body.touching.down) {
-            this.playWalk();
-            this.muteJump();
-            this.astro.anims.play('walk', true);
-            this.astro.setFlipX(true);
-            // this.astro.x                += -incremento;
-            this.astro.setVelocityX(-200);
+        if (this.cursor_astro.left.isDown && this.astro.x > 0)
+        {
             this.flipX = 'izq';
-        }
-        else if (this.cursor_astro.right.isDown && this.astro.body.touching.down) {
-            this.playWalk();
-            this.muteJump();
-            this.astro.anims.play('walk', true);
-            this.astro.setFlipX(false);
-            // this.astro.x                +=  incremento;
-            this.astro.setVelocityX(200);
-            this.flipX = 'der';
-        } 
-        else if (this.cursor_astro.up.isDown)     {
-            this.astro.anims.play('fly', true);
-            this.astro.y += -incremento-4;
-            this.playJump();
-            this.muteWalk();
-
-            if(this.cursor_astro.right.isDown){
-                this.astro.setFlipX(false);
-                // this.astro.x                +=  incremento;
-                this.astro.setVelocityX(115);
+            if (this.astro.body.onFloor() || this.isFloor) {
+                this.astro.setVelocityX(-250);
+                this.astro.anims.play('walk', true);
+                this.playWalk();
+                this.muteJump();
             }
-            if(this.cursor_astro.left.isDown){
-                this.astro.setFlipX(true);
-                // this.astro.x                += -incremento;
-                this.astro.setVelocityX(-115);
+            else {
+                this.astro.setVelocityX(-150);
+                this.muteWalk();
+            }
+        }
+        else if (this.cursor_astro.right.isDown && this.astro.x < 1640)
+        {
+            this.flipX = 'der';
+            if(this.astro.body.onFloor() || this.isFloor) {
+                this.astro.setVelocityX(250);
+                this.astro.anims.play('walk', true);
+                this.playWalk();
+                this.muteJump();
+            }
+            else {
+                this.astro.setVelocityX(150);
+                this.muteWalk();
             }
         }
         else {
-            this.astro.anims.play('idle', true);
             this.astro.setVelocityX(0);
-            this.muteAll();
+            if( this.astro.body.onFloor() || this.isFloor ) {
+                this.astro.anims.play('idle', true);
+                this.muteAll();
+            }
+        }
+
+        if (this.cursor_astro.space.isDown && 
+            ( this.astro.body.onFloor() || this.isFloor ) ) 
+        {
+            this.astro.setVelocityY(-425);
+            this.astro.anims.play('fly', true);
+            this.playJump();
+            this.isFloor = false;
+        }
+
+        if (this.astro.body.velocity.x > 0) {
+            this.astro.setFlipX(false);
+        } else if (this.astro.body.velocity.x < 0) {
+            this.astro.setFlipX(true);
         }
 
         // perder vida
@@ -241,7 +248,7 @@ class NivelDos extends Phaser.Scene {
         }
 
         // Cambiar nivel 1620
-        if(this.astro.x > this.scale.width) {
+        if(this.astro.x > 1620) {
             this.time.addEvent({
                 delay: 1000,
                 callback: () => {
@@ -264,22 +271,10 @@ class NivelDos extends Phaser.Scene {
             repeat: -1,
             yoyo: true
         });
-        // PLATAFORMAS MOVIBLES 1 y 2
+        // PLATAFORMA MOVIBLE 1
         this.tweens.add({
             targets: [
                 this.grupoPlataforma_flot_2.getChildren()[1],
-                this.grupoPlataforma_flot_2.getChildren()[2],
-            ],
-            y: 160,
-            duration: 1000,
-            ease: 'Sine.easeInOut',
-            repeat: -1,
-            yoyo: true
-        });
-        // PLATAFORMA MOVIBLE 3
-        this.tweens.add({
-            targets: [
-                this.grupoPlataforma_flot_2.getChildren()[3],
             ],
             y: 325,
             duration: 1200,

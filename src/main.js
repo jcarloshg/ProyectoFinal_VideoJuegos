@@ -26,7 +26,7 @@ const config = {
         default: "arcade",
         "arcade": {
             gravity: {
-                y: 400
+                y: 650
             },
             debug: true,
         }

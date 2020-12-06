@@ -8,8 +8,8 @@ class ElementosHUD extends Phaser.Scene {
         console.log('Scene: ElementosHUD', data.vidas);
 
         this.numero_vidas = data.vidas;
-        this.conrazon_y = 170;
-
+        this.conrazon_x = 120;
+        this.max_corazones = 4;
     }
 
     preload(){
@@ -18,9 +18,11 @@ class ElementosHUD extends Phaser.Scene {
 
             if (flag_sonido) this.recoge_corazon.play();
 
-            this.numero_vidas += 1;// suma uno a las vidas
-            this.grupo_corazones.create(50, this.conrazon_y, 'corazon').setScale(2); // crea el corazon
-            this.conrazon_y += 30; // suma a la altura del siguiente corazon
+            if (this.numero_vidas < this.max_corazones) {
+                this.numero_vidas += 1;// suma uno a las vidas
+                this.grupo_corazones.create(this.conrazon_x, 20, 'corazon').setScale(1.5).setAlpha(0.7); // crea el corazon
+                this.conrazon_x += 30; // suma a la altura del siguiente corazon
+            }
 
             console.log('suma 1, total vida-> ', this.numero_vidas);
         });
@@ -43,7 +45,7 @@ class ElementosHUD extends Phaser.Scene {
                 if (flag_sonido) this.pierde_corazon.play();
 
                 this.grupo_corazones.getChildren()[this.numero_vidas-1].destroy();
-                this.conrazon_y -= 30;
+                this.conrazon_x -= 30;
                 this.numero_vidas -= 1;
             }
             console.log('resta 1, total vida-> ', this.numero_vidas);
@@ -56,12 +58,10 @@ class ElementosHUD extends Phaser.Scene {
     }
 
     create() {
-        this.letrero_vidas = this.add.image(50, 50, 'letrero_vidas').setScale(0.1);
-
         this.grupo_corazones = this.add.group();
-        this.grupo_corazones.create(50, 80, 'corazon').setScale(2);
-        this.grupo_corazones.create(50, 110, 'corazon').setScale(2);
-        this.grupo_corazones.create(50, 140, 'corazon').setScale(2);
+        this.grupo_corazones.create(30, 20, 'corazon').setScale(1.5).setAlpha(0.7);
+        this.grupo_corazones.create(60, 20, 'corazon').setScale(1.5).setAlpha(0.7);
+        this.grupo_corazones.create(90, 20, 'corazon').setScale(1.5).setAlpha(0.7);
 
         // sonido
         this.recoge_escudo = this.sound.add('recoge_escudo');

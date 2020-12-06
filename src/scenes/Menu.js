@@ -32,7 +32,10 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        this.btn_pause = this.add.image(this.scale.width-100, 50, 'pausa').setScale(0.3).setInteractive();
+        this.btn_pause = this.add.image(this.scale.width-65, 20, 'pausa')
+        .setScale(0.2)
+        .setAlpha(0.6)
+        .setInteractive();
 
         // NAVE ICONO
         this.hoverSprite = this.add.sprite((this.scale.width/2) -500, 375, 'spaceship');
@@ -48,6 +51,14 @@ class Menu extends Phaser.Scene {
             y: 300,
             ease: 'Bounce',
             duration: 1500,
+        });
+
+        this.btn_pause.on('pointerover', () => {
+            this.btn_pause.setAlpha(1);
+        });
+
+        this.btn_pause.on('pointerout', () => {
+            this.btn_pause.setAlpha(0.6);
         });
 
         this.btn_pause.on( 'pointerup', () => {

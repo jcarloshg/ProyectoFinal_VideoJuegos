@@ -21,6 +21,9 @@ class NivelUno extends Phaser.Scene {
 
         // bandare para solo recibir daño una vez
         this.flag_recibeDanio = true;
+
+        // Es piso
+        this.isFloor = false;
     }
     
     preload() {
@@ -59,7 +62,7 @@ class NivelUno extends Phaser.Scene {
             'fondo');
 
 
-        this.malo = this.physics.add.image(500, 300, 'malo');
+        this.malo = this.physics.add.image(500, 315, 'malo');
         this.malo.body.setAllowGravity(false);
         this.malo.body.setImmovable(true);
         this.malo.body.moves = false;
@@ -69,26 +72,21 @@ class NivelUno extends Phaser.Scene {
         // ************************************************************
 
         // plataforma NO SE MUEVE 
-        this.grupoPlataforma =  this.physics.add.group();
-        this.grupoPlataforma.create(250,    150, 'piso_5');
-        this.grupoPlataforma.create( 90,    390, 'piso_1');
-        this.grupoPlataforma.create(1550,   290, 'piso_9');
-        this.grupoPlataforma.create(700,    150, 'piso_10');
-        this.grupoPlataforma.create(550,    390, 'piso_2');
-        this.grupoPlataforma.create(1150,   390, 'piso_2');
-        this.grupoPlataforma.create(1150,   220, 'piso_plataforma');
-        this.grupoPlataforma.children.iterate( (plataforma) => {
-            plataforma.body.setAllowGravity(false);
-            plataforma.body.setImmovable(true);
-            plataforma.body.moves = false;
-        });
+        this.grupoPlataforma =  this.physics.add.staticGroup();
+        this.grupoPlataforma.create(250,  135, 'piso_5');
+        this.grupoPlataforma.create(40,   395, 'piso_1');
+        this.grupoPlataforma.create(1565, 290, 'piso_9');
+        this.grupoPlataforma.create(700,  145, 'piso_10');
+        this.grupoPlataforma.create(550,  390, 'piso_2');
+        this.grupoPlataforma.create(1150, 390, 'piso_2');
+        this.grupoPlataforma.create(500,  240, 'piso_plataforma');
+        this.grupoPlataforma.create(1150, 240, 'piso_plataforma');
 
-        // PLATAFORMA MOVIBLE
+        // PLATAFORMAS MOVIBLES
         this.grupoPlataforma_flot = this.physics.add.group();
-        this.grupoPlataforma_flot.create(250,   240, 'piso_plataforma');
-        this.grupoPlataforma_flot.create(500,   210, 'piso_plataforma');
+        this.grupoPlataforma_flot.create(240,   265, 'piso_plataforma');
         this.grupoPlataforma_flot.create(850,   190, 'piso_plataforma');
-        this.grupoPlataforma_flot.create(1435,  190, 'piso_plataforma');
+        this.grupoPlataforma_flot.create(1435,  180, 'piso_plataforma');
         this.grupoPlataforma_flot.children.iterate( (plataforma) => {
             plataforma.body.setAllowGravity(false);
             plataforma.body.setImmovable(true);
@@ -101,7 +99,7 @@ class NivelUno extends Phaser.Scene {
         this.item_escudo.body.setImmovable(true);
         this.item_escudo.body.moves = false;
 
-        this.item_corazon = this.physics.add.image(1150, 160, 'corazon').setScale(3);
+        this.item_corazon = this.physics.add.image(1150, 170, 'corazon').setScale(3);
         this.item_corazon.body.setAllowGravity(false);
         this.item_corazon.body.setImmovable(true);
         this.item_corazon.body.moves = false;
@@ -113,8 +111,9 @@ class NivelUno extends Phaser.Scene {
         // ************************************************************
         // PERSONAJE
         // ************************************************************
-        this.astro = this.physics.add.sprite(100, 100, 'astro').setScale(0.30);
-        this.astro.anims.play('idle', true);
+        this.astro = this.physics.add.sprite(50, 100, 'astro').setScale(0.3);
+        this.astro.body.setMass(750);
+        // this.astro.anims.play('idle', true);
         this.cursor_astro = this.input.keyboard.createCursorKeys();
 
         // ************************************************************
@@ -141,8 +140,12 @@ class NivelUno extends Phaser.Scene {
         // ************************************************************
         // COLISIÓN
         // ************************************************************
-        this.physics.add.collider(this.astro, this.grupoPlataforma);
-        this.physics.add.collider(this.astro, this.grupoPlataforma_flot);
+        this.physics.add.collider(this.astro, this.grupoPlataforma, () => {
+            this.isFloor = false;
+        });
+        this.physics.add.collider(this.astro, this.grupoPlataforma_flot, () => {
+            this.isFloor = true;
+        });
         
         this.physics.add.collider(this.astro, this.item_corazon, () => {
             this.item_corazon.setVisible(false);
@@ -197,24 +200,6 @@ class NivelUno extends Phaser.Scene {
 
             
         });
-
-        // this.physics.add.collider(this.grupoPlataforma, this.bullets, () => {
-        //     this.bullets.children.get().destroy();
-        // });
-
-        // DISPARO
-        // this.input.on('pointerup', (evento) => {
-        //     // const bullet = this.bullets.get().setActive(true).setVisible(true);
-        //     // bullet.fire(this.astro.x, this.astro.y, 'der');
-
-        //     this.time.addEvent({
-        //         delay: 100,
-        //         callback: () => {
-        //             this.scene.start('NivelDos', { musica: this.musicaAct, sonido: this.sonidoAct });
-        //             this.registry.events.emit('registra_nombre_scena', 'NivelDos');
-        //         },
-        //     });
-        // });
     }
 
     // Sonidos de las acciones
@@ -235,7 +220,6 @@ class NivelUno extends Phaser.Scene {
 
     muteJump() {
         this.flotar.stop();
-        this.saltar.stop();
         this.saltando = false;
     }
 
@@ -246,7 +230,6 @@ class NivelUno extends Phaser.Scene {
 
     muteAll() {
         this.flotar.stop();
-        this.saltar.stop();
         this.caminar.stop();
         this.saltando = false;
         this.caminando = false;
@@ -254,61 +237,61 @@ class NivelUno extends Phaser.Scene {
 
     update(time, delta) {
         // MOVIMIENTO DEL FONDO Y PERSONAJE
-        let incremento = 2;
         let incrementoFondoNubes = 0.5;
         let incrementoFondoMontania = 0.06;
-
         this.fondoNubes.tilePositionX += incrementoFondoNubes;
         this.fondoMontanias.tilePositionX += incrementoFondoMontania;
 
-        if (this.cursor_astro.left.isDown && this.astro.body.touching.down)   {
-            this.playWalk();
-            this.muteJump();
-            this.astro.anims.play('walk', true);
-            this.astro.setFlipX(true);
-            // this.astro.x += -incremento;
-            this.astro.setVelocityX(-225);
+        if (this.cursor_astro.left.isDown && this.astro.x > 0)
+        {
             this.flipX = 'izq';
-        }
-        else if (this.cursor_astro.right.isDown && this.astro.body.touching.down)  {
-            this.playWalk();
-            this.muteJump();
-            this.astro.anims.play('walk', true);
-            this.astro.setFlipX(false);
-            // this.astro.x +=  incremento;
-            this.astro.setVelocityX(225);
-            this.flipX = 'der';
-        } 
-        else if (this.cursor_astro.up.isDown) {
-            this.astro.anims.play('fly', true);
-            this.astro.y += -incremento-4;
-            this.playJump();
-            this.muteWalk();
-
-            if(this.cursor_astro.right.isDown){
-                this.astro.setFlipX(false);
-                // this.astro.x +=  incremento;
-                this.astro.setVelocityX(115);
+            if (this.astro.body.onFloor() || this.isFloor) {
+                this.astro.setVelocityX(-250);
+                this.astro.anims.play('walk', true);
+                this.playWalk();
+                this.muteJump();
             }
-            if(this.cursor_astro.left.isDown){
-                this.astro.setFlipX(true);
-                // this.astro.x += -incremento;
-                this.astro.setVelocityX(-115);
+            else {
+                this.astro.setVelocityX(-150);
+                this.muteWalk();
+            }
+        }
+        else if (this.cursor_astro.right.isDown && this.astro.x < 1640)
+        {
+            this.flipX = 'der';
+            if(this.astro.body.onFloor() || this.isFloor) {
+                this.astro.setVelocityX(250);
+                this.astro.anims.play('walk', true);
+                this.playWalk();
+                this.muteJump();
+            }
+            else {
+                this.astro.setVelocityX(150);
+                this.muteWalk();
             }
         }
         else {
-            this.astro.anims.play('idle', true);
             this.astro.setVelocityX(0);
-            this.muteAll();
+            if( this.astro.body.onFloor() || this.isFloor ) {
+                this.astro.anims.play('idle', true);
+                this.muteAll();
+            }
         }
 
-        // Disparar
-        // if (this.cursor_astro.space.isDown && time > this.lastFired) {
-        //     console.log('Disparo');
-        //     const bullet = this.bullets.get().setActive(true).setVisible(true);
-        //     bullet.fire(this.astro.x, this.astro.y, 'der');
-        //     this.lastFired = time + 100;
-        // }
+        if (this.cursor_astro.space.isDown && 
+            ( this.astro.body.onFloor() || this.isFloor ) ) 
+        {
+            this.astro.setVelocityY(-425);
+            this.astro.anims.play('fly', true);
+            this.playJump();
+            this.isFloor = false;
+        }
+
+        if (this.astro.body.velocity.x > 0) {
+            this.astro.setFlipX(false);
+        } else if (this.astro.body.velocity.x < 0) {
+            this.astro.setFlipX(true);
+        }
 
         // perder vida
         if(this.astro.y > (this.scale.height)) {
@@ -331,33 +314,21 @@ class NivelUno extends Phaser.Scene {
     }
 
     iniciaTweens(){
-        // PLATAFORMA MOVIBLES 4
-        this.tweens.add({
-            targets: [
-                this.grupoPlataforma_flot.getChildren()[3],
-                this.grupoPlataforma_flot.getChildren()[4]
-            ],
-            y: 300,
-            duration: 2000,
-            ease: 'Sine.easeInOut',
-            repeat: -1,
-            yoyo: true
-        });
-        // PLATAFORMA MOVIBLES 1 Y 2
-        this.tweens.add({
-            targets: [
-                this.grupoPlataforma_flot.getChildren()[1]
-            ],
-            y: 140,
-            duration: 1000,
-            ease: 'Sine.easeInOut',
-            repeat: -1,
-            yoyo: true
-        });
-        // PLATAFORMA 2
+        // PLATAFORMAs MOVIBLES 2 y 4
         this.tweens.add({
             targets: [
                 this.grupoPlataforma_flot.getChildren()[2]
+            ],
+            y: 275,
+            duration: 1500,
+            ease: 'Sine.easeInOut',
+            repeat: -1,
+            yoyo: true
+        });
+        // PLATAFORMA MOVIBLE 1
+        this.tweens.add({
+            targets: [
+                this.grupoPlataforma_flot.getChildren()[1]
             ],
             y: 340,
             duration: 1000,
@@ -370,35 +341,35 @@ class NivelUno extends Phaser.Scene {
             targets: [
                 this.grupoPlataforma_flot.getChildren()[0],
             ],
-            y: 330,
+            y: 375,
             duration: 1000,
             ease: 'Sine.easeInOut',
             repeat: -1,
             yoyo: true
         });
 
-        // *****************************
-        // ITEMES
-        this.tweens.add({
-            targets: [
-                this.item_escudo,
-            ],
-            y: this.item_escudo.y + 10,
-            duration: 500,
-            ease: 'Sine.easeInOut',
-            repeat: -1,
-            yoyo: true
-        });
-        this.tweens.add({
-            targets: [
-                this.item_corazon,
-            ],
-            y: this.item_corazon.y + 10,
-            duration: 500,
-            ease: 'Sine.easeInOut',
-            repeat: -1,
-            yoyo: true
-        });
+        // // *****************************
+        // // ITEMES
+        // this.tweens.add({
+        //     targets: [
+        //         this.item_escudo,
+        //     ],
+        //     y: this.item_escudo.y + 10,
+        //     duration: 500,
+        //     ease: 'Sine.easeInOut',
+        //     repeat: -1,
+        //     yoyo: true
+        // });
+        // this.tweens.add({
+        //     targets: [
+        //         this.item_corazon,
+        //     ],
+        //     y: this.item_corazon.y + 10,
+        //     duration: 500,
+        //     ease: 'Sine.easeInOut',
+        //     repeat: -1,
+        //     yoyo: true
+        // });
     
     }
 }
