@@ -116,6 +116,8 @@ class Bootloader extends Phaser.Scene{
         this.load.image('movimiento_i', 'movimiento.png');
         this.load.image('salto_i', 'salto.png');
         this.load.image('disparo_i', 'disparo.png');
+        this.load.image('iniciar_t', 'iniciar.png');
+        this.load.image('tutorial_btn', 'tutorial_btn.png');
 
         // ============================================================================
         //  NIVEL DOS
@@ -297,26 +299,23 @@ class Bootloader extends Phaser.Scene{
 
         this.jugar_btn.on('pointerup', () => {
             if (this.sonidoAct) this.sound.play('select');
-            this.musica.stop();
+            if (this.musicaAct) this.musica.stop();
             // Cambio de escena
             console.log('clic escena');
-            setTimeout( () => {
-                this.tema_1.play();
-                this.espacio.play();
-                console.log(this.scene.manager.scenes);
+            let tema1Promise = this.tema_1.play();
+            let espacioPromise = this.espacio.play();
+
+            if (tema1Promise !== undefined &&
+                espacioPromise !== undefined)
+            {
                 if (!this.musicaAct) {
                     this.tema_1.pause();
                     this.espacio.pause();
                 }
-                this.scene.start('Tutorial', {musica: this.musicaAct, sonido: this.sonidoAct });
-                // this.scene.start('NivelUno', { musica: this.musicaAct, sonido: this.sonidoAct} );
-                // this.scene.start('NivelTres', { musica: this.musicaAct, sonido: this.sonidoAct});
-                // this.scene.bringToTop('NivelUno');
-                this.scene.start('ElementosHUD', { vidas: 3 }); // SEL LANZA LA SCENA DE ElementosHUD
-                // this.scene.bringToTop('ElementosHUD');
-                this.scene.start('Menu', { musica: this.musicaAct, sonido: this.sonidoAct, nivel: 'Tutorial'});
-                // this.scene.start('Menu', { musica: this.musicaAct, sonido: this.sonidoAct, nivel: 'NivelTres'});
-                // this.scene.bringToTop('Menu');
+            }
+            setTimeout( () => {
+                console.log(this.scene.manager.scenes);
+                this.scene.start('Seleccion', {musica: this.musicaAct, sonido: this.sonidoAct });
                 console.log(this.scene.manager.scenes);
             }, 200)
         });

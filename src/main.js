@@ -2,6 +2,7 @@ import NivelTres from './scenes/NivelTres.js';
 import GameOver from './scenes/GameOver.js';
 
 import Bootloader from './Bootloader.js';
+import Seleccion from './scenes/Seleccion.js';
 import Tutorial from './scenes/Tutorial.js';
 import NivelUno from './scenes/NivelUno.js';
 import NivelDos from './scenes/NivelDos.js';
@@ -33,7 +34,11 @@ const config = {
     audio: {
         disableWebAudio: true
     },
-    scene: [Bootloader, Tutorial, NivelUno, NivelDos, NivelTres, ElementosHUD, Menu, GameOver]
+    scene: [Bootloader, Seleccion, 
+            Tutorial, NivelUno, 
+            NivelDos, NivelTres, 
+            ElementosHUD, Menu, 
+            GameOver]
 };
 
 new Phaser.Game(config);
