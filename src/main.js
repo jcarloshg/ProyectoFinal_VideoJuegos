@@ -8,6 +8,7 @@ import NivelUno from './scenes/NivelUno.js';
 import NivelDos from './scenes/NivelDos.js';
 import ElementosHUD from './scenes/ElementosHUD.js';
 import Menu from './scenes/Menu.js';
+import Intro from './scenes/Intro.js';
 
 const config = {
     title: "Mision Rescate",
@@ -38,7 +39,7 @@ const config = {
             Tutorial, NivelUno, 
             NivelDos, NivelTres, 
             ElementosHUD, Menu, 
-            GameOver]
+            GameOver, Intro]
 };
 
 new Phaser.Game(config);

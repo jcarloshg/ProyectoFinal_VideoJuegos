@@ -66,16 +66,17 @@ class Tutorial extends Phaser.Scene {
             this.time.addEvent({
                 delay: 200,
                 callback: () => {
-                    this.scene.start('NivelUno', { 
-                        musica: this.musicaAct, 
-                        sonido: this.sonidoAct 
-                    });
-                    this.scene.start('ElementosHUD', { vidas: 3 });
-                    this.scene.start('Menu', { 
-                        musica: this.musicaAct, 
-                        sonido: this.sonidoAct, 
-                        nivel: 'NivelUno'
-                    });
+                    this.scene.start('Intro');
+                    // this.scene.start('NivelUno', { 
+                    //     musica: this.musicaAct, 
+                    //     sonido: this.sonidoAct 
+                    // });
+                    // this.scene.start('ElementosHUD', { vidas: 3 });
+                    // this.scene.start('Menu', { 
+                    //     musica: this.musicaAct, 
+                    //     sonido: this.sonidoAct, 
+                    //     nivel: 'NivelUno'
+                    // });
                 },
             });
         });
