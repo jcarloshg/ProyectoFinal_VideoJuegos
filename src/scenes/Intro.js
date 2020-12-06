@@ -7,11 +7,47 @@ class Intro extends Phaser.Scene{
 
     init() {
         console.log('Escena Introducción');
+        this.move = false;
     }
     preload() {      
 
     }
     create() {
+        
+        this.clic = this.add.image(this.scale.width/2, this.scale.height-50, "clic");
+        this.clic.setDepth(3)
+        this.clic.setAlpha(0);
+        this.clicTween = this.add.tween({
+            targets: [this.clic],
+            alpha: 1,
+            delay: 1000,
+        });
+         // Al presionar una tecla se incia la escena
+         this.input.keyboard.on('keydown', (evento) => {
+            if (!this.move) {
+                this.move = true;
+                this.time.addEvent({
+                    delay: 1000,
+                    callback: () => {
+                        this.clic.setVisible(false);
+                        
+                    },
+                });
+            }
+        });
+
+        // Al hacer clic en el canvas se incia la escena
+        this.input.on('pointerup', (evento) => {
+            if (!this.move) {
+                this.move = true;
+                this.time.addEvent({
+                    delay: 1000,
+                    callback: () => {
+                        this.clic.setVisible(false);
+                    },
+                });
+            }
+        });
         /*
             Primer cuadro
         */

@@ -201,7 +201,8 @@ class Bootloader extends Phaser.Scene{
                          'noche', 'spaceShip', 'dibujo',
                          'montanias','enemie']);
         this.load.image('interior', 'interior.jpg');
-    
+        this.load.image('clic', 'clic.png');
+        
     }
 
     create() {
