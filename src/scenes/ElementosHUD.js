@@ -28,6 +28,7 @@ class ElementosHUD extends Phaser.Scene {
         this.registry.events.on('vida_resta', (flag_sonido) => {
             if ( this.numero_vidas <= 1 ) {
 
+                // this.sound.pauseAll();
                 this.sound.stopAll();
 
                 if (flag_sonido) this.pierde_todos_corazones.play();

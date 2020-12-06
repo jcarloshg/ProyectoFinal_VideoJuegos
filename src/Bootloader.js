@@ -107,6 +107,17 @@ class Bootloader extends Phaser.Scene{
         this.load.audio('landing', 'inicio/landing.mp3');
         
         // ============================================================================
+        // Tutorial
+        // ============================================================================
+        this.load.setPath('./assets/tutorial');
+        this.load.image('spaceX', 'spaceX.png');
+        this.load.image('piso', 'piso.png');
+        this.load.image('piso_x', 'Piso_X.png');
+        this.load.image('movimiento_i', 'movimiento.png');
+        this.load.image('salto_i', 'salto.png');
+        this.load.image('disparo_i', 'disparo.png');
+
+        // ============================================================================
         //  NIVEL DOS
         // ============================================================================
         this.load.setPath('./assets/NivelDos');
@@ -297,12 +308,13 @@ class Bootloader extends Phaser.Scene{
                     this.tema_1.pause();
                     this.espacio.pause();
                 }
-                this.scene.start('NivelUno', { musica: this.musicaAct, sonido: this.sonidoAct} );
+                this.scene.start('Tutorial', {musica: this.musicaAct, sonido: this.sonidoAct });
+                // this.scene.start('NivelUno', { musica: this.musicaAct, sonido: this.sonidoAct} );
                 // this.scene.start('NivelTres', { musica: this.musicaAct, sonido: this.sonidoAct});
                 // this.scene.bringToTop('NivelUno');
                 this.scene.start('ElementosHUD', { vidas: 3 }); // SEL LANZA LA SCENA DE ElementosHUD
                 // this.scene.bringToTop('ElementosHUD');
-                this.scene.start('Menu', { musica: this.musicaAct, sonido: this.sonidoAct, nivel: 'NivelUno'});
+                this.scene.start('Menu', { musica: this.musicaAct, sonido: this.sonidoAct, nivel: 'Tutorial'});
                 // this.scene.start('Menu', { musica: this.musicaAct, sonido: this.sonidoAct, nivel: 'NivelTres'});
                 // this.scene.bringToTop('Menu');
                 console.log(this.scene.manager.scenes);
