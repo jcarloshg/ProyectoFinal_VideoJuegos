@@ -24,6 +24,9 @@ class NivelDos extends Phaser.Scene {
 
         // Es piso
         this.isFloor = false;
+
+        // Escudo activado
+        this.escudoAct = false;
     }
     
     preload() {
@@ -195,10 +198,38 @@ class NivelDos extends Phaser.Scene {
             this.registry.events.emit('vida_suma', this.sonidoAct);
         });
 
+        // Escudo
+        this.timeline = this.tweens.createTimeline();
+        this.timeline.add({
+            targets: [this.astro],
+            alpha: 0.9,
+            repeat: -1,
+            yoyo: true,
+            duration: 100, 
+            onRepeat: (tween, obj, target) => {
+                target.setTint(0xff9037);
+            }, 
+            onYoyo: (tween, obj, target) => { 
+                target.clearTint();
+            },
+            onRepeatParams: [this.astro],
+            onYoyoParams: [this.astro]
+        });
+
         this.physics.add.collider(this.astro, this.item_escudo, () => {
             this.item_escudo.setVisible(false);
             this.item_escudo.disableBody(true);
             this.registry.events.emit('recoge_escudo', this.sonidoAct);
+            this.escudoAct = true;
+            this.timeline.play();
+
+            this.time.addEvent({
+                delay: 8000,
+                callback: () => {
+                    this.timeline.pause();
+                    this.escudoAct = false;
+                },
+            });
         });
 
         // Destruir obstaculos
@@ -227,8 +258,15 @@ class NivelDos extends Phaser.Scene {
         // Recibir daño por obstaculo
         this.physics.add.collider(this.astro, this.obstaculo,
             (astro, obstaculo) => {
+                if (this.escudoAct) {
+                    this.obstaculo.setVisible(false);
+                    this.obstaculo.disableBody(true);
+                    this.obstaculo.destroy();
+                    if (this.sonidoAct) this.sound.play('select');
+                }
+
                 astro.setTint(0xff0000);
-                if (this.flag_recibeDanio) {
+                if (this.flag_recibeDanio && !this.escudoAct) {
                     let aux_x = 0;
                     let aux_y = 0;
 
