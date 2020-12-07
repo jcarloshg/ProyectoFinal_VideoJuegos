@@ -41,6 +41,20 @@ class End extends Phaser.Scene{
                 this.dialogo1.setVisible(true);
             },
         });
+        const grupoA = this.add.container();
+        grupoA.add([
+            this.platformA,
+            this.dialogo1,
+            this.goodAstroA,
+        ]);
+        grupoA.setAlpha(0);        
+        this.tweens = this.add.tween({
+            targets: [grupoA],
+            alpha: 1,
+            duration: 5000,
+            yoyo: true,
+            hold: 2000,
+        });
 
         /*
             Animación Segundo cuadro
@@ -54,6 +68,7 @@ class End extends Phaser.Scene{
         this.dialogo3.setVisible(false);
         this.tweens = this.add.tween({
             targets: [this.badAstroB],
+            delay: 6000,
             x: 800,
             duration: 5000,
             onStart: (tween, obj, target) => {
@@ -64,6 +79,23 @@ class End extends Phaser.Scene{
                 this.dialogo2.setVisible(true);
                 this.dialogo3.setVisible(true);
             },
+        });
+        const grupoB = this.add.container();
+        grupoB.add([
+            this.platformB,
+            this.goodAstroB,
+            this.badAstroB,
+            this.dialogo2,
+            this.dialogo3,
+        ]);
+        grupoB.setAlpha(0);        
+        this.tweens = this.add.tween({
+            targets: [grupoB],
+            delay: 5000,
+            alpha: 1,
+            duration: 5000,
+            yoyo: true,
+            hold: 2000,
         });
 
         /*
@@ -77,8 +109,9 @@ class End extends Phaser.Scene{
         this.bullet.setVisible(false);
         this.tweens = this.add.tween({
             targets: [this.badAstroC],
+            delay: 14000,
             x: 305,
-            duration: 500,
+            duration: 1000,
             onStart: (tween, obj, target) => {
                 obj[0].anims.play('walkB', true);
                 this.bullet.setVisible(true);
@@ -89,12 +122,29 @@ class End extends Phaser.Scene{
         });
         this.tweens = this.add.tween({
             targets: [this.bullet],
+            delay: 16000,
             x: 200,
             duration: 1000,
             onComplete: (tween, obj, target) => {
                 this.bullet.setVisible(false);
                 this.goodAstroC.play('die',true);
             },
+        });
+        const grupoC = this.add.container();
+        grupoC.add([
+            this.platformC,
+            this.goodAstroC,
+            this.badAstroC,
+            this.bullet,
+        ]);
+        grupoC.setAlpha(0);        
+        this.tweens = this.add.tween({
+            targets: [grupoC],
+            delay: 12000,
+            alpha: 1,
+            duration: 5000,
+            yoyo: true,
+            hold: 1000,
         });
 
 
@@ -107,18 +157,30 @@ class End extends Phaser.Scene{
         this.goodAstroD.play('die',true);
         this.tweens = this.add.tween({
             targets: [this.badAstroD],
+            delay: 20000,
             y: 250,
             duration: 5000,
             onStart: (tween, obj, target) => {
                 this.badAstroD.play('flyB',true);
             },
         });
+        const grupoD = this.add.container();
+        grupoD.add([
+            this.platformD,
+            this.goodAstroD,
+            this.badAstroD,
+        ]);
+        grupoD.setAlpha(0);        
+        this.tweens = this.add.tween({
+            targets: [grupoD],
+            delay: 18000,
+            alpha: 1,
+            duration: 5000,
+            yoyo: true,
+            hold: 1000,
+        });
 
-        /*
-            Creación de 4 grupos
-            para aparecer y desaparecer cuadros 
-        */
-       
+        
     }
     
     update(time, delta) {
