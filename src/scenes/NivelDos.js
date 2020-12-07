@@ -84,7 +84,7 @@ class NivelDos extends Phaser.Scene {
         });
 
         // ITEMS
-        this.item_escudo = this.physics.add.image(1100, 140, 'escudo').setScale(1.5);
+        this.item_escudo = this.physics.add.image(1100, 120, 'escudo').setScale(1.5);
         this.item_escudo.body.setAllowGravity(false);
         this.item_escudo.body.setImmovable(true);
         this.item_escudo.body.moves = false;

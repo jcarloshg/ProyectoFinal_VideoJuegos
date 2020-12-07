@@ -17,7 +17,9 @@ class Intro extends Phaser.Scene{
 
     }
     create() {
-        
+        this.theSynthWars = this.sound.add('TheSynthWars', { loop: false, volume: 0.2 });
+        this.espacio_sound = this.sound.add('espacio', { loop: true, volume: 0.8 });
+
         this.clic = this.add.image(this.scale.width/2, this.scale.height-50, "clic");
         this.clic.setDepth(3)
         this.clic.setAlpha(0);
@@ -28,10 +30,20 @@ class Intro extends Phaser.Scene{
         });
          // Al presionar una tecla se incia la escena
          this.input.keyboard.on('keydown', (evento) => {
+            if (this.musicaAct) this.sound.stopAll();
+            if (this.sonidoAct) this.sound.play('select');
+            
+            this.theSynthWars.play();
+            this.espacio_sound.play();
+            if (!this.musicaAct) {
+                this.theSynthWars.pause();
+                this.espacio_sound.pause();
+            }
+
             if (!this.move) {
                 this.move = true;
                 this.time.addEvent({
-                    delay: 1000,
+                    delay: 200,
                     callback: () => {
                         this.clic.setVisible(false);
                         this.scene.start('NivelUno', { 
@@ -51,10 +63,20 @@ class Intro extends Phaser.Scene{
 
         // Al hacer clic en el canvas se incia la escena
         this.input.on('pointerup', (evento) => {
+            if (this.musicaAct) this.sound.stopAll();
+            if (this.sonidoAct) this.sound.play('select');
+            
+            this.theSynthWars.play();
+            this.espacio_sound.play();
+            if (!this.musicaAct) {
+                this.theSynthWars.pause();
+                this.espacio_sound.pause();
+            }
+
             if (!this.move) {
                 this.move = true;
                 this.time.addEvent({
-                    delay: 1000,
+                    delay: 200,
                     callback: () => {
                         this.clic.setVisible(false);
                         this.scene.start('NivelUno', { 
