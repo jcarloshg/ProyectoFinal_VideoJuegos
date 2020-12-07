@@ -49,6 +49,32 @@ class NivelTres extends Phaser.Scene {
         ).setScale(1.5);
 
         // ************************************************************
+        // Enemigos
+        // ************************************************************
+        this.e1 = this.physics.add.sprite(50, 315, 'enemigo').setScale(0.35);
+        this.e1.body.setAllowGravity(false);
+        this.e1.body.setImmovable(true);
+        this.enemigo1Tween = this.add.tween({
+            targets: [this.e1],
+            x: 380,
+            duration: 3000,
+            yoyo: true,
+            repeat: -1,
+            onStart: (tween, obj, target) => {
+                this.e1.anims.play('enemigo_walk', true);
+                target = this.e1;
+                target.flipX = true;
+            },
+            onRepeat: (tween, obj, target) => {
+                target = this.e1;
+                target.flipX = true;
+            },
+            onYoyo: (tween, obj, target) => {
+                this.e1.flipX = false;
+            },
+        });
+
+        // ************************************************************
         // OBSTACULOS
         // ************************************************************
         this.obstaculo = this.physics.add.sprite(500, 220, 'mk');
@@ -164,7 +190,18 @@ class NivelTres extends Phaser.Scene {
             }
         );
 
-        // Recibir daño
+        this.physics.add.collider(this.e1, this.bullets,
+            (enemie, bala) => {
+                enemie.setVisible(false);
+                enemie.disableBody(true);
+                enemie.destroy();
+                bala.setVisible(false);
+                bala.disableBody(true);
+                bala.destroy();
+            }
+        );
+
+        // Recibir daño por obstaculo
         this.physics.add.collider(this.astro, this.obstaculo,
             (astro, obstaculo) => {
                 astro.setTint(0xff0000);
@@ -178,6 +215,42 @@ class NivelTres extends Phaser.Scene {
                     // if (astro.y > obstaculo.y) aux_y = 30;
                     // else aux_y = -30;
     
+                    this.flag_recibeDanio =false;
+    
+                    this.tweens.add({
+                        targets: astro,
+                        x: astro.x += aux_x,
+                        y: astro.y += aux_y,
+                        duration: 250,
+                        ease: 'Sine.easeInOut'
+                    });
+    
+                    this.muteAll();
+                    this.registry.events.emit('vida_resta', this.sonidoAct, this.musicaAct);
+                    console.log("NIVEL_UNO astro recibe daño, meno una vida");
+                }
+    
+                this.time.addEvent({
+                    delay: 100,
+                    callback: () => { 
+                        this.flag_recibeDanio = true;
+                        astro.clearTint();
+                    },
+                });
+            }
+        );
+
+        // Recibir daño por obstaculo
+        this.physics.add.collider(this.astro, this.e1,
+            (astro, enemigo) => {
+                astro.setTint(0xff0000);
+                if (this.flag_recibeDanio) {
+                    let aux_x = 0;
+                    let aux_y = 0;
+
+                    if (astro.x > enemigo.x) aux_x = 65;
+                    else aux_x = -65;
+
                     this.flag_recibeDanio =false;
     
                     this.tweens.add({
