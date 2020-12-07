@@ -113,7 +113,6 @@ class NivelUno extends Phaser.Scene {
         // ************************************************************
         this.astro = this.physics.add.sprite(50, 100, 'astro').setScale(0.3);
         this.astro.body.setMass(750);
-        // this.astro.anims.play('idle', true);
         this.cursor_astro = this.input.keyboard.createCursorKeys();
 
         // ************************************************************
@@ -143,9 +142,13 @@ class NivelUno extends Phaser.Scene {
         this.physics.add.collider(this.astro, this.grupoPlataforma, () => {
             this.isFloor = false;
         });
-        this.physics.add.collider(this.astro, this.grupoPlataforma_flot, () => {
-            this.isFloor = true;
-        });
+        this.physics.add.collider(this.astro, this.grupoPlataforma_flot,
+            (player, slider) => {
+                if (slider.body.touching.up) {
+                    this.isFloor = true;
+                }
+            }
+        );
         
         this.physics.add.collider(this.astro, this.item_corazon, () => {
             this.item_corazon.setVisible(false);

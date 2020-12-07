@@ -66,10 +66,8 @@ class NivelDos extends Phaser.Scene {
         this.grupoPlataforma_2.create(40,   295, 'piso_roca_3');
         this.grupoPlataforma_2.create(410,  335, 'piso_roca_7');
         this.grupoPlataforma_2.create(520,  400, 'piso_roca_1');
-        this.grupoPlataforma_2.create(780,  150, 'piso_roca_8');
+        this.grupoPlataforma_2.create(790,  150, 'piso_roca_8');
         this.grupoPlataforma_2.create(780,  440, 'piso_roca_7');
-        this.grupoPlataforma_2.create(1025, 190, 'piso_roca_6');
-        this.grupoPlataforma_2.create(1175, 260, 'piso_roca_6');
         this.grupoPlataforma_2.create(1020, 395, 'piso_roca_8');
         this.grupoPlataforma_2.create(1200, 395, 'piso_roca_8');
         this.grupoPlataforma_2.create(1550, 175, 'piso_roca_5');
@@ -77,6 +75,7 @@ class NivelDos extends Phaser.Scene {
         // PLATAFORMA MOVIBLE
         this.grupoPlataforma_flot_2 = this.physics.add.group();
         this.grupoPlataforma_flot_2.create(230, 200, 'piso_roca_6');
+        this.grupoPlataforma_flot_2.create(1100, 300, 'piso_roca_6');
         this.grupoPlataforma_flot_2.create(1400, 160, 'piso_roca_6');
         this.grupoPlataforma_flot_2.children.iterate( (plataforma) => {
             plataforma.body.setAllowGravity(false);
@@ -85,7 +84,7 @@ class NivelDos extends Phaser.Scene {
         });
 
         // ITEMS
-        this.item_escudo = this.physics.add.image(1170, 200, 'escudo').setScale(1.5);
+        this.item_escudo = this.physics.add.image(1100, 140, 'escudo').setScale(1.5);
         this.item_escudo.body.setAllowGravity(false);
         this.item_escudo.body.setImmovable(true);
         this.item_escudo.body.moves = false;
@@ -102,7 +101,6 @@ class NivelDos extends Phaser.Scene {
         // PERSONAJE
         // ************************************************************
         this.astro = this.physics.add.sprite(50, 0, 'astro').setScale(0.30);
-        this.astro.anims.play('idle', true);
         this.cursor_astro = this.input.keyboard.createCursorKeys();
 
         // ************************************************************
@@ -132,9 +130,13 @@ class NivelDos extends Phaser.Scene {
         this.physics.add.collider(this.astro, this.grupoPlataforma_2, () => {
             this.isFloor = false;
         });
-        this.physics.add.collider(this.astro, this.grupoPlataforma_flot_2, () => {
-            this.isFloor = true;
-        });
+        this.physics.add.collider(this.astro, this.grupoPlataforma_flot_2,
+            (player, slider) => {
+                if (slider.body.touching.up) {
+                    this.isFloor = true;
+                }
+            }
+        );
         
         this.physics.add.collider(this.astro, this.item_corazon, () => {
             this.item_corazon.setVisible(false);
@@ -274,7 +276,18 @@ class NivelDos extends Phaser.Scene {
         // PLATAFORMA MOVIBLE 1
         this.tweens.add({
             targets: [
-                this.grupoPlataforma_flot_2.getChildren()[1],
+                this.grupoPlataforma_flot_2.getChildren()[1]
+            ],
+            y: 150,
+            duration: 1000,
+            ease: 'Sine.easeInOut',
+            repeat: -1,
+            yoyo: true
+        });
+        // PLATAFORMA MOVIBLE 2
+        this.tweens.add({
+            targets: [
+                this.grupoPlataforma_flot_2.getChildren()[2],
             ],
             y: 325,
             duration: 1200,

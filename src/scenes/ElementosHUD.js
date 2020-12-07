@@ -9,7 +9,7 @@ class ElementosHUD extends Phaser.Scene {
 
         this.numero_vidas = data.vidas;
         this.conrazon_x = 120;
-        this.max_corazones = 4;
+        this.max_corazones = 5;
     }
 
     preload(){
