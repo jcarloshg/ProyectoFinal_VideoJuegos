@@ -111,7 +111,7 @@ class Bootloader extends Phaser.Scene{
         // ============================================================================
         this.load.setPath('./assets/tutorial');
         this.load.image('spaceX', 'spaceX.png');
-        this.load.image('piso', 'piso.png');
+        this.load.image('piso', 'Piso.png');
         this.load.image('piso_x', 'Piso_X.png');
         this.load.image('movimiento_i', 'movimiento.png');
         this.load.image('salto_i', 'salto.png');
@@ -192,6 +192,17 @@ class Bootloader extends Phaser.Scene{
         this.load.image('fondo_gameOver', 'fondo_gameOver.png');
         this.load.image('game_over', 'game_over.png');
         this.load.audio('game_over_music', 'game_over_music.wav');
+        
+        // ============================================================================
+        // Escena Introductoria
+        // ============================================================================
+        this.load.setPath('./assets/cinematicas/intro');
+        this.load.image(['planet','dialogo1','dialogo2', 
+                         'noche', 'spaceShip', 'dibujo',
+                         'montanias','enemie']);
+        this.load.image('interior', 'interior.jpg');
+        this.load.image('clic', 'clic.png');
+        
     }
 
     create() {
