@@ -222,7 +222,7 @@ class Bootloader extends Phaser.Scene{
         this.load.image('dialogo2Fin', 'dialogo2.png');
         this.load.image('dialogo3Fin', 'dialogo3.png');
         this.load.atlas('bad', 'bad.png','bad_atlas.json');
-        this.load.animation('badAnim', 'bad_anim.json');        
+        this.load.animation('badAnim', 'bad_anim.json');    
     }
 
     create() {

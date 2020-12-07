@@ -67,6 +67,7 @@ class NivelTres extends Phaser.Scene {
         this.grupo_plataforma.create(1350, 100, 'plataforma_1x1');
         this.grupo_plataforma.create(1350, 375, 'plataforma_2x1');
         this.grupo_plataforma.create(1350, 250, 'plataforma_1x1');
+        this.grupo_plataforma.create(1850, 150, 'plataforma_1x1');
 
         this.grupo_plataformaMovible = this.physics.add.group();
         this.grupo_plataformaMovible.create(250, 200, 'plataforma_1x1');
@@ -74,7 +75,7 @@ class NivelTres extends Phaser.Scene {
         this.grupo_plataformaMovible.create(750, 200, 'plataforma_1x1');
         this.grupo_plataformaMovible.create(850, 200, 'plataforma_1x1');
         this.grupo_plataformaMovible.create(1150, 175, 'plataforma_1x1');
-        this.grupo_plataformaMovible.create(1550, 175, 'plataforma_1x1');
+        this.grupo_plataformaMovible.create(1575, 175, 'plataforma_1x1');
         this.grupo_plataformaMovible.children.iterate( (plataforma) => {
             plataforma.body.setAllowGravity(false);
             plataforma.body.setImmovable(true);
@@ -222,7 +223,7 @@ class NivelTres extends Phaser.Scene {
                 this.muteWalk();
             }
         }
-        else if (this.cursor_astro.right.isDown && this.astro.x < 1640)
+        else if (this.cursor_astro.right.isDown && this.astro.x < 1940)
         {
             this.flipX = 'der';
             if(this.astro.body.onFloor() || this.isFloor) {
@@ -267,9 +268,9 @@ class NivelTres extends Phaser.Scene {
             this.registry.events.emit('vida_resta', this.sonidoAct);
         }
 
-        if(this.astro.x > 1620) {
+        if(this.astro.x > 1920) {
             this.time.addEvent({
-                delay: 1000,
+                delay: 500,
                 callback: () => {
                     this.scene.start('End');
                     this.registry.events.emit('registra_nombre_scena', 'End');
