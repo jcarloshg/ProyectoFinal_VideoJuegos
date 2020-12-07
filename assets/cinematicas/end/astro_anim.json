@@ -1,0 +1,224 @@
+{
+    "anims": [
+        {
+            "key": "fly",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 15,
+            "frames": [
+                {
+                    "key": "astro",
+                    "frame": "astronauta_18"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_19"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_20"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_21"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_22"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_23"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_24"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_25"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_26"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_27"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_28"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_29"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_30"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_31"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_32"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_33"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_34"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_35"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_36"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_37"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_38"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_39"
+                }
+            ]
+        },
+        {
+            "key": "walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "astro",
+                    "frame": "astronauta_8"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_9"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_10"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_11"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_12"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_13"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_14"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_15"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_16"
+                }
+            ]
+        },
+        {
+            "key": "idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 4,
+            "frames": [
+                {
+                    "key": "astro",
+                    "frame": "astronauta_0"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_1"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_2"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_3"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_4"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_5"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_6"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_7"
+                }
+            ]
+        },
+        {
+            "key": "die",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 4,
+            "frames": [
+                {
+                    "key": "astro",
+                    "frame": "astronauta_40"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_41"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_42"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_43"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_44"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_45"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_46"
+                },
+                {
+                    "key": "astro",
+                    "frame": "astronauta_47"
+                }
+            ]
+        }
+    ]
+}

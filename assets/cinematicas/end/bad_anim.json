@@ -1,0 +1,224 @@
+{
+    "anims": [
+        {
+            "key": "flyB",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 15,
+            "frames": [
+                {
+                    "key": "bad",
+                    "frame": "bad_18"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_19"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_20"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_21"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_22"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_23"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_24"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_25"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_26"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_27"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_28"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_29"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_30"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_31"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_32"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_33"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_34"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_35"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_36"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_37"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_38"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_39"
+                }
+            ]
+        },
+        {
+            "key": "walkB",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "bad",
+                    "frame": "bad_8"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_9"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_10"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_11"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_12"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_13"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_14"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_15"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_16"
+                }
+            ]
+        },
+        {
+            "key": "idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 4,
+            "frames": [
+                {
+                    "key": "bad",
+                    "frame": "bad_0"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_1"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_2"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_3"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_4"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_5"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_6"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_7"
+                }
+            ]
+        },
+        {
+            "key": "die",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 4,
+            "frames": [
+                {
+                    "key": "bad",
+                    "frame": "bad_40"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_41"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_42"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_43"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_44"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_45"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_46"
+                },
+                {
+                    "key": "bad",
+                    "frame": "bad_47"
+                }
+            ]
+        }
+    ]
+}
