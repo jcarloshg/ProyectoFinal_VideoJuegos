@@ -68,6 +68,7 @@ class Menu extends Phaser.Scene {
         this.registry.events.emit('pausar_juego');
         });
 
+
     }
 
     update(time, delta) {

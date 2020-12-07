@@ -155,6 +155,7 @@ class NivelUno extends Phaser.Scene {
         this.physics.add.collider(this.astro, this.grupoPlataforma, () => {
             this.isFloor = false;
         });
+        
         this.physics.add.collider(this.astro, this.grupoPlataforma_flot,
             (player, slider) => {
                 if (slider.body.touching.up) {
