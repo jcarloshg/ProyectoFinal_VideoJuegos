@@ -203,6 +203,16 @@ class NivelTres extends Phaser.Scene {
             if (this.sonidoAct) this.sound.play('caer');
             this.registry.events.emit('vida_resta', this.sonidoAct);
         }
+
+        if(this.astro.x > 1620) {
+            this.time.addEvent({
+                delay: 1000,
+                callback: () => {
+                    this.scene.start('End');
+                    this.registry.events.emit('registra_nombre_scena', 'End');
+                },
+            });
+        }
     }
 
     iniciaTweens(){

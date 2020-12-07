@@ -204,7 +204,18 @@ class Bootloader extends Phaser.Scene{
         this.load.image('interior', 'interior.jpg');
         this.load.image('clic', 'clic.png');
         this.load.audio('audio_intro', 'Intro.mp3');
-        
+
+        // ============================================================================
+        // Escena Final
+        // ============================================================================
+        this.load.setPath('./assets/cinematicas/end');
+        this.load.image('fondoFin','fondo.png');
+        this.load.image('pisoFin','piso.png');
+        this.load.image('dialogo1Fin', 'dialogo1.png');
+        this.load.image('dialogo2Fin', 'dialogo2.png');
+        this.load.image('dialogo3Fin', 'dialogo3.png');
+        this.load.atlas('bad', 'bad.png','bad_atlas.json');
+        this.load.animation('badAnim', 'bad_anim.json');        
     }
 
     create() {
@@ -264,6 +275,7 @@ class Bootloader extends Phaser.Scene{
                 this.time.addEvent({
                     delay: 1000,
                     callback: () => {
+                        //this.scene.start('End');
                         this.logo.setVisible(false);
                         this.clic.setVisible(false);
                         this.musica.play();
