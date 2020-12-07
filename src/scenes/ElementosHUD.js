@@ -37,7 +37,7 @@ class ElementosHUD extends Phaser.Scene {
 
                 this.scene.bringToTop('GameOver');
                 console.log(this.scene.manager.scenes);
-                this.scene.start('GameOver');
+                this.scene.start('GameOver', { musica: musica });
 
             }
             else {
