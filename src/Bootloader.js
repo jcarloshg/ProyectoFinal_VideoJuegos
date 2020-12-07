@@ -69,7 +69,10 @@ class Bootloader extends Phaser.Scene{
         this.load.image('texto', 'inicio/texto.png');
         this.load.image('jugar', 'inicio/jugar.png');
         this.load.image('opciones', 'inicio/opciones.png');
-        this.load.image('logo', 'inicio/Fantasy_games.png');
+        this.load.spritesheet('logo', 'inicio/fantasy_games.png',{
+            frameWidth: 250,
+            frameHeight: 125,
+        });
 
         this.load.image('opciones_2', 'opciones/opciones_2.png');
         this.load.image('musica_txt', 'opciones/Musica.png');
@@ -235,10 +238,17 @@ class Bootloader extends Phaser.Scene{
     }
 
     create() {
-        this.logo = this.add.image((this.scale.width/2), 175, 'logo');
-        this.logo.setScale(0.2);
+        this.logo = this.add.sprite((this.scale.width/2), 175, 'logo').setScale(4);
+        //this.logo.setScale(0.2);
         this.logo.setDepth(3);
         this.logo.setAlpha(0);
+        this.anims.create({
+            key: 'back_anim',
+            frames: this.anims.generateFrameNumbers('logo'),
+            frameRate: 10,
+            repeat: -1,            
+        });
+        this.logo.play('back_anim');
 
         this.background = this.add.tileSprite(this.scale.width/2, this.scale.height/2, this.scale.width, this.scale.height, "background");
         this.background.setScrollFactor(0);
@@ -250,7 +260,7 @@ class Bootloader extends Phaser.Scene{
         this.clicTween = this.add.tween({
             targets: [this.clic, this.logo],
             alpha: 1,
-            delay: 1000,
+            //delay: 2000,
         });
 
         // Pantalla de inicio
@@ -292,8 +302,13 @@ class Bootloader extends Phaser.Scene{
                     delay: 1000,
                     callback: () => {
                         //this.scene.start('End');
-                        this.logo.setVisible(false);
-                        this.clic.setVisible(false);
+                        //this.logo.setVisible(false);
+                        this.logoTween = this.add.tween({
+                            targets: [this.logo,this.clic],
+                            alpha: 0,
+                            duration: 3000,
+                        });
+                        //this.clic.setVisible(false);
                         this.musica.play();
                         this.mostrarInicio();
                     },
@@ -309,14 +324,14 @@ class Bootloader extends Phaser.Scene{
                 this.time.addEvent({
                     delay: 1000,
                     callback: () => {
-                        this.logo.setVisible(false);
-                        this.clic.setVisible(false);
+                        //this.logo.setVisible(false);
+                        //this.clic.setVisible(false);
                         this.musica.play();
                         this.mostrarInicio();
                         this.backTweenC = this.add.tween({
-                            targets: [this.back],
+                            targets: [this.logo, this.clic],
                             alpha: 0,
-                            duration: 2000,
+                            duration: 3000,
                         });
                     },
                 });
