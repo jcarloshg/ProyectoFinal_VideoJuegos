@@ -274,11 +274,11 @@ class Bootloader extends Phaser.Scene{
                 this.time.addEvent({
                     delay: 1000,
                     callback: () => {
-                        this.scene.start('End');
-                        // this.logo.setVisible(false);
-                        // this.clic.setVisible(false);
-                        // this.musica.play();
-                        // this.mostrarInicio();
+                        //this.scene.start('End');
+                        this.logo.setVisible(false);
+                        this.clic.setVisible(false);
+                        this.musica.play();
+                        this.mostrarInicio();
                     },
                 });
             }

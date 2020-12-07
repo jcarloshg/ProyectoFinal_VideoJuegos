@@ -180,7 +180,26 @@ class End extends Phaser.Scene{
             hold: 1000,
         });
 
-        
+        this.btn_volverInicio = this.add.image(this.scale.width/2, 800, 'btn_volverInicio').setScale(0.1).setInteractive();
+        // Botón para regresar a la pantalla inicial
+        this.btn_volverInicio.on('pointerover', () => {
+            // if (this.sonidoAct) this.sound.play('hover');
+            this.btn_volverInicio.setTint(0xff9f9f);
+        });
+        this.btn_volverInicio.on('pointerout', () => {
+            this.btn_volverInicio.clearTint();
+        });
+        this.btn_volverInicio.on('pointerup', () => {
+            location.reload();
+            console.log("game over ", this.scene.manager.scenes);
+        });
+        this.tweens = this.add.tween({
+            targets: [this.btn_volverInicio],
+            delay: 20000,
+            y: 350,
+            duration: 5000,
+        });
+
     }
     
     update(time, delta) {

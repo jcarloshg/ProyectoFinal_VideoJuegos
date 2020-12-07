@@ -91,7 +91,7 @@ class NivelTres extends Phaser.Scene {
         // ************************************************************
         // PERSONAJE
         // ************************************************************
-        this.astro = this.physics.add.sprite(100, 100, 'astro').setScale(0.25).setSize(190, 220);
+        this.astro = this.physics.add.sprite(100, 120, 'astro').setScale(0.25).setSize(190, 220);
         this.astro.anims.play('idle', true);
         this.cursor_astro = this.input.keyboard.createCursorKeys();
 
@@ -190,6 +190,16 @@ class NivelTres extends Phaser.Scene {
             this.astro.x  = 100;
             if (this.sonidoAct) this.sound.play('caer');
             this.registry.events.emit('vida_resta', this.sonidoAct);
+        }
+
+        if(this.astro.x > 1620) {
+            this.time.addEvent({
+                delay: 1000,
+                callback: () => {
+                    this.scene.start('End');
+                    this.registry.events.emit('registra_nombre_scena', 'End');
+                },
+            });
         }
     }
 
