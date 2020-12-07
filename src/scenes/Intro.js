@@ -17,7 +17,7 @@ class Intro extends Phaser.Scene{
 
     }
     create() {
-        this.theSynthWars = this.sound.add('TheSynthWars', { loop: false, volume: 0.2 });
+        this.theSynthWars = this.sound.add('TheSynthWars', { loop: true, volume: 0.2 });
         this.espacio_sound = this.sound.add('espacio', { loop: true, volume: 0.8 });
 
         this.clic = this.add.image(this.scale.width/2, this.scale.height-50, "clic");
