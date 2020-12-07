@@ -102,7 +102,6 @@ class NivelDos extends Phaser.Scene {
         // PERSONAJE
         // ************************************************************
         this.astro = this.physics.add.sprite(50, 0, 'astro').setScale(0.30);
-        this.astro.anims.play('idle', true);
         this.cursor_astro = this.input.keyboard.createCursorKeys();
 
         // ************************************************************

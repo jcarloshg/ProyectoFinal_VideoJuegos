@@ -91,8 +91,7 @@ class NivelTres extends Phaser.Scene {
         // ************************************************************
         // PERSONAJE
         // ************************************************************
-        this.astro = this.physics.add.sprite(100, 100, 'astro').setScale(0.25).setSize(190, 220);
-        this.astro.anims.play('idle', true);
+        this.astro = this.physics.add.sprite(100, 100, 'astro').setScale(0.3);
         this.cursor_astro = this.input.keyboard.createCursorKeys();
 
         // ************************************************************
