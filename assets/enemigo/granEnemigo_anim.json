@@ -1,0 +1,44 @@
+{
+    "anims": [
+        {
+            "key": "granEnemigo_walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 6,
+            "frames": [
+                {
+                    "key": "granEnemigo",
+                    "frame": "granEnemigo_0"
+                },
+                {
+                    "key": "granEnemigo",
+                    "frame": "granEnemigo_1"
+                },
+                {
+                    "key": "granEnemigo",
+                    "frame": "granEnemigo_2"
+                },
+                {
+                    "key": "granEnemigo",
+                    "frame": "granEnemigo_3"
+                },
+                {
+                    "key": "granEnemigo",
+                    "frame": "granEnemigo_4"
+                },
+                {
+                    "key": "granEnemigo",
+                    "frame": "granEnemigo_5"
+                },
+                {
+                    "key": "granEnemigo",
+                    "frame": "granEnemigo_6"
+                },
+                {
+                    "key": "granEnemigo",
+                    "frame": "granEnemigo_7"
+                }
+            ]
+        }
+    ]
+}
