@@ -230,7 +230,7 @@ class Bootloader extends Phaser.Scene{
         this.load.setPath('./assets/enemigo');
         this.load.atlas('enemigo', 'enemigo.png','enemigo_atlas.json');
         this.load.animation('enemigoAnim', 'enemigo_anim.json');
-        this.load.atlas('granEnemigo', 'greanEnemigo.png','granEnemigo_atlas.json');
+        this.load.atlas('granEnemigo', 'granEnemigo.png','granEnemigo_atlas.json');
         this.load.animation('granEnemigoAnim', 'granEnemigo_anim.json');
     }
 

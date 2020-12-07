@@ -74,6 +74,21 @@ class NivelTres extends Phaser.Scene {
             },
         });
 
+        this.greatE = this.physics.add.sprite(1800, 330, 'granEnemigo').setScale(1.2);
+        this.greatE.body.setAllowGravity(false);
+        this.greatE.body.setImmovable(true);
+        this.greatE.anims.play('granEnemigo_walk', true);
+        this.enemigo2Tween = this.add.tween({
+            targets: [this.greatE],
+            x: 1600,
+            duration: 4000,
+            yoyo: true,
+            loop: -1,
+            onStart: (tween, obj, target) => {
+                this.greatE.anims.play('granEnemigo_walk', true);
+            },
+        });
+
         // ************************************************************
         // OBSTACULOS
         // ************************************************************
@@ -101,7 +116,7 @@ class NivelTres extends Phaser.Scene {
         this.grupo_plataformaMovible.create(750, 200, 'plataforma_1x1');
         this.grupo_plataformaMovible.create(850, 200, 'plataforma_1x1');
         this.grupo_plataformaMovible.create(1150, 175, 'plataforma_1x1');
-        this.grupo_plataformaMovible.create(1575, 175, 'plataforma_1x1');
+        this.grupo_plataformaMovible.create(1575, 175, 'plataforma_1x1').setVisible(false);
         this.grupo_plataformaMovible.children.iterate( (plataforma) => {
             plataforma.body.setAllowGravity(false);
             plataforma.body.setImmovable(true);
@@ -190,6 +205,7 @@ class NivelTres extends Phaser.Scene {
             }
         );
 
+        //Destruir enemigo
         this.physics.add.collider(this.e1, this.bullets,
             (enemie, bala) => {
                 enemie.setVisible(false);
@@ -198,6 +214,21 @@ class NivelTres extends Phaser.Scene {
                 bala.setVisible(false);
                 bala.disableBody(true);
                 bala.destroy();
+            }
+        );
+
+        //Destruir Gran Enemigo
+        this.physics.add.collider(this.greatE, this.bullets,
+            (enemie, bala) => {
+                enemie.setVisible(false);
+                enemie.disableBody(true);
+                enemie.destroy();
+                bala.setVisible(false);
+                bala.disableBody(true);
+                bala.destroy();
+                this.grupo_plataformaMovible.children.iterate( (plataforma) => {
+                    plataforma.setVisible(true);
+                });
             }
         );
 
@@ -240,8 +271,44 @@ class NivelTres extends Phaser.Scene {
             }
         );
 
-        // Recibir daño por obstaculo
+        // Recibir daño por enemigo
         this.physics.add.collider(this.astro, this.e1,
+            (astro, enemigo) => {
+                astro.setTint(0xff0000);
+                if (this.flag_recibeDanio) {
+                    let aux_x = 0;
+                    let aux_y = 0;
+
+                    if (astro.x > enemigo.x) aux_x = 65;
+                    else aux_x = -65;
+
+                    this.flag_recibeDanio =false;
+    
+                    this.tweens.add({
+                        targets: astro,
+                        x: astro.x += aux_x,
+                        y: astro.y += aux_y,
+                        duration: 250,
+                        ease: 'Sine.easeInOut'
+                    });
+    
+                    this.muteAll();
+                    this.registry.events.emit('vida_resta', this.sonidoAct, this.musicaAct);
+                    console.log("NIVEL_UNO astro recibe daño, meno una vida");
+                }
+    
+                this.time.addEvent({
+                    delay: 100,
+                    callback: () => { 
+                        this.flag_recibeDanio = true;
+                        astro.clearTint();
+                    },
+                });
+            }
+        );
+
+        // Recibir daño por gran enemigo
+        this.physics.add.collider(this.astro, this.greatE,
             (astro, enemigo) => {
                 astro.setTint(0xff0000);
                 if (this.flag_recibeDanio) {

@@ -46,7 +46,7 @@ class Intro extends Phaser.Scene{
                     delay: 200,
                     callback: () => {
                         this.clic.setVisible(false);
-                        this.scene.start('NivelTres', { 
+                        this.scene.start('NivelUno', { 
                             musica: this.musicaAct, 
                             sonido: this.sonidoAct 
                         });
@@ -79,7 +79,7 @@ class Intro extends Phaser.Scene{
                     delay: 200,
                     callback: () => {
                         this.clic.setVisible(false);
-                        this.scene.start('NivelTres', { 
+                        this.scene.start('NivelUno', { 
                             musica: this.musicaAct, 
                             sonido: this.sonidoAct 
                         });
