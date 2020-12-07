@@ -47,6 +47,7 @@ class NivelDos extends Phaser.Scene {
         this.saltar = this.sound.add('salto', { loop: false, volume: 1 });
         this.flotar = this.sound.add('flotar', { loop: true, volume: 0.8 });
         this.disparo = this.sound.add('disparo');
+        this.danio_malo = this.sound.add('danio_malo');
 
         // ************************************************************
         // DECORACIONES
@@ -138,7 +139,7 @@ class NivelDos extends Phaser.Scene {
         });
 
         // ITEMS
-        this.item_escudo = this.physics.add.image(1100, 80, 'escudo').setScale(1.5);
+        this.item_escudo = this.physics.add.image(780, 300, 'escudo').setScale(1.5);
         this.item_escudo.body.setAllowGravity(false);
         this.item_escudo.body.setImmovable(true);
         this.item_escudo.body.moves = false;
@@ -246,6 +247,7 @@ class NivelDos extends Phaser.Scene {
 
         // para matar a los enemigos
         this.physics.add.collider(this.enemigos, this.bullets, (personaje, balla) => {
+            if (this.sonidoAct) this.danio_malo.play();
             personaje.setVisible(false);
             personaje.disableBody(true);
             personaje.destroy();
@@ -304,8 +306,17 @@ class NivelDos extends Phaser.Scene {
         //Recibir daño por enemigo
         this.physics.add.collider(this.astro, this.enemigos,
             (astro, enemigo) => {
+
+                if (this.escudoAct) {
+                    enemigo.setVisible(false);
+                    enemigo.disableBody(true);
+                    enemigo.destroy();
+                    if (this.sonidoAct) this.danio_malo.play();
+                    if (this.sonidoAct) this.sound.play('select');
+                }
+
                 astro.setTint(0xff0000);
-                if (this.flag_recibeDanio) {
+                if (this.flag_recibeDanio && !this.escudoAct) {
                     let aux_x = 0;
                     let aux_y = 0;
 

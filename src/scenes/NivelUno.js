@@ -47,6 +47,7 @@ class NivelUno extends Phaser.Scene {
         this.flotar = this.sound.add('flotar', { loop: true, volume: 0.8 });
         this.caminar = this.sound.add('caminar', { loop: true });
         this.disparo = this.sound.add('disparo');
+        this.danio_malo = this.sound.add('danio_malo');
 
 
         // ************************************************************
@@ -251,6 +252,7 @@ class NivelUno extends Phaser.Scene {
 
         // para matar a los enemigos
         this.physics.add.collider(this.e1, this.bullets, (personaje, balla) => {
+            if (this.sonidoAct) this.danio_malo.play();
             personaje.setVisible(false);
             personaje.disableBody(true);
             personaje.destroy();
@@ -267,6 +269,7 @@ class NivelUno extends Phaser.Scene {
             balla.setVisible(false);
             balla.disableBody(true);
             balla.destroy();
+            if (this.sonidoAct) this.danio_malo.play();
             console.log("NIVEL_UNO murio un enemigo");
         });
 
@@ -284,6 +287,7 @@ class NivelUno extends Phaser.Scene {
         // para recibir daño
         this.physics.add.collider(this.astro, this.e1, (astro, malo) => {
             if (this.escudoAct) {
+                if (this.sonidoAct) this.danio_malo.play();
                 malo.setVisible(false);
                 malo.disableBody(true);
                 malo.destroy();
@@ -327,6 +331,7 @@ class NivelUno extends Phaser.Scene {
                 malo.setVisible(false);
                 malo.disableBody(true);
                 malo.destroy();
+                if (this.sonidoAct) this.danio_malo.play();
                 if (this.sonidoAct) this.sound.play('select');
             }
 

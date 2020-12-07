@@ -91,6 +91,7 @@ class Bootloader extends Phaser.Scene{
         this.load.audio('flotar', 'sounds/floating.mp3');
         this.load.audio('caer', 'sounds/falling.mp3');
         this.load.audio('TheSynthWars', 'sounds/TheSynthWars.mp3');
+        this.load.audio('danio_malo', 'sounds/danio_malo.wav');
 
         // ============================================================================
         //  SPRITES
@@ -109,6 +110,7 @@ class Bootloader extends Phaser.Scene{
         this.load.audio('hover', 'inicio/hover.mp3');
         this.load.audio('select', 'inicio/select.mp3');
         this.load.audio('landing', 'inicio/landing.mp3');
+        
         
         // ============================================================================
         // Tutorial

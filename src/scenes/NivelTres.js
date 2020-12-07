@@ -44,6 +44,7 @@ class NivelTres extends Phaser.Scene {
         this.saltar = this.sound.add('salto', { loop: false, volume: 1 });
         this.flotar = this.sound.add('flotar', { loop: true, volume: 0.8 });
         this.disparo = this.sound.add('disparo');
+        this.danio_malo = this.sound.add('danio_malo');
 
         this.fondo = this.add.image(
             this.scale.width/2, this.scale.height/2, 
@@ -238,6 +239,10 @@ class NivelTres extends Phaser.Scene {
         //Destruir enemigo
         this.physics.add.collider(this.e1, this.bullets,
             (enemie, bala) => {
+
+                if (this.sonidoAct) this.danio_malo.play();
+                if (this.sonidoAct) this.danio_malo.play();
+
                 enemie.setVisible(false);
                 enemie.disableBody(true);
                 enemie.destroy();
@@ -250,6 +255,9 @@ class NivelTres extends Phaser.Scene {
         //Destruir Gran Enemigo
         this.physics.add.collider(this.greatE, this.bullets,
             (enemie, bala) => {
+
+                if (this.sonidoAct) this.danio_malo.play();
+
                 enemie.setVisible(false);
                 enemie.disableBody(true);
                 enemie.destroy();
@@ -312,6 +320,15 @@ class NivelTres extends Phaser.Scene {
         // Recibir daño por enemigo
         this.physics.add.collider(this.astro, this.e1,
             (astro, enemigo) => {
+
+                if (this.escudoAct) {
+                    enemigo.setVisible(false);
+                    enemigo.disableBody(true);
+                    enemigo.destroy();
+                    if (this.sonidoAct) this.danio_malo.play();
+                    if (this.sonidoAct) this.sound.play('select');
+                }
+
                 astro.setTint(0xff0000);
                 if (this.flag_recibeDanio) {
                     let aux_x = 0;
@@ -348,6 +365,15 @@ class NivelTres extends Phaser.Scene {
         // Recibir daño por gran enemigo
         this.physics.add.collider(this.astro, this.greatE,
             (astro, enemigo) => {
+
+                if (this.escudoAct) {
+                    enemigo.setVisible(false);
+                    enemigo.disableBody(true);
+                    enemigo.destroy();
+                    if (this.sonidoAct) this.danio_malo.play();
+                    if (this.sonidoAct) this.sound.play('select');
+                }
+
                 astro.setTint(0xff0000);
                 if (this.flag_recibeDanio) {
                     let aux_x = 0;
@@ -450,6 +476,7 @@ class NivelTres extends Phaser.Scene {
             this.time.addEvent({
                 delay: 500,
                 callback: () => {
+                    this.flotar.stop();
                     this.scene.start('End');
                     this.registry.events.emit('registra_nombre_scena', 'End');
                 },
