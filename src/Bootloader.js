@@ -120,6 +120,13 @@ class Bootloader extends Phaser.Scene{
         this.load.image('iniciar_t', 'iniciar.png');
         this.load.image('tutorial_btn', 'tutorial_btn.png');
 
+        // =======================================================================
+        // Objects
+        // =======================================================================
+        this.load.setPath('./assets/Objects');
+        this.load.atlas('mk', 'mk.png','mk_atlas.json');
+        this.load.animation('mkAnim', 'mk_anim.json');
+
         // ============================================================================
         //  NIVEL DOS
         // ============================================================================

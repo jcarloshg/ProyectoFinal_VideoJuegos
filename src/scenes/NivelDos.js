@@ -11,12 +11,16 @@ class NivelDos extends Phaser.Scene {
         // Variables para controlar la activacion de sonidos
         this.musicaAct = data.musica;
         this.sonidoAct = data.sonido;
+
         // Variables para controlar sonidos del personaje
         this.caminando = false;
         this.saltando = false;
 
         // Direccion de bullet
         this.flipX = 'der';
+
+        // bandare para solo recibir daño una vez
+        this.flag_recibeDanio = true;
 
         // Es piso
         this.isFloor = false;
@@ -58,6 +62,15 @@ class NivelDos extends Phaser.Scene {
         );
 
         // ************************************************************
+        // OBSTACULOS
+        // ************************************************************
+        this.obstaculo = this.physics.add.sprite(420, 220, 'mk');
+        this.obstaculo.anims.play('mk_idle', true);
+        this.obstaculo.body.setAllowGravity(false);
+        this.obstaculo.body.setImmovable(true);
+        this.obstaculo.setCircle(24);
+
+        // ************************************************************
         // PLATAFORMAS
         // ************************************************************
         
@@ -69,13 +82,13 @@ class NivelDos extends Phaser.Scene {
         this.grupoPlataforma_2.create(790,  150, 'piso_roca_8');
         this.grupoPlataforma_2.create(780,  440, 'piso_roca_7');
         this.grupoPlataforma_2.create(1020, 395, 'piso_roca_8');
+        this.grupoPlataforma_2.create(1100, 200, 'piso_roca_6');
         this.grupoPlataforma_2.create(1200, 395, 'piso_roca_8');
         this.grupoPlataforma_2.create(1550, 175, 'piso_roca_5');
 
         // PLATAFORMA MOVIBLE
         this.grupoPlataforma_flot_2 = this.physics.add.group();
         this.grupoPlataforma_flot_2.create(230, 200, 'piso_roca_6');
-        this.grupoPlataforma_flot_2.create(1100, 300, 'piso_roca_6');
         this.grupoPlataforma_flot_2.create(1400, 160, 'piso_roca_6');
         this.grupoPlataforma_flot_2.children.iterate( (plataforma) => {
             plataforma.body.setAllowGravity(false);
@@ -84,7 +97,7 @@ class NivelDos extends Phaser.Scene {
         });
 
         // ITEMS
-        this.item_escudo = this.physics.add.image(1100, 120, 'escudo').setScale(1.5);
+        this.item_escudo = this.physics.add.image(1100, 80, 'escudo').setScale(1.5);
         this.item_escudo.body.setAllowGravity(false);
         this.item_escudo.body.setImmovable(true);
         this.item_escudo.body.moves = false;
@@ -149,6 +162,57 @@ class NivelDos extends Phaser.Scene {
             this.item_escudo.disableBody(true);
             this.registry.events.emit('recoge_escudo', this.sonidoAct);
         });
+
+        // Destruir obstaculos
+        this.physics.add.collider(this.obstaculo, this.bullets,
+            (obstacle, bala) => {
+                obstacle.setVisible(false);
+                obstacle.disableBody(true);
+                obstacle.destroy();
+                bala.setVisible(false);
+                bala.disableBody(true);
+                bala.destroy();
+            }
+        );
+
+        // Recibir daño
+        this.physics.add.collider(this.astro, this.obstaculo,
+            (astro, obstaculo) => {
+                astro.setTint(0xff0000);
+                if (this.flag_recibeDanio) {
+                    let aux_x = 0;
+                    let aux_y = 0;
+
+                    if (astro.x > obstaculo.x) aux_x = 65;
+                    else aux_x = -65;
+
+                    // if (astro.y > obstaculo.y) aux_y = 30;
+                    // else aux_y = -30;
+    
+                    this.flag_recibeDanio =false;
+    
+                    this.tweens.add({
+                        targets: astro,
+                        x: astro.x += aux_x,
+                        y: astro.y += aux_y,
+                        duration: 250,
+                        ease: 'Sine.easeInOut'
+                    });
+    
+                    this.muteAll();
+                    this.registry.events.emit('vida_resta', this.sonidoAct);
+                    console.log("NIVEL_UNO astro recibe daño, meno una vida");
+                }
+    
+                this.time.addEvent({
+                    delay: 100,
+                    callback: () => { 
+                        this.flag_recibeDanio = true;
+                        astro.clearTint();
+                    },
+                });
+            }
+        );
     }
 
     // Sonidos de las acciones
@@ -274,20 +338,20 @@ class NivelDos extends Phaser.Scene {
             yoyo: true
         });
         // PLATAFORMA MOVIBLE 1
-        this.tweens.add({
-            targets: [
-                this.grupoPlataforma_flot_2.getChildren()[1]
-            ],
-            y: 150,
-            duration: 1000,
-            ease: 'Sine.easeInOut',
-            repeat: -1,
-            yoyo: true
-        });
+        // this.tweens.add({
+        //     targets: [
+        //         this.grupoPlataforma_flot_2.getChildren()[1]
+        //     ],
+        //     y: 150,
+        //     duration: 1000,
+        //     ease: 'Sine.easeInOut',
+        //     repeat: -1,
+        //     yoyo: true
+        // });
         // PLATAFORMA MOVIBLE 2
         this.tweens.add({
             targets: [
-                this.grupoPlataforma_flot_2.getChildren()[2],
+                this.grupoPlataforma_flot_2.getChildren()[1],
             ],
             y: 325,
             duration: 1200,
@@ -318,7 +382,17 @@ class NivelDos extends Phaser.Scene {
             repeat: -1,
             yoyo: true
         });
-    
+
+        // ********************************
+        // OBSTACULOS
+        this.tweens.add({
+            targets: [this.obstaculo],
+            y: this.obstaculo.y + 10,
+            duration: 500,
+            ease: 'Sine.easeInOut',
+            repeat: -1,
+            yoyo: true,
+        });
     }
 }
 
