@@ -5,9 +5,13 @@ class Intro extends Phaser.Scene{
         });
     }
 
-    init() {
+    init(data) {
         console.log('Escena Introducción');
         this.move = false;
+        console.log(data);
+        // Variables para controlar la activacion de sonidos
+        this.musicaAct = data.musica;
+        this.sonidoAct = data.sonido;
     }
     preload() {      
 
@@ -30,7 +34,16 @@ class Intro extends Phaser.Scene{
                     delay: 1000,
                     callback: () => {
                         this.clic.setVisible(false);
-                        
+                        this.scene.start('NivelUno', { 
+                            musica: this.musicaAct, 
+                            sonido: this.sonidoAct 
+                        });
+                        this.scene.start('ElementosHUD', { vidas: 3 });
+                        this.scene.start('Menu', { 
+                            musica: this.musicaAct, 
+                            sonido: this.sonidoAct, 
+                            nivel: 'NivelUno'
+                        });
                     },
                 });
             }
@@ -44,6 +57,16 @@ class Intro extends Phaser.Scene{
                     delay: 1000,
                     callback: () => {
                         this.clic.setVisible(false);
+                        this.scene.start('NivelUno', { 
+                            musica: this.musicaAct, 
+                            sonido: this.sonidoAct 
+                        });
+                        this.scene.start('ElementosHUD', { vidas: 3 });
+                        this.scene.start('Menu', { 
+                            musica: this.musicaAct, 
+                            sonido: this.sonidoAct, 
+                            nivel: 'NivelUno'
+                        });
                     },
                 });
             }
