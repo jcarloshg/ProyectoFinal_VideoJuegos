@@ -330,6 +330,7 @@ class Bootloader extends Phaser.Scene{
             this.tema_1.play();
             this.espacio.play();
             if (!this.musicaAct) {
+                this.musica.resume();
                 this.musica.stop();
                 this.tema_1.stop();
                 this.espacio.stop();
