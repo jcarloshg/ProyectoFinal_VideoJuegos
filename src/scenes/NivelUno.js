@@ -507,6 +507,7 @@ class NivelUno extends Phaser.Scene {
             if (!this.escudoAct) {
                 this.registry.events.emit('vida_resta', this.sonidoAct, this.musicaAct);
             } else {
+                this.astro.clearTint();
                 this.timeline.pause();
                 this.escudoAct = false;
             }

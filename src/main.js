@@ -30,7 +30,7 @@ const config = {
             gravity: {
                 y: 650
             },
-            debug: true,
+            debug: false,
         }
     },
     audio: {
