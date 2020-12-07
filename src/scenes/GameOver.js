@@ -4,8 +4,10 @@ class GameOver extends Phaser.Scene {
         super({key: 'GameOver'});
     }
 
-    init() {
+    init(data) {
         console.log('Scene: GameOver');
+        // Variables para controlar la activacion de sonidos
+        this.musicaAct = data.musica;
     }
 
     create() {
@@ -35,7 +37,7 @@ class GameOver extends Phaser.Scene {
         this.time.addEvent({
             delay: 1500,
             callback: () => {
-                this.game_over_music.play();
+                if (this.musicaAct) this.game_over_music.play();
             },
         });
     }

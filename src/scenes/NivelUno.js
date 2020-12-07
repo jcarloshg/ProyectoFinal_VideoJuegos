@@ -346,7 +346,7 @@ class NivelUno extends Phaser.Scene {
                 });
 
                 this.muteAll();
-                this.registry.events.emit('vida_resta', this.sonidoAct);
+                this.registry.events.emit('vida_resta', this.sonidoAct, this.musicaAct);
                 console.log("NIVEL_UNO astro recibe daño, meno una vida");
             }
 
@@ -387,7 +387,7 @@ class NivelUno extends Phaser.Scene {
                     });
     
                     this.muteAll();
-                    this.registry.events.emit('vida_resta', this.sonidoAct);
+                    this.registry.events.emit('vida_resta', this.sonidoAct, this.musicaAct);
                     console.log("NIVEL_UNO astro recibe daño, meno una vida");
                 }
     
@@ -499,7 +499,7 @@ class NivelUno extends Phaser.Scene {
             this.astro.x  = 100;
             if (this.sonidoAct) this.sound.play('caer');
             if (!this.escudoAct) {
-                this.registry.events.emit('vida_resta', this.sonidoAct);
+                this.registry.events.emit('vida_resta', this.sonidoAct, this.musicaAct);
             } else {
                 this.timeline.pause();
                 this.escudoAct = false;

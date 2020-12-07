@@ -27,17 +27,17 @@ class ElementosHUD extends Phaser.Scene {
             console.log('suma 1, total vida-> ', this.numero_vidas);
         });
 
-        this.registry.events.on('vida_resta', (flag_sonido) => {
+        this.registry.events.on('vida_resta', (flag_sonido, musica) => {
             if ( this.numero_vidas <= 1 ) {
 
                 // this.sound.pauseAll();
-                this.sound.stopAll();
+                if (musica) this.sound.stopAll();
 
                 if (flag_sonido) this.pierde_todos_corazones.play();
 
                 this.scene.bringToTop('GameOver');
                 console.log(this.scene.manager.scenes);
-                this.scene.start('GameOver');
+                this.scene.start('GameOver', { musica: musica });
 
             }
             else {
