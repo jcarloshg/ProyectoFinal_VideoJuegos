@@ -61,6 +61,44 @@ class NivelDos extends Phaser.Scene {
             'Rocas_up'
         );
 
+        
+        // ************************************************************
+        // Enemigos
+        // ************************************************************
+        this.enemigos = this.physics.add.group({
+            key: 'enemigo',
+            repeat: 2,
+            setXY: {
+                x: 1100,
+                y: 335,
+                stepX: 80,
+            }
+        });
+        this.enemigos.children.iterate( (enemigo) => {
+            enemigo.setScale(0.35);
+            enemigo.body.setAllowGravity(false);
+        });
+        this.enemigos.playAnimation('enemigo_walk');
+
+        this.enemigos.getChildren().forEach(enemigo => {
+            this.timeline = this.tweens.timeline({
+                targets: enemigo,
+                paused: true,
+                totalDuration: 4000,
+                yoyo:true,
+                repeat: -1,
+                tweens: [
+                    {   
+                        x: enemigo.x - 150,    
+                        onStart: (tweens, obj, targets) => {  },
+                        onRepeat: (tweens, obj, targets) => { obj.flipX= false; },
+                        onYoyo: (tweens, obj, targets) => { obj.flipX= true; }
+                     }
+                ]
+            });
+            this.timeline.play();
+        });
+
         // ************************************************************
         // OBSTACULOS
         // ************************************************************
@@ -175,7 +213,18 @@ class NivelDos extends Phaser.Scene {
             }
         );
 
-        // Recibir daño
+        // para matar a los enemigos
+        this.physics.add.collider(this.enemigos, this.bullets, (personaje, balla) => {
+            personaje.setVisible(false);
+            personaje.disableBody(true);
+            personaje.destroy();
+            balla.setVisible(false);
+            balla.disableBody(true);
+            balla.destroy();
+            console.log("NIVEL_UNO murio un enemigo");
+        });
+
+        // Recibir daño por obstaculo
         this.physics.add.collider(this.astro, this.obstaculo,
             (astro, obstaculo) => {
                 astro.setTint(0xff0000);
@@ -213,6 +262,43 @@ class NivelDos extends Phaser.Scene {
                 });
             }
         );
+
+        //Recibir daño por enemigo
+        this.physics.add.collider(this.astro, this.enemigos,
+            (astro, enemigo) => {
+                astro.setTint(0xff0000);
+                if (this.flag_recibeDanio) {
+                    let aux_x = 0;
+                    let aux_y = 0;
+
+                    if (astro.x > enemigo.x) aux_x = 65;
+                    else aux_x = -65;
+
+                    this.flag_recibeDanio =false;
+    
+                    this.tweens.add({
+                        targets: astro,
+                        x: astro.x += aux_x,
+                        y: astro.y += aux_y,
+                        duration: 250,
+                        ease: 'Sine.easeInOut'
+                    });
+    
+                    this.muteAll();
+                    this.registry.events.emit('vida_resta', this.sonidoAct, this.musicaAct);
+                    console.log("NIVEL_UNO astro recibe daño, meno una vida");
+                }
+    
+                this.time.addEvent({
+                    delay: 100,
+                    callback: () => { 
+                        this.flag_recibeDanio = true;
+                        astro.clearTint();
+                    },
+                });
+            }
+        );
+
     }
 
     // Sonidos de las acciones
