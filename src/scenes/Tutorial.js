@@ -24,6 +24,7 @@ class Tutorial extends Phaser.Scene {
     }
 
     create() {
+        this.audio_intro = this.sound.add('audio_intro', { loop: false, volume: 1 });
         this.saltar = this.sound.add('salto', { loop: false, volume: 1 });
         this.flotar = this.sound.add('flotar', { loop: true, volume: 0.8 });
         this.caminar = this.sound.add('caminar', { loop: true });
@@ -62,6 +63,10 @@ class Tutorial extends Phaser.Scene {
 
         this.iniciar_t.on('pointerup', () => {
             if (this.sonidoAct) this.sound.play('select');
+            this.audio_intro.play();
+            if (!this.musicaAct) {
+                this.audio_intro.stop();
+            }
             this.iniciar_t.setTint(0xff0000);
             this.time.addEvent({
                 delay: 200,

@@ -87,6 +87,7 @@ class Bootloader extends Phaser.Scene{
         this.load.audio('salto', 'sounds/jump.mp3');
         this.load.audio('flotar', 'sounds/floating.mp3');
         this.load.audio('caer', 'sounds/falling.mp3');
+        this.load.audio('TheSynthWars', 'sounds/TheSynthWars.mp3');
 
         // ============================================================================
         //  SPRITES
@@ -118,6 +119,13 @@ class Bootloader extends Phaser.Scene{
         this.load.image('disparo_i', 'disparo.png');
         this.load.image('iniciar_t', 'iniciar.png');
         this.load.image('tutorial_btn', 'tutorial_btn.png');
+
+        // =======================================================================
+        // Objects
+        // =======================================================================
+        this.load.setPath('./assets/Objects');
+        this.load.atlas('mk', 'mk.png','mk_atlas.json');
+        this.load.animation('mkAnim', 'mk_anim.json');
 
         // ============================================================================
         //  NIVEL DOS
@@ -202,6 +210,7 @@ class Bootloader extends Phaser.Scene{
                          'montanias','enemie']);
         this.load.image('interior', 'interior.jpg');
         this.load.image('clic', 'clic.png');
+        this.load.audio('audio_intro', 'Intro.mp3');
 
         // ============================================================================
         // Escena Final
@@ -213,8 +222,7 @@ class Bootloader extends Phaser.Scene{
         this.load.image('dialogo2Fin', 'dialogo2.png');
         this.load.image('dialogo3Fin', 'dialogo3.png');
         this.load.atlas('bad', 'bad.png','bad_atlas.json');
-        this.load.animation('badAnim', 'bad_anim.json');
-        
+        this.load.animation('badAnim', 'bad_anim.json');        
     }
 
     create() {
@@ -250,9 +258,9 @@ class Bootloader extends Phaser.Scene{
 
         // Declaración de sonidos recurrentes
         this.sound.pauseOnBlur = false;
-        this.musica = this.sound.add('musica', { loop: true, volume: 1 });
-        this.tema_1 = this.sound.add('tema_1', { loop: true, volume: 1 });
-        this.espacio = this.sound.add('espacio', { loop: true, volume: 1 });
+        this.musica = this.sound.add('musica', { loop: true, volume: 0.8 });
+        this.tema_1 = this.sound.add('tema_1', { loop: true, volume: 0.8 });
+        this.espacio = this.sound.add('espacio', { loop: true, volume: 0.8 });
         this.landing = this.sound.add('landing');
 
         this.container.add([
@@ -322,21 +330,19 @@ class Bootloader extends Phaser.Scene{
         });
 
         this.jugar_btn.on('pointerup', () => {
+            if (this.musicaAct) this.sound.stopAll();
             if (this.sonidoAct) this.sound.play('select');
-            if (this.musicaAct) this.musica.stop();
             // Cambio de escena
             console.log('clic escena');
-            let tema1Promise = this.tema_1.play();
-            let espacioPromise = this.espacio.play();
-
-            if (tema1Promise !== undefined &&
-                espacioPromise !== undefined)
-            {
-                if (!this.musicaAct) {
-                    this.tema_1.pause();
-                    this.espacio.pause();
-                }
+            this.tema_1.play();
+            this.espacio.play();
+            if (!this.musicaAct) {
+                this.musica.resume();
+                this.musica.stop();
+                this.tema_1.stop();
+                this.espacio.stop();
             }
+
             setTimeout( () => {
                 console.log(this.scene.manager.scenes);
                 this.scene.start('Seleccion', {musica: this.musicaAct, sonido: this.sonidoAct });

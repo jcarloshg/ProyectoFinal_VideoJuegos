@@ -17,6 +17,9 @@ class NivelTres extends Phaser.Scene {
         // Direccion de bullet
         this.flipX = 'der';
 
+        // bandare para solo recibir daño una vez
+        this.flag_recibeDanio = true;
+
         // Es piso
         this.isFloor = false;
     }
@@ -44,6 +47,15 @@ class NivelTres extends Phaser.Scene {
             this.scale.width/2, this.scale.height/2, 
             'fondo_nivelTres'
         ).setScale(1.5);
+
+        // ************************************************************
+        // OBSTACULOS
+        // ************************************************************
+        this.obstaculo = this.physics.add.sprite(500, 220, 'mk');
+        this.obstaculo.anims.play('mk_idle', true);
+        this.obstaculo.body.setAllowGravity(false);
+        this.obstaculo.body.setImmovable(true);
+        this.obstaculo.setCircle(24);
 
         // ************************************************************
         // PLATAFORMAS
@@ -138,6 +150,57 @@ class NivelTres extends Phaser.Scene {
             this.item_escudo.disableBody(true);
             this.registry.events.emit('recoge_escudo', this.sonidoAct);
         });
+
+        // Destruir obstaculos
+        this.physics.add.collider(this.obstaculo, this.bullets,
+            (obstacle, bala) => {
+                obstacle.setVisible(false);
+                obstacle.disableBody(true);
+                obstacle.destroy();
+                bala.setVisible(false);
+                bala.disableBody(true);
+                bala.destroy();
+            }
+        );
+
+        // Recibir daño
+        this.physics.add.collider(this.astro, this.obstaculo,
+            (astro, obstaculo) => {
+                astro.setTint(0xff0000);
+                if (this.flag_recibeDanio) {
+                    let aux_x = 0;
+                    let aux_y = 0;
+
+                    if (astro.x > obstaculo.x) aux_x = 65;
+                    else aux_x = -65;
+
+                    // if (astro.y > obstaculo.y) aux_y = 30;
+                    // else aux_y = -30;
+    
+                    this.flag_recibeDanio =false;
+    
+                    this.tweens.add({
+                        targets: astro,
+                        x: astro.x += aux_x,
+                        y: astro.y += aux_y,
+                        duration: 250,
+                        ease: 'Sine.easeInOut'
+                    });
+    
+                    this.muteAll();
+                    this.registry.events.emit('vida_resta', this.sonidoAct);
+                    console.log("NIVEL_UNO astro recibe daño, meno una vida");
+                }
+    
+                this.time.addEvent({
+                    delay: 100,
+                    callback: () => { 
+                        this.flag_recibeDanio = true;
+                        astro.clearTint();
+                    },
+                });
+            }
+        );
     }
 
     update(time, delta) {

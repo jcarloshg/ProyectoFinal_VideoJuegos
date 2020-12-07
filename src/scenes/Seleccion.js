@@ -16,6 +16,8 @@ class Seleccion extends Phaser.Scene {
     }
 
     create() {
+        this.audio_intro = this.sound.add('audio_intro', { loop: false, volume: 1 });
+
         this.spaceX = this.add.tileSprite(
             this.scale.width / 2, this.scale.height / 2,
             this.scale.width*4, this.scale.height, 
@@ -40,10 +42,15 @@ class Seleccion extends Phaser.Scene {
 
         this.iniciar_btn.on('pointerup', () => {
             if (this.sonidoAct) this.sound.play('select');
+            this.audio_intro.play();
+            if (!this.musicaAct) {
+                this.audio_intro.stop();
+            }
             this.iniciar_btn.setTint(0xff0000);
             this.time.addEvent({
                 delay: 200,
                 callback: () => {
+
                     this.scene.start('Intro', {musica: this.musicaAct, sonido: this.sonidoAct });
                 },
             });

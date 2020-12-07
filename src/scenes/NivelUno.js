@@ -24,6 +24,9 @@ class NivelUno extends Phaser.Scene {
 
         // Es piso
         this.isFloor = false;
+
+        // Escudo activado
+        this.escudoAct = false;
     }
     
     preload() {
@@ -61,11 +64,21 @@ class NivelUno extends Phaser.Scene {
             this.scale.width*4, this.scale.height, 
             'fondo');
 
-
+        // ************************************************************
+        // MALO
+        // ************************************************************
         this.malo = this.physics.add.image(500, 315, 'malo');
         this.malo.body.setAllowGravity(false);
         this.malo.body.setImmovable(true);
         this.malo.body.moves = false;
+
+        // ************************************************************
+        // OBSTACULOS
+        // ************************************************************
+        this.obstaculo = this.physics.add.sprite(1150, 310, 'mk');
+        this.obstaculo.anims.play('mk_idle', true);
+        this.obstaculo.body.setAllowGravity(false);
+        this.obstaculo.body.setImmovable(true);
 
         // ************************************************************
         // PLATAFORMAS
@@ -73,14 +86,14 @@ class NivelUno extends Phaser.Scene {
 
         // plataforma NO SE MUEVE 
         this.grupoPlataforma =  this.physics.add.staticGroup();
-        this.grupoPlataforma.create(250,  135, 'piso_5');
         this.grupoPlataforma.create(40,   395, 'piso_1');
-        this.grupoPlataforma.create(1565, 290, 'piso_9');
-        this.grupoPlataforma.create(700,  145, 'piso_10');
-        this.grupoPlataforma.create(550,  390, 'piso_2');
-        this.grupoPlataforma.create(1150, 390, 'piso_2');
+        this.grupoPlataforma.create(250,  135, 'piso_5');
         this.grupoPlataforma.create(500,  240, 'piso_plataforma');
+        this.grupoPlataforma.create(550,  390, 'piso_2');
+        this.grupoPlataforma.create(700,  145, 'piso_10');
+        this.grupoPlataforma.create(1150, 390, 'piso_2');
         this.grupoPlataforma.create(1150, 240, 'piso_plataforma');
+        this.grupoPlataforma.create(1565, 290, 'piso_9');
 
         // PLATAFORMAS MOVIBLES
         this.grupoPlataforma_flot = this.physics.add.group();
@@ -94,7 +107,7 @@ class NivelUno extends Phaser.Scene {
         });
 
         // ITEMS
-        this.item_escudo = this.physics.add.image(250, 50, 'escudo').setScale(1.5);
+        this.item_escudo = this.physics.add.image(250, 70, 'escudo').setScale(1.5);
         this.item_escudo.body.setAllowGravity(false);
         this.item_escudo.body.setImmovable(true);
         this.item_escudo.body.moves = false;
@@ -156,10 +169,38 @@ class NivelUno extends Phaser.Scene {
             this.registry.events.emit('vida_suma', this.sonidoAct);
         });
 
+        // Escudo
+        this.timeline = this.tweens.createTimeline();
+        this.timeline.add({
+            targets: [this.astro],
+            alpha: 0.9,
+            repeat: -1,
+            yoyo: true,
+            duration: 100, 
+            onRepeat: (tween, obj, target) => {
+                target.setTint(0xff9037);
+            }, 
+            onYoyo: (tween, obj, target) => { 
+                target.clearTint();
+            },
+            onRepeatParams: [this.astro],
+            onYoyoParams: [this.astro]
+        });
+
         this.physics.add.collider(this.astro, this.item_escudo, () => {
             this.item_escudo.setVisible(false);
             this.item_escudo.disableBody(true);
             this.registry.events.emit('recoge_escudo', this.sonidoAct);
+            this.escudoAct = true;
+            this.timeline.play();
+
+            this.time.addEvent({
+                delay: 8000,
+                callback: () => {
+                    this.timeline.pause();
+                    this.escudoAct = false;
+                },
+            });
         });
 
         // para matar a los enemigos
@@ -173,10 +214,28 @@ class NivelUno extends Phaser.Scene {
             console.log("NIVEL_UNO murio un enemigo");
         });
 
+        this.physics.add.collider(this.obstaculo, this.bullets,
+            (obstacle, bala) => {
+                obstacle.setVisible(false);
+                obstacle.disableBody(true);
+                obstacle.destroy();
+                bala.setVisible(false);
+                bala.disableBody(true);
+                bala.destroy();
+            }
+        );
+
         // para recibir daño
         this.physics.add.collider(this.astro, this.malo, (astro, malo) => {
+            if (this.escudoAct) {
+                malo.setVisible(false);
+                malo.disableBody(true);
+                malo.destroy();
+                if (this.sonidoAct) this.sound.play('select');
+            }
 
-            if (this.flag_recibeDanio) {
+            if (this.flag_recibeDanio && !this.escudoAct) {
+                astro.setTint(0xff0000);
                 let aux_x = 0;
                 
                 if (astro.x > malo.x) aux_x = 30;
@@ -198,11 +257,54 @@ class NivelUno extends Phaser.Scene {
 
             this.time.addEvent({
                 delay: 100,
-                callback: () => { this.flag_recibeDanio = true;},
+                callback: () => { 
+                    this.flag_recibeDanio = true;
+                    astro.clearTint();
+                },
             });
 
             
         });
+
+        this.physics.add.collider(this.astro, this.obstaculo,
+            (astro, obstaculo) => {
+                if (this.escudoAct) {
+                    obstaculo.setVisible(false);
+                    obstaculo.disableBody(true);
+                    obstaculo.destroy();
+                    if (this.sonidoAct) this.sound.play('select');
+                }
+
+                if (this.flag_recibeDanio && !this.escudoAct) {
+                    astro.setTint(0xff0000);
+                    let aux_x = 0;
+                    
+                    if (astro.x > obstaculo.x) aux_x = 30;
+                    else  aux_x = -30;
+    
+                    this.flag_recibeDanio =false;
+    
+                    this.tweens.add({
+                        targets: astro,
+                        x: astro.x += aux_x,
+                        duration: 250,
+                        ease: 'Sine.easeInOut'
+                    });
+    
+                    this.muteAll();
+                    this.registry.events.emit('vida_resta', this.sonidoAct);
+                    console.log("NIVEL_UNO astro recibe daño, meno una vida");
+                }
+    
+                this.time.addEvent({
+                    delay: 100,
+                    callback: () => { 
+                        this.flag_recibeDanio = true;
+                        astro.clearTint();
+                    },
+                });
+            }
+        );
     }
 
     // Sonidos de las acciones
@@ -301,7 +403,12 @@ class NivelUno extends Phaser.Scene {
             this.astro.y  = 100;
             this.astro.x  = 100;
             if (this.sonidoAct) this.sound.play('caer');
-            this.registry.events.emit('vida_resta', this.sonidoAct);
+            if (!this.escudoAct) {
+                this.registry.events.emit('vida_resta', this.sonidoAct);
+            } else {
+                this.timeline.pause();
+                this.escudoAct = false;
+            }
         }
         // Cambiar nivel 1620
         if(this.astro.x > 1620) {
@@ -353,26 +460,37 @@ class NivelUno extends Phaser.Scene {
 
         // // *****************************
         // // ITEMES
-        // this.tweens.add({
-        //     targets: [
-        //         this.item_escudo,
-        //     ],
-        //     y: this.item_escudo.y + 10,
-        //     duration: 500,
-        //     ease: 'Sine.easeInOut',
-        //     repeat: -1,
-        //     yoyo: true
-        // });
-        // this.tweens.add({
-        //     targets: [
-        //         this.item_corazon,
-        //     ],
-        //     y: this.item_corazon.y + 10,
-        //     duration: 500,
-        //     ease: 'Sine.easeInOut',
-        //     repeat: -1,
-        //     yoyo: true
-        // });
+        this.tweens.add({
+            targets: [
+                this.item_escudo,
+            ],
+            y: this.item_escudo.y + 10,
+            duration: 500,
+            ease: 'Sine.easeInOut',
+            repeat: -1,
+            yoyo: true
+        });
+        this.tweens.add({
+            targets: [
+                this.item_corazon,
+            ],
+            y: this.item_corazon.y + 10,
+            duration: 500,
+            ease: 'Sine.easeInOut',
+            repeat: -1,
+            yoyo: true
+        });
+
+        // ********************************
+        // OBSTACULOS
+        this.tweens.add({
+            targets: [this.obstaculo],
+            y: this.obstaculo.y + 10,
+            duration: 500,
+            ease: 'Sine.easeInOut',
+            repeat: -1,
+            yoyo: true,
+        });
     
     }
 }
