@@ -1,0 +1,44 @@
+{
+    "anims": [
+        {
+            "key": "enemigo_walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 6,
+            "frames": [
+                {
+                    "key": "enemigo",
+                    "frame": "enemigo_0"
+                },
+                {
+                    "key": "enemigo",
+                    "frame": "enemigo_1"
+                },
+                {
+                    "key": "enemigo",
+                    "frame": "enemigo_2"
+                },
+                {
+                    "key": "enemigo",
+                    "frame": "enemigo_3"
+                },
+                {
+                    "key": "enemigo",
+                    "frame": "enemigo_4"
+                },
+                {
+                    "key": "enemigo",
+                    "frame": "enemigo_5"
+                },
+                {
+                    "key": "enemigo",
+                    "frame": "enemigo_6"
+                },
+                {
+                    "key": "enemigo",
+                    "frame": "enemigo_7"
+                }
+            ]
+        }
+    ]
+}
