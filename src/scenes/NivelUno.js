@@ -65,12 +65,57 @@ class NivelUno extends Phaser.Scene {
             'fondo');
 
         // ************************************************************
-        // MALO
+        // Enemigos
         // ************************************************************
-        this.malo = this.physics.add.image(500, 315, 'malo');
-        this.malo.body.setAllowGravity(false);
-        this.malo.body.setImmovable(true);
-        this.malo.body.moves = false;
+        this.e1 = this.physics.add.sprite(700, 315, 'enemigo').setScale(0.35);
+        this.e1.body.setAllowGravity(false);
+        this.e1.body.setImmovable(true);
+        this.enemigo1Tween = this.add.tween({
+            targets: [this.e1],
+            x: 400,
+            duration: 6000,
+            yoyo: true,
+            repeat: -1,
+            //loop: -1,
+            onStart: (tween, obj, target) => {
+                //console.log('Start');
+                this.e1.anims.play('enemigo_walk', true);
+            },
+            onRepeat: (tween, obj, target) => {
+                //console.log('Repite');
+                target = this.e1;
+                target.flipX = false;
+            },
+            onYoyo: (tween, obj, target) => {
+                //console.log('yoyos');
+                this.e1.flipX = true;
+            },
+        });
+
+        this.e2 = this.physics.add.sprite(1250, 315, 'enemigo').setScale(0.35);
+        this.e2.body.setAllowGravity(false);
+        this.e2.body.setImmovable(true);
+        this.enemigo2Tween = this.add.tween({
+            targets: [this.e2],
+            x: 1300,
+            duration: 2000,
+            yoyo: true,
+            repeat: -1,
+            //loop: -1,
+            onStart: (tween, obj, target) => {
+                //console.log('Start');
+                this.e2.anims.play('enemigo_walk', true);
+            },
+            onRepeat: (tween, obj, target) => {
+                //console.log('Repite');
+                target = this.e2;
+                target.flipX = true;
+            },
+            onYoyo: (tween, obj, target) => {
+                //console.log('yoyos');
+                this.e2.flipX = false;
+            },
+        });
 
         // ************************************************************
         // OBSTACULOS
@@ -204,7 +249,17 @@ class NivelUno extends Phaser.Scene {
         });
 
         // para matar a los enemigos
-        this.physics.add.collider(this.malo, this.bullets, (personaje, balla) => {
+        this.physics.add.collider(this.e1, this.bullets, (personaje, balla) => {
+            personaje.setVisible(false);
+            personaje.disableBody(true);
+            personaje.destroy();
+            balla.setVisible(false);
+            balla.disableBody(true);
+            balla.destroy();
+            console.log("NIVEL_UNO murio un enemigo");
+        });
+
+        this.physics.add.collider(this.e2, this.bullets, (personaje, balla) => {
             personaje.setVisible(false);
             personaje.disableBody(true);
             personaje.destroy();
@@ -226,7 +281,47 @@ class NivelUno extends Phaser.Scene {
         );
 
         // para recibir daño
-        this.physics.add.collider(this.astro, this.malo, (astro, malo) => {
+        this.physics.add.collider(this.astro, this.e1, (astro, malo) => {
+            if (this.escudoAct) {
+                malo.setVisible(false);
+                malo.disableBody(true);
+                malo.destroy();
+                if (this.sonidoAct) this.sound.play('select');
+            }
+
+            if (this.flag_recibeDanio && !this.escudoAct) {
+                astro.setTint(0xff0000);
+                let aux_x = 0;
+                
+                if (astro.x > malo.x) aux_x = 30;
+                else  aux_x = -30;
+
+                this.flag_recibeDanio =false;
+
+                this.tweens.add({
+                    targets: astro,
+                    x: astro.x += aux_x,
+                    duration: 250,
+                    ease: 'Sine.easeInOut'
+                });
+
+                this.muteAll();
+                this.registry.events.emit('vida_resta', this.sonidoAct);
+                console.log("NIVEL_UNO astro recibe daño, meno una vida");
+            }
+
+            this.time.addEvent({
+                delay: 100,
+                callback: () => { 
+                    this.flag_recibeDanio = true;
+                    astro.clearTint();
+                },
+            });
+
+            
+        });
+
+        this.physics.add.collider(this.astro, this.e2, (astro, malo) => {
             if (this.escudoAct) {
                 malo.setVisible(false);
                 malo.disableBody(true);
